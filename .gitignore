@@ -1,0 +1,6 @@
+Face/Privacy/PRO-Face/face/checkpoints/*
+Face/Privacy/PRO-Face/FaceShifter/face_modules/model_ir_se50.pth
+Face/Privacy/PRO-Face/FaceShifter/saved_models/G_latest.pth
+Face/Privacy/PRO-Face/SimSwap/arcface_model/arcface_checkpoint.tar
+Face/Privacy/PRO-Face/SimSwap/models/checkpoints/people/*.pth
+
