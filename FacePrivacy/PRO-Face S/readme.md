@@ -45,6 +45,8 @@ Simply run `test_tcsvt.py` to start the testing process.
 
 You can download our trained model from this [BaiduDisk link](/https://pan.baidu.com/share/init?surl=wMf-iRP5kVfeijvvZYOylQ).
 
+Then, place the file `hybridAll_inv3_recTypeRandom_secretAsNoise_TripMargin1.2_ep12_iter15000.pth` under `experiments/checkpoints_256/`.
+
 # Acknowledgement
 
 Please cite our paper via the following BibTex if you find it useful. Thanks. 
