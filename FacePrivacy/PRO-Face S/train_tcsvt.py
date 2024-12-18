@@ -49,9 +49,12 @@ def prepare_logger(session):
         os.makedirs(dir_eval_out, exist_ok=True)
 
     ## Copy the config file to logdir
-    shutil.copy('config/config.py', log_dir)
-    shutil.copy('utils/utils_train.py', log_dir)
-    shutil.copy('utils/loss_functions.py', log_dir)
+    DIR_TMP_config = os.path.join(c.DIR_PROJECT, 'config/config.py')
+    DIR_TMP_util_train = os.path.join(c.DIR_PROJECT, 'utils/utils_train.py')
+    DIR_TMP_loss_functions = os.path.join(c.DIR_PROJECT, 'utils/loss_functions.py')
+    shutil.copy(DIR_TMP_config, log_dir)
+    shutil.copy(DIR_TMP_util_train, log_dir)
+    shutil.copy(DIR_TMP_loss_functions, log_dir)
 
     return writer, dir_train_out, dir_checkpoints, dir_eval_out
 
