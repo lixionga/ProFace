@@ -21,7 +21,9 @@ This module implements various algorithms for facial privacy protection.
 **`2022.10`**: `PRO-Face: A Generic Framework for Privacy-preserving Recognizable Obfuscation of Face Images` **ACM Multimedia 2022**.
 [[paper](https://dl.acm.org/doi/10.1145/3503161.3548202)][[code](https://github.com/fkeufss/ProFace/tree/main/FacePrivacy/PRO-Face)]
 
-## FacePrivacy
+## FaceSecurity
 
 ![](./FacePrivacy/PRO-Face%20S/assets/facesecurity.png)
+
+- TODO
 
