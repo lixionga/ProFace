@@ -42,11 +42,21 @@ Our training was done is CelebA dateset, where all faces images were preprocesse
 Then, place it in the directory specified by `dataset_dir` in the `config.py` file, or alternatively, modify the `dataset_dir` path to point to the location of the dataset
 
 
+
 # Training
 Simply run `train_tcsvt.py` to start the training process.
 
 # Testing
 Simply run `test_tcsvt.py` to start the testing process. 
+
+To perform testing, you need to download the test dataset and place it in the correct location. Below is the download link:
+- [BaiduDisk link](https://pan.baidu.com/s/1vFbNzRYVM6Nr-0yTs8GrwA) (Password:`8pre`)
+
+Then, after downloading, unzip the data and place it under the `experiments/` directory.
+
+Then, place it in the directory specified by `dataset_dir` in the `config.py` file, or alternatively, modify the `dataset_dir` path to point to the location of the dataset
+
+Additionally, for testing, you will need to provide a target image. Place the target image in the directory specified by `target_img_dir_test` in the `config.py` file, or alternatively, modify the `target_img_dir_test` path to point to the location of the target image.
 
 # Trained model
 
