@@ -2,6 +2,10 @@
 
 Lin Yuan, Kai Liang, Xiao Pu, Yan Zhang, Jiaxu Leng, Tao Wu, Nannan Wang, Xinbo Gao. Invertible Image Obfuscation for Facial Privacy Protection via Secure Flow. IEEE Transactions on Circuits and Systems for Video Technology. Volume: 34, Issue: 7, July 2024，6077-6091. https://doi.org/10.1109/TCSVT.2023.3344809
 
+**Abstract**. This paper presents a fresh paradigm for protecting facial privacy via an invertible image obfuscation framework that incorporates multiple characteristics including anonymity, diversity, reversibility, security, and lightweight all at once. We name the framework PRO-Face S, an acronym for Privacy-preserving Reversible Obfuscation of Face images via Secure flow. The core of the proposed framework is a flow-based generative model (or invertible neural network), which takes as input a face image along with its pre-obfuscated form, and outputs the privacy-protected image that visually mirrors the pre-obfuscated one. The pre-obfuscation applied can be in various forms with different types and strengths. The invertibility of the flow-based model ensures that the original image can be easily recovered from the protected image in high fidelity. An elaborate secret key mechanism is devised to securely guide the mutual transformations of privacy protection and image recovery, such that the correct recovery is only possible upon the availability of the correct secret, pre-specified by the user in the protection stage. Two modes of wrong recovery are investigated to deal with malicious recovery attempts in different scenarios. Finally, extensive experiments conducted on multiple image datasets demonstrate the superiority of the proposed framework over state-of-the-art methods.
+
+An overview of our network architecture:
+![](./assets/architecture.png)
 # Prepraration
 
 ### Dependencies
@@ -34,6 +38,9 @@ Then, place the file `model_ir_se50.pth` under `FaceShifter/face_modules/` and f
 Our training was done is CelebA dateset, where all faces images were preprocessed to keep only the facial part. we have made our preprocessed CelebA dataset public. One many obtain the entire datasets (including the train/val/test splits and triplet files) from the following links:
 - [BaiduDisk link](https://pan.baidu.com/share/init?surl=wMf-iRP5kVfeijvvZYOylQ) (Password: `dkhd`)
 - [OneDrive](https://cqupteducn-my.sharepoint.com/:u:/g/personal/yuanlin_cqupt_edu_cn/EckcBzUQ-f1EgobKZGzJKPUB_g_SOxCXv5bF7e6Kx3O8Yw?e=wInwoU)
+
+Then, place it in the directory specified by `dataset_dir` in the `config.py` file, or alternatively, modify the `dataset_dir` path to point to the location of the dataset
+
 
 # Training
 Simply run `train_tcsvt.py` to start the training process.

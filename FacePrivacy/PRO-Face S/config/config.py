@@ -2,7 +2,7 @@ import os
 import torch
 DIR_HOME = os.path.expanduser("~")
 DIR_DATASET = os.path.join(DIR_HOME, 'Datasets')
-DIR_PROJECT = os.path.join(DIR_HOME, 'project/ProFaceInv')
+DIR_PROJECT = os.path.join(DIR_HOME, 'project/PRO-Face S')
 GPU0 = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 GPU1 = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
 
@@ -192,4 +192,3 @@ trained_epoch = 0
 if __name__ == '__main__':
     import torch
 
-    print(DIR_INN)  # 查看 PyTorch 版本
