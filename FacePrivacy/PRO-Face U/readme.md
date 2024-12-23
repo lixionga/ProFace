@@ -1,5 +1,3 @@
-An overview of our network architecture:
-![](./assets/architecture.png)
 # Prepraration
 
 ### Dependencies
