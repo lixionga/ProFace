@@ -7,8 +7,10 @@ This project consists of several modules:
 - TODO
 
 ## FacePrivacy
-This module implements various algorithms for facial privacy protection.
+
 ![](./FacePrivacy/PRO-Face%20S/assets/faceprivacy.jpg)
+
+This module implements various algorithms for facial privacy protection.
 ### Paper List:
 **`2024.04`**: `PRO-Face C: Privacy-Preserving Recognition of Obfuscated Face via Feature Compensation` **IEEE TIFS 2024**.
 [[paper](https://ieeexplore.ieee.org/document/10499238)][[code](https://github.com/fkeufss/ProFace/tree/main/FacePrivacy/PRO-Face%20C)]
