@@ -12,14 +12,14 @@ The project's runtime environment is based on Miniconda. You can use the followi
 
 ### Face classification models
 First, download the pretrained face classification checkpoints from any of the following links.
-- [BaiduDisk link](https://pan.baidu.com/s/1q-s1G4aqSzcXEofDOEfeHg) (Password:`3cvh`)
+- [BaiduDisk link](https://pan.baidu.com/s/1C7U_VasAV6FuG5_4E9pKbw ) (Password:`grdw`)
 
 Then, place the entire folder checkpoints under the `face`.
 
 ### SimSwap models
 
 To run SimSwap, you need to download its pretrained models from the following link:
-- [BaiduDisk link](https://pan.baidu.com/s/1C7U_VasAV6FuG5_4E9pKbw ) (Password:`grdw`)
+- [BaiduDisk link](https://pan.baidu.com/s/1q-s1G4aqSzcXEofDOEfeHg) (Password:`3cvh`)
 
 Then, place the file `arcface_checkpoint.tar` under `SwimSwap/arcface_model` and the three files `latest_net_*.pth` under `SwimSwap/models/checkpoints/people/`.
 
