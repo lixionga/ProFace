@@ -1,0 +1,15 @@
+Pytorch 1.9.1+cu111
+Torchvision 0.10.1+cu111
+Albumentations 1.0.3
+Timm 0.9.0
+TensorboardX 2.6
+torchattacks  3.4.0
+opencv-python   4.5.4.60
+opencv-python-headless   4.7.0.72
+Scipy 1.9.3
+PyYaml 6.0
+tqdm  4.67.1
+torchcam   0.3.2
+apex   0.1
+kornia   0.7.2
+kornia_rs  0.1.3
