@@ -3,9 +3,6 @@ import sys
 import torch
 from torchvision import transforms
 import torchvision.transforms.functional as F
-# from FaceShifter.face_shifter import face_shifter
-from FaceShifter.network.AEI_Net import AEI_Net
-from FaceShifter.face_modules.model import Backbone
 import random
 from PIL import Image
 import numpy as np
@@ -161,37 +158,6 @@ class SimSwap(torch.nn.Module):
         return x_swap
 
 
-class FaceShifter(torch.nn.Module):
-    def __init__(self, device):
-        super().__init__()
-        self.target_trans = transforms.Compose([
-            transforms.Resize(112, interpolation=F.InterpolationMode.BICUBIC),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=0.5, std=0.5)
-        ])
-        self.device = device
-        self.G = AEI_Net(c_id=512)
-        self.G.eval()
-        self.G.load_state_dict(torch.load('FaceShifter/saved_models/G_latest.pth', map_location=device))
-        self.G = self.G.to(device)
-        self.arcface = Backbone(50, 0.6, 'ir_se').to(device)
-        self.arcface.eval()
-        self.arcface.load_state_dict(torch.load('FaceShifter/face_modules/model_ir_se50.pth', map_location=device),
-                                strict=False)
-
-    def forward(self, x, target_image: Image, *_):
-        bs, _, w, h = x.shape
-        target_image_tensor = self.target_trans(target_image).repeat(bs, 1, 1, 1).to(self.device)
-        with torch.no_grad():
-            embeds = self.arcface(F.resize(target_image_tensor, [112, 112], F.InterpolationMode.BILINEAR))
-            yt, _ = self.G(F.resize(x, [256, 256], F.InterpolationMode.BILINEAR), embeds)
-            target_image_tensor.detach()
-            return F.resize(yt, [w, h], F.InterpolationMode.BILINEAR)
-
-        # target_image_tensor = self.target_trans(target_image).repeat(x.shape[0], 1, 1, 1).to(sedevice)
-        # x_swap = face_shifter(x, target_image_tensor)
-        # target_image_tensor.detach()
-        # return x_swap
 
 
 # RGBA image loader
@@ -262,9 +228,6 @@ class Obfuscator(torch.nn.Module):
             kernel_size, = obf_params
             self.params['kernel_size'] = int(kernel_size)
             self.func = MedianBlur(self.params['kernel_size'])
-        elif self.name == 'faceshifter':
-            self.func = FaceShifter(self.device)
-            # self.targ_img_trans = target_trans_faceshifter
         elif self.name == 'simswap':
             self.func = SimSwap()
             # self.targ_img_trans = target_trans_simswap
@@ -276,19 +239,6 @@ class Obfuscator(torch.nn.Module):
             self.func = Mask()
         elif self.name == 'hybrid':
             self.functions = [Blur(21, 6, 10), MedianBlur(15), Pixelate(9)]
-        elif self.name == 'hybridMorph':
-            self.functions = [FaceShifter(self.device), SimSwap()]
-        elif self.name == 'hybridAll':
-            #Blur(21, 6, 10), MedianBlur(15), Pixelate(9),FaceShifter(self.device), Mask()
-            self.functions = [ SimSwap()]
-            # self.functions2 = {
-            #     'blur': Blur(21, 6, 10),
-            #     'median': MedianBlur(15),
-            #     'pixelate': Pixelate(9),
-            #     'faceshifter': FaceShifter(),
-            #     'simswap': SimSwap(),
-            #     'mask': Mask()
-            # }
 
     def to(self, device):
         super(Obfuscator, self).to(device)
