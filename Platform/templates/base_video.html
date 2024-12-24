@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title>{% block title %}{% endblock %}</title>
+        {% block head %}{% endblock %}  <!-- js静态文件 -->
+        <link rel="stylesheet" href="../static/js/layui/css/layui.css">
+        <!-- CSS only -->
+        <link rel="stylesheet" type="text/css" href="../static/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/assets/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="../static/assets/css/owl.theme.default.min.css">
+        <!-- fancybox -->
+        <link rel="stylesheet" href="../static/assets/css/jquery.fancybox.min.css">
+        <!-- Font Awesome 6 -->
+        <link rel="stylesheet" href="../static/assets/css/fontawesome.min.css">
+        <!-- style -->
+        <link rel="stylesheet" href="../static/assets/css/style.css">
+        <!-- responsive -->
+        <link rel="stylesheet" href="../static/assets/css/responsive.css">
+        <!-- color -->
+        <link rel="stylesheet" href="../static/assets/css/color.css">
+
+        <script src="../static/js/echarts.min.js"></script>
+        <script src="../static/js/jquery1.min.js"></script>
+
+        <link rel="stylesheet" href="{{url_for('static', filename="css/page_vedio.css") }}">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>欢迎使用</h2>
+            <ul>
+                <li>
+                    <img src="{{url_for('static',filename='images/icon/图片_picture.svg') }}" alt="图片检测"><span>图片识别</span>
+                    <ul class="photohover">
+                        <li><a href="../image/yellowphoto" target="_self">智能鉴黄</a></li>
+                        <li><a href="../image/ad" target="_self">广告过滤</a></li>
+                        <li><a href="../image/illegal" target="_self">违法检测</a></li>
+                        <li><a href="../image/sensitive" target="_self">敏感检测</a></li>
+                        <li><a href="../image/terrorism" target="_self">暴恐识别</a></li>
+                        <li><a href="../image/abuse" target="_self">谩骂识别</a></li>
+                        <li><a href="../image/irrigation" target="_self">灌水识别</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <img src="{{url_for('static',filename='images/icon/文字识别_text-recognition.svg') }}" alt="文本识别"><span>文本识别</span>
+                        <li><a href="/" target="_self" class="hover1 showcolor">文本识别</a></li>
+                </li>
+
+                <li>
+                    <br>
+                    <img src="{{url_for('static',filename='images/icon/视频文件_video-file.svg') }}" alt="视频检测"><span>视频检索</span>
+                        <li><a href="./video" target="_self">视频检索</a></li>
+                </li>
+
+                <li>
+                    <br>
+                    <img src="{{url_for('static',filename='images/icon/音乐文件_file-music.svg') }}" alt="音频检测"><span>音频识别</span>
+                        <li><a href="../audio/audio" target="_self">音频识别</a></li>
+                </li>
+
+                <li>
+                <br>
+                <img src="{{url_for('static',filename='images/icon/伪造文件_file-forgery.svg') }}" alt="防伪检测"><span>防伪检测</span>
+                    <li><a href="../forgery/forgery" target="_self" class="pageone">防伪检测</a></li>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="experience">
+                <h2 class="text-white-bg-darkblue"><strong>视频检索体验</strong></h2>
+                <h3><strong>功能介绍</strong></h3>
+                <p>通过先进的算法和模型，对视频内容进行检索。输入一段文字内容，返回视频中对应的片段。</p>
+                <br>
+                <button class="btn">免费试用</button>
+                <hr>
+            </div>
+            <div class="row">
+                <div class="col-lg-5">
+                    <form class="rig" id="fileload" style="width: 100%;height: 600px;background-color: #ebede5">
+                        <div style="padding-bottom: 20px">
+                            <p style="font-size: 25px;color: #0C0C0C;font-weight:bolder">文件上传</p>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">视频上传</label>
+                            <div class="layui-upload-drag" style="display: block;" id="ID-upload-demo-drag">
+                                <i class="layui-icon layui-icon-upload"></i>
+                                <div>点击上传，或将文件拖拽到此处</div>
+                                <div class="layui-hide" id="ID-upload-demo-preview">
+                                    <hr>
+                                    <img src="" alt="上传成功后渲染" style="max-width: 100%">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-btn-container ">
+                            <button type="button" class="layui-btn layui-btn-primary" id="ID-upload-demo-choose">选择文件
+                            </button>
+                            <button type="button" class="layui-btn" id="ID-upload-demo-action">开始上传</button>
+                        </div>
+
+                        <div style="padding-top: 20px; padding-bottom: 20px">
+                            <p style="font-size: 25px;color: #0C0C0C;font-weight:bolder">检索画面描述</p>
+                        </div>
+
+
+                        <div class="layui-form-item layui-form-text">
+
+
+                                <textarea placeholder="请输入图片内容描述" class="layui-textarea"
+                                          id="context_wh"></textarea>
+
+                        </div>
+
+                        <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo" style="background-color: whitesmoke">
+                            <div class="layui-progress-bar layui-bg-green" lay-percent="0%"></div>
+                        </div>
+
+                        <div class="site-demo-button"
+                             style="margin-top: 20px; margin-bottom: 0;display: flex; align-items: center;">
+                            <button class="layui-btn layui-btn-primary site-demo-active" data-type="loading" id="start_v">
+                                语音输入
+                            </button>
+                            <button class="layui-btn site-demo-active" data-type="setPercent" onclick="showloading_wh()">
+                                开始检索
+                            </button>
+                            <input type="checkbox" name="AAA" title="默认" style="margin-left: 20px">
+                            <label>检索范围为已上传所有视频</label>
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="col-lg-7">
+                    <form class="rig" id="fileload2" style="width: 100%;height: 600px;background-color: #ebede5">
+                        <div style="padding-bottom: 20px">
+                            <p style="font-size: 25px;color: #0C0C0C;font-weight:bolder">检索结果</p>
+                        </div>
+
+                        <div class="layui-col-md6" style="width: 50%;padding-right: 10px">
+                            <div class="layui-panel">
+                                <div style="padding:2px 2px;height: 200px;" id="pic_1">
+                                </div>
+                            </div>
+
+                            <div style="text-align: center;">
+                                匹配图像所在视频时间：
+                                <div class="layui-inline" style="padding: 20px 1px;width: 80px;">
+                                    <input type="text" class="layui-input" id="test1" value="00:00:00" style="height: 20px">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="layui-col-md6" style="width: 50%;padding-left: 10px">
+                            <div class="layui-panel">
+                                <div style="padding:2px 2px;height: 200px;" id="pic_2"></div>
+                            </div>
+
+                            <div style="text-align: center;">
+                                匹配图像所在视频时间：
+                                <div class="layui-inline" style="padding: 20px 1px;width: 80px;">
+                                    <input type="text" class="layui-input" id="test2" value="00:00:00" style="height: 20px">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="layui-col-md6" style="width: 50%;padding-right: 10px">
+                            <div class="layui-panel">
+                                <div style="padding:2px 2px;height: 200px;" id="pic_3"></div>
+                            </div>
+
+                            <div style="text-align: center;">
+                                匹配图像所在视频时间：
+                                <div class="layui-inline" style="padding: 20px 1px;width: 80px;">
+                                    <input type="text" class="layui-input" id="test3" value="00:00:00" style="height: 20px">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="layui-col-md6" style="width: 50%;padding-left: 10px">
+                            <div class="layui-panel">
+                                <div style="padding:2px 2px;height: 200px;" id="pic_4"></div>
+                            </div>
+
+                            <div style="text-align: center;">
+                                匹配图像所在视频时间：
+                                <div class="layui-inline" style="padding: 20px 1px;width: 80px;">
+                                    <input type="text" class="layui-input" id="test4" value="00:00:00" style="height: 20px">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/js/layui/layui.js"></script>
+
+    <script>
+    {% block script %}{% endblock %}
+        //文件提交模块
+    layui.use(function () {
+        var upload = layui.upload;
+        // 渲染
+        upload.render({
+            elem: '#ID-upload-demo-choose',
+            url: 'upload', // 此处配置你自己的上传接口即可
+            auto: false,
+            accept: 'video',
+            // multiple: true,
+            bindAction: '#ID-upload-demo-action',
+            done: function (res) {
+                layer.msg('上传成功');
+                console.log(res)
+            }
+        });
+    });
+
+
+
+    //语音输入模块
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    let sr = new SpeechRecognition();
+
+    sr.onresult = function (e) {
+        console.log(e.results[0][0].transcript);
+        var v2t = document.getElementById("context_wh");
+        v2t.value = e.results[0][0].transcript;
+    }
+    let str_but = document.getElementById("start_v");
+    str_but.onclick = function () {
+
+        setTimeout(sr.stop(), 5000)
+
+        sr.start();
+    }
+
+
+    layui.use('element', function () {
+        const $ = layui.jquery;
+        const element = layui.element;
+
+        const active = {
+            loading: function (othis) {
+                const DISABLED = 'layui-btn-disabled';
+                if (othis.hasClass(DISABLED)) return;
+
+                // 模拟loading
+                let n = 0;
+                const interval = 1000;
+                const maxPercent = 100;
+                const progressBarId = 'demo';
+
+                function updateProgressBar() {
+                    n += 20;
+                    if (n > maxPercent) {
+                        n = maxPercent;
+                        clearInterval(timer);
+                        othis.removeClass(DISABLED);
+                    }
+                    element.progress(progressBarId, n + '%');
+                }
+
+                updateProgressBar(); // 更新一次，避免等待interval时间才看到效果
+                const timer = setInterval(updateProgressBar, interval);
+
+                othis.addClass(DISABLED);
+            },
+            setPercent: function () {
+                console.log("提交");
+                test_connect();
+            }
+        };
+
+        $('.site-demo-active').on('click', function () {
+            console.log("111")
+            const othis = $(this);
+            const type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+    });
+    $('#fileload').on('submit', function () {
+        return false;
+    });
+
+
+    //检索图片
+    var dom = document.getElementById("pic_1");
+    var mychart = echarts.init(dom);
+    var dom1 = document.getElementById("pic_2");
+    var mychart1 = echarts.init(dom1);
+    var dom2 = document.getElementById("pic_3");
+    var mychart2 = echarts.init(dom2);
+    var dom3 = document.getElementById("pic_4");
+    var mychart3 = echarts.init(dom3);
+
+
+    function showloading_wh() {
+        mychart = echarts.init(dom);
+        mychart1 = echarts.init(dom1);
+        mychart2 = echarts.init(dom2);
+        mychart3 = echarts.init(dom3);
+        mychart.showLoading();
+        mychart1.showLoading();
+        mychart2.showLoading();
+        mychart3.showLoading();
+    }
+
+    function test_connect() {
+        str = document.getElementById("context_wh").value;
+        $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: "text2i",
+            data: JSON.stringify({
+                'text': str
+            }),
+            success: function (data) {
+                mychart.hideLoading();
+                mychart.dispose();
+                mychart1.hideLoading();
+                mychart1.dispose();
+                mychart2.hideLoading();
+                mychart2.dispose();
+                mychart3.hideLoading();
+                mychart3.dispose();
+                var s = [Number(data[0]), Number(data[1]), Number(data[2]), Number(data[3])];
+
+
+                picture_1 = document.getElementById("pic_1")
+                img_1 = '<img src="../static/result/' + s[0] + '.jpg" style="width: 100%; height: 100%;">'
+                picture_1.innerHTML = img_1;
+                time_m1 = parseInt(s[0] / 60)
+                time_s1 = s[0] % 60
+                if (time_s1 < 10) time_all1 = '00:0' + time_m1 + ':0' + time_s1;
+                else time_all1 = '00:0' + time_m1 + ':' + time_s1;
+                text_1 = document.getElementById("test1").value = time_all1;
+
+
+                picture_2 = document.getElementById("pic_2")
+                img_2 = '<img src="../static/result/' + s[1] + '.jpg" style="width: 100%;height: 100%;">'
+                picture_2.innerHTML = img_2;
+
+                time_m2 = parseInt(s[1] / 60)
+                time_s2 = s[1] % 60
+                if (time_s2 < 10) time_all2 = '00:0' + time_m2 + ':0' + time_s2;
+                else time_all2 = '00:0' + time_m2 + ':' + time_s2;
+                text_2 = document.getElementById("test2").value = time_all2;
+
+
+                picture_3 = document.getElementById("pic_3")
+                img_3 = '<img src="../static/result/' + s[2] + '.jpg" style="width: 100%;height: 100%;">'
+                picture_3.innerHTML = img_3;
+
+                time_m3 = parseInt(s[2] / 60)
+                time_s3 = s[2] % 60
+                if (time_s3 < 10) time_all3 = '00:0' + time_m3 + ':0' + time_s3;
+                else time_all3 = '00:0' + time_m3 + ':' + time_s3;
+                text_3 = document.getElementById("test3").value = time_all3;
+
+
+                picture_4 = document.getElementById("pic_4")
+                img_4 = '<img src="../static/result/' + s[3] + '.jpg" style="width: 100%;height: 100%;">'
+                picture_4.innerHTML = img_4;
+
+                time_m4 = parseInt(s[3] / 60)
+                time_s4 = s[3] % 60
+                if (time_s4 < 10) time_all4 = '00:0' + time_m4 + ':0' + time_s4;
+                else time_all4 = '00:0' + time_m4 + ':' + time_s4;
+                text_4 = document.getElementById("test4").value = time_all4;
+
+
+            }
+
+        })
+
+    }
+    </script>
+
+</body>
+</html>

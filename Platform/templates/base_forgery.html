@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{url_for('static', filename="css/page_forgery.css") }}">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title>{% block title %}{% endblock %}</title>
+        {% block head %}{% endblock %}  <!-- js静态文件 -->
+        <style>
+
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+        <div class="sidebar">
+            <h2>欢迎使用</h2>
+            <ul>
+                <li>
+                    <img src="{{url_for('static',filename='images/icon/图片_picture.svg') }}" alt="图片检测"><span>图片识别</span>
+                    <ul class="photohover">
+                            <li><a href="../image/yellowphoto" target="_self">智能鉴黄</a></li>
+                            <li><a href="../image/ad" target="_self">广告过滤</a></li>
+                            <li><a href="../image/illegal" target="_self">违法检测</a></li>
+                            <li><a href="../image/sensitive" target="_self">敏感检测</a></li>
+                            <li><a href="../image/terrorism" target="_self">暴恐识别</a></li>
+                            <li><a href="../image/abuse" target="_self">谩骂识别</a></li>
+                            <li><a href="../image/irrigation" target="_self">灌水识别</a></li>
+                        </ul>
+                </li>
+                <li>
+                        <img src="{{url_for('static',filename='images/icon/文字识别_text-recognition.svg') }}" alt="文本识别"><span>文本识别</span>
+                            <li><a href="/" target="_self" class="hover1 showcolor">文本识别</a></li>
+                    </li>
+
+                    <li>
+                        <br>
+                        <img src="{{url_for('static',filename='images/icon/视频文件_video-file.svg') }}" alt="视频检测"><span>视频检索</span>
+                            <li><a href="../video/video" target="_self">视频检索</a></li>
+                    </li>
+
+                <li>
+                        <br>
+                        <img src="{{url_for('static',filename='images/icon/音乐文件_file-music.svg') }}" alt="音频检测"><span>音频识别</span>
+                            <li><a href="../audio/audio" target="_self">音频识别</a></li>
+                    </li>
+
+                    <li>
+                    <br>
+                    <img src="{{url_for('static',filename='images/icon/伪造文件_file-forgery.svg') }}" alt="防伪检测"><span>防伪检测</span>
+                        <li><a href="./forgery" target="_self" class="pageone">防伪检测</a></li>
+            </li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="experience">
+                <h2 class="text-white-bg-darkblue"><strong>伪造检测体验</strong></h2>
+                <h3><strong>功能介绍</strong></h3>
+                <p>通过先进的算法和模型，进行图片、视频等文件的伪造检测，返回伪造的概率和热力图。</p>
+                <br>
+                <button class="btn">免费试用</button>
+                <hr>
+            </div>
+
+            <!-- 上传部分 -->
+            <div class="uploads">
+                <h3><strong>上传文件进行伪造检测</strong></h3>
+
+                <!-- 切换栏 -->
+                <div class="tab-container">
+                    <button class="tab-button active" id="uploadTab" onclick="toggleTab('upload')">上传文件</button>
+                    <button class="tab-button" id="urlTab" onclick="toggleTab('url')">输入图片URL</button>
+                </div>
+
+                <!-- 上传文件部分 -->
+                <div class="tab-content" id="uploadTabContent" style="display: block;">
+                    <div class="upload-section">
+                        <div class="upload-placeholder" id="upload-placeholder" onclick="uploadLocalImage()">
+                            <input type="file" id="upload" style="display: none;" onchange="displayUploadedImage(event)">
+                            <div class="preview-container" id="preview-container">
+                                <img src="../static/images/icon/图片_picture.svg" alt="图片上传图标" class="placeholder-icon">
+                                <p class="placeholder-text">上传本地图片（支持图片拖入）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 输入URL部分 -->
+                <div class="tab-content" id="urlTabContent" style="display: none;">
+                    <div class="input-group">
+                        <!-- 输入图片URL的文本框 -->
+                        <input type="text" placeholder="请输入图片URL" id="image-url">
+                        <button class="btn new-btn" onclick="displayImage()">添加网络图片</button>
+                    </div>
+                    <div class="input-image">
+                        <!-- 图片显示容器 -->
+                        <div id="image-container" style="display: none;">
+                            <img id="image-display" src="" alt="图片展示框">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 上传按钮 -->
+                <button class="btn" onclick="uploadToServer()">上传图片</button>
+                <!-- 下载结果 -->
+                <button class="btn" id="download-btn">下载结果</button>
+                <hr>
+
+                <!-- 返回伪造检测结果 -->
+                <div id="result" class="result-container">
+                    <h3><strong>检测结果</strong></h3>
+                    {% if filename %}
+
+                    {% endif %}
+                    <!-- 伪造概率结果 -->
+                    <div class="fraud-probability-container">
+                        <h4>伪造概率:</h4>
+                        <div class="probability-box" id="fraud-probability">
+                            等待结果...
+                        </div>
+                    </div>
+
+                    <!-- 伪造热力图 -->
+                    <div id="heatmap-container" class="heatmap-container">
+                        <h4>伪造热力图</h4>
+                        <div class="heatmap-placeholder">
+                            <p>等待热力图...</p>
+                        </div>
+                        <img id="heatmap" src="" alt="伪造热力图" style="display: none;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% block script %}{% endblock %}
+
+    <script>
+        // 处理文件上传
+        function uploadLocalImage() {
+            document.getElementById('upload').click();
+        }
+
+        // 显示上传的图片预览
+        function displayUploadedImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewContainer = document.getElementById('preview-container');
+                    previewContainer.innerHTML = `<img src="${e.target.result}" alt="预览图片" style="max-width: 100%; max-height: 300px;">`;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 添加拖拽上传功能
+        const uploadPlaceholder = document.getElementById('upload-placeholder');
+        
+        uploadPlaceholder.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadPlaceholder.classList.add('dragover');
+        });
+
+        uploadPlaceholder.addEventListener('dragleave', () => {
+            uploadPlaceholder.classList.remove('dragover');
+        });
+
+        uploadPlaceholder.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadPlaceholder.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const input = document.getElementById('upload');
+                input.files = e.dataTransfer.files;
+                const event = new Event('change');
+                input.dispatchEvent(event);
+            }
+        });
+
+        // 切换标签页功能
+        function toggleTab(tabName) {
+            const allTabs = document.querySelectorAll('.tab-content');
+            allTabs.forEach(tab => {
+                tab.style.display = 'none';
+            });
+            const selectedTabContent = document.getElementById(tabName + 'TabContent');
+            selectedTabContent.style.display = 'block';
+            const allButtons = document.querySelectorAll('.tab-button');
+            allButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            const selectedTabButton = document.getElementById(tabName + 'Tab');
+            selectedTabButton.classList.add('active');
+        }
+
+        // 上传图片到服务器
+        function uploadToServer() {
+            const fileInput = document.getElementById('upload');
+            const urlInput = document.getElementById('image-url');
+            const uploadContent = document.getElementById('uploadTabContent');
+            
+            // 创建 FormData 对象
+            const formData = new FormData();
+            
+            // 检查是使用文件上传还是URL上传
+            if (uploadContent.style.display === 'block') {
+                // 文件上传模式
+                if (!fileInput.files[0]) {
+                    alert('请先选择要上传的图片！');
+                    return;
+                }
+                formData.append('file', fileInput.files[0]);
+            } else {
+                // URL上传模式
+                if (!urlInput.value) {
+                    alert('请输入图片URL！');
+                    return;
+                }
+                formData.append('image_url', urlInput.value);
+            }
+
+            // 显示加载状态
+            document.getElementById('fraud-probability').textContent = '处理中...';
+            document.querySelector('.heatmap-placeholder').style.display = 'block';
+            document.getElementById('heatmap').style.display = 'none';
+
+            // 发送请求到服务器
+            fetch('/forgery/forgery/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                // 更新伪造概率
+                document.getElementById('fraud-probability').textContent = 
+                    `${(parseFloat(data.fakeness) * 100).toFixed(2)}%`;
+                
+                // 更新热力图
+                if (data.heatmap_path) {
+                    const heatmapImg = document.getElementById('heatmap');
+                    heatmapImg.src = data.heatmap_path;
+                    heatmapImg.style.display = 'block';
+                    document.querySelector('.heatmap-placeholder').style.display = 'none';
+                }
+                
+                // 显示原始图片
+                if (data.original_image) {
+                    const previewContainer = document.getElementById('preview-container');
+                    previewContainer.innerHTML = `<img src="${data.original_image}" alt="上传的图片" style="max-width: 100%; max-height: 300px;">`;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('fraud-probability').textContent = '处理失败';
+                alert('上传发生错误，请重试');
+            });
+        }
+
+        // 显示网络图片
+        function displayImage() {
+            const url = document.getElementById('image-url').value;
+            const container = document.getElementById('image-container');
+            const display = document.getElementById('image-display');
+            
+            if (url) {
+                display.src = url;
+                container.style.display = 'block';
+            } else {
+                alert('请输入有效的图片URL');
+            }
+        }
+
+        // 从服务器下载结果
+        document.getElementById('download-btn').addEventListener('click', function() {
+            // 请求下载路由
+            fetch('/forgery/download', {
+                method: 'POST'
+            })
+            .then(response => {
+                if(!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // 获取 Content-Disposition 并解析文件名
+                const contentDisposition = response.headers.get('Content-Disposition');
+                const filename = contentDisposition
+                    ? contentDisposition.split('filename=')[1].replace(/"/g, '') // 去掉引号
+                    : 'downloaded_file.zip'; // 如果没有文件名，使用默认值
+                // 转换为blob对象
+                return response.blob().then(blob => ({ blob, filename }))
+            })
+            .then(({ blob, filename }) => {
+                const file_url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = file_url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(file_url);
+            })
+            .catch(error => {
+                console.error('Check the error:', error)
+            });
+        });
+
+
+    </script>
+
+</body>
+</html>

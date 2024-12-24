@@ -1,0 +1,149 @@
+{% extends "base_forgery.html" %}
+{% block title %}伪造检测{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{url_for('static', filename="css/page_forgery.css") }}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="upload-section">
+        <h2>上传图片</h2>
+        <div class="upload-box">
+            <input type="file" id="upload" accept="image/*" style="display: none;" onchange="displayUploadedImage(event)">
+            <button class="upload-btn" onclick="uploadLocalImage()">选择本地图片</button>
+        </div>
+        
+        <div id="preview-container" class="preview-container"></div>
+        
+        <button class="analyze-btn" onclick="uploadToServer()">开始分析</button>
+    </div>
+
+    <div class="result-section" id="result-section" style="display: none;">
+        <h2>分析结果</h2>
+        <div class="result-box">
+            <div class="probability-box">
+                <h3>伪造概率</h3>
+                <div class="probability" id="fraud-probability">0%</div>
+            </div>
+            <div class="heatmap-box">
+                <h3>热力图分析</h3>
+                <img id="heatmap" src="" alt="热力图" style="display: none;">
+                <div class="heatmap-placeholder">等待分析...</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+function uploadLocalImage() {
+    document.getElementById('upload').click();
+}
+
+function displayUploadedImage(event) {
+    const file = event.target.files[0];
+    const previewContainer = document.getElementById('preview-container');
+    
+    if (!file) {
+        alert('请先选择文件');
+        return;
+    }
+    
+    // 清除原有内容
+    previewContainer.innerHTML = '';
+    
+    // 创建新的预览
+    const imgContainer = document.createElement('div');
+    imgContainer.className = 'image-container';
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    img.onload = () => URL.revokeObjectURL(img.src);
+    imgContainer.appendChild(img);
+    previewContainer.appendChild(imgContainer);
+    
+    // 显示分析按钮
+    document.querySelector('.analyze-btn').style.display = 'block';
+}
+
+function uploadToServer() {
+    const fileInput = document.getElementById('upload');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        alert('请先选择文件');
+        return;
+    }
+    
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    // 显示加载状态
+    const analyzeBtn = document.querySelector('.analyze-btn');
+    analyzeBtn.disabled = true;
+    analyzeBtn.textContent = '分析中...';
+    
+    // 显示结果区域
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('fraud-probability').textContent = '分析中...';
+    document.querySelector('.heatmap-placeholder').style.display = 'block';
+    document.getElementById('heatmap').style.display = 'none';
+    
+    console.log('开始上传文件:', file.name);
+    
+    fetch('/forgery/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        console.log('服务器响应状态:', response.status);
+        if (!response.ok) {
+            return response.text().then(text => {
+                throw new Error(`上传失败: ${text}`);
+            });
+        }
+        return response.json();
+    })
+    .then(result => {
+        console.log('分析结果:', result);
+        
+        // 显示伪造概率
+        document.getElementById('fraud-probability').textContent = result.fakeness;
+        
+        // 显示热力图
+        if (result.heatmap_path) {
+            const heatmap = document.getElementById('heatmap');
+            heatmap.src = result.heatmap_path;
+            heatmap.style.display = 'block';
+            document.querySelector('.heatmap-placeholder').style.display = 'none';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert(error.message);
+        document.getElementById('fraud-probability').textContent = '分析失败';
+    })
+    .finally(() => {
+        // 恢复按钮状态
+        analyzeBtn.disabled = false;
+        analyzeBtn.textContent = '开始分析';
+    });
+}
+
+// 切换显示不同的Tab内容
+function toggleTab(tabName) {
+    const allTabs = document.querySelectorAll('.tab-content');
+    allTabs.forEach(tab => {
+        tab.style.display = 'none';
+    });
+    document.getElementById(tabName + 'TabContent').style.display = 'block';
+    
+    const allButtons = document.querySelectorAll('.tab-button');
+    allButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+    document.getElementById(tabName + 'Tab').classList.add('active');
+}
+</script>
+{% endblock %}
+

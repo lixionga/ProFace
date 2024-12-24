@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+li {
+    list-style: none;
+}   
+
+a {
+    text-decoration: none;
+}
+
+/* 清楚浮动 */
+.clearfix:before,.clearfix:after {
+    content:"";
+    display:table; 
+}
+
+.clearfix:after {
+    clear:both;
+}
+
+body {
+    display: flex;
+    margin: 0;
+    overflow: hidden; /* 禁止body本身滚动 */
+    height: 100vh; /* 确保视口高度 */
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    overflow-y: auto; /* 允许内容区垂直滚动 */
+}
+
+.sidebar {
+    width: 200px;
+    /* flex: 1; */
+    background-color: #f5f5f5;
+    padding: 20px;
+    flex-shrink: 0; /* 确保侧边栏宽度固定 */
+    height: 100vh; /* 确保侧边栏占满整个左侧 */
+    position: fixed; /* 固定侧边栏位置 */
+    top: 0;
+    left: 0;
+    overflow-y: auto; /* 允许侧边栏内容滚动 */
+}
+
+.sidebar h2 {
+    margin-bottom: 10px;
+    font-size: 35px;
+}
+
+.sidebar ul li span {
+    font-size: 17px;
+    font-weight: 560;
+}
+
+.sidebar ul .pageone {
+    color: #0b7bf4;
+}
+
+.sidebar ul .photohover li:hover {
+    background-color: #ccd2d6;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 10px;
+    padding-left: 0px;
+    margin-bottom: 10px;
+}
+
+.sidebar ul li {
+    margin: 16px 0;
+    position: relative;
+}
+
+.sidebar ul li a{
+    display: block;
+    padding: 0 9px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 15px;
+    color: #050505;
+}
+
+.sidebar ul li img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.sidebar ul li .hover1:hover {
+    background-color: #ccd2d6;
+}
+
+.sidebar ul li .showcolor {
+    color: #0b7bf4;
+}
+
+
+/* 右边内容部分 */
+.content {
+    padding: 20px;
+    flex: 6;
+    display: flex;
+    flex-direction: column; /* 确保内容按列布局 */
+    margin-left: 200px; /* 为内容区留出侧边栏的空间 */
+    overflow-y: auto; /* 允许内容区垂直滚动 */
+    height: 100vh; /* 确保内容区占满整个视口高度 */
+}

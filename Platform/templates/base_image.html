@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{url_for('static', filename='/css/styles.css') }}">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title>{% block title %}{% endblock %}</title>
+        {% block head %}{% endblock %}  <!-- js静态文件 -->
+    </head>
+    <body>
+        <div class="container">
+            <div class="sidebar">
+                <h2>欢迎使用</h2>
+                <ul>
+                    <li>
+                        <img src="{{url_for('static',filename='images/icon/图片_picture.svg') }}" alt="图片检测"><span>图片识别</span>
+                        <ul class="photohover">
+                            <li><a href="./yellowphoto" target="_self">智能鉴黄</a></li>
+                            <li><a href="./ad" target="_self">广告过滤</a></li>
+                            <li><a href="./illegal" target="_self">违法检测</a></li>
+                            <li><a href="./sensitive" target="_self">敏感检测</a></li>
+                            <li><a href="./terrorism" target="_self">暴恐识别</a></li>
+                            <li><a href="./abuse" target="_self">谩骂识别</a></li>
+                            <li><a href="./irrigation" target="_self">灌水识别</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <img src="{{url_for('static',filename='images/icon/文字识别_text-recognition.svg') }}" alt="文本识别"><span>文本识别</span>
+                            <li><a href="/" target="_self" class="hover1 showcolor">文本识别</a></li>
+                    </li>
+
+                    <li>
+                        <br>
+                        <img src="{{url_for('static',filename='images/icon/视频文件_video-file.svg') }}" alt="视频检测"><span>视频检索</span>
+                            <li><a href="../video/video" target="_self">视频检索</a></li>
+                    </li>
+
+                    <li>
+                        <br>
+                        <img src="{{url_for('static',filename='images/icon/音乐文件_file-music.svg') }}" alt="音频检测"><span>音频识别</span>
+                            <li><a href="../audio/audio" target="_self">音频识别</a></li>
+                    </li>
+
+                    <li>
+                    <br>
+                    <img src="{{url_for('static',filename='images/icon/伪造文件_file-forgery.svg') }}" alt="防伪检测"><span>防伪检测</span>
+                        <li><a href="../forgery/forgery" target="_self" class="pageone">防伪检测</a></li>
+            </li>
+                </ul>
+            </div>
+            {% block body %}{% endblock %}
+        </div>
+    {% block script %}{% endblock %}
+
+</body>
+</html>
