@@ -8,7 +8,7 @@ PRO-Face U: Real-World Applications of Utility-Guided Reversible Anonymization o
 
 The project's runtime environment is based on Miniconda. You can use the following command to install the project's runtime environment：
 
-``conda create --name PROFaceS --file requirements.txt``
+``conda create --name PROFaceU --file requirements.txt``
 
 ### Face classification models
 First, download the pretrained face classification checkpoints from any of the following links.
