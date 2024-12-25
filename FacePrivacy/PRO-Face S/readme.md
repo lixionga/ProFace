@@ -18,7 +18,7 @@ The project's runtime environment is based on Miniconda. You can use the followi
 First, download the pretrained face classification checkpoints from any of the following links.
 - [BaiduDisk link](https://pan.baidu.com/s/1q-s1G4aqSzcXEofDOEfeHg) (Password:`3cvh`)
 
-Then, place the entire folder checkpoints under the `face/gender_model`.
+Then, place the corresponding `.pth` model files under the `face/gender_model`.
 
 ### SimSwap models
 
@@ -41,7 +41,7 @@ Our training was done is CelebA dateset, where all faces images were preprocesse
 
 Then, place it in the directory specified by `dataset_dir` in the `config.py` file, or alternatively, modify the `dataset_dir` path to point to the location of the dataset
 
-
+> At this stage, if you notice that any folders are missing, please manually create the required directories as outlined above.
 
 # Training
 Simply run `train_tcsvt.py` to start the training process.
