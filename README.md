@@ -1,4 +1,7 @@
 # ProFace
+
+![](./FacePrivacy/PRO-Face%20S/assets/ProFace.png)
+
 ProFace: A trustworthy facial data protection research platform developed by Chongqing University of Posts and Telecommunications (CQUPT). It provides efficient implementations of versatile methods for facial data security analysis and privacy protection developed by CQUPT.
 
 This project consists of several modules: 
@@ -13,17 +16,22 @@ This project consists of several modules:
 This module implements various algorithms for facial privacy protection.
 ### Paper List:
 **`2024.04`**: `PRO-Face C: Privacy-Preserving Recognition of Obfuscated Face via Feature Compensation` **IEEE TIFS 2024**.
-[[paper](https://ieeexplore.ieee.org/document/10499238)][[code](https://github.com/fkeufss/ProFace/tree/main/FacePrivacy/PRO-Face%20C)]
+[[paper](https://ieeexplore.ieee.org/document/10499238)][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/PRO-Face%20C)]
 
 **`2023.11`**: `Invertible Image Obfuscation for Facial Privacy Protection via Secure Flow` **IEEE TCSVT 2023**.
-[[paper](https://ieeexplore.ieee.org/document/10366303/)][[code](https://github.com/fkeufss/ProFace/tree/main/FacePrivacy/PRO-Face%20S)]
+[[paper](https://ieeexplore.ieee.org/document/10366303/)][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/PRO-Face%20S)]
 
 **`2022.10`**: `PRO-Face: A Generic Framework for Privacy-preserving Recognizable Obfuscation of Face Images` **ACM Multimedia 2022**.
-[[paper](https://dl.acm.org/doi/10.1145/3503161.3548202)][[code](https://github.com/fkeufss/ProFace/tree/main/FacePrivacy/PRO-Face)]
+[[paper](https://dl.acm.org/doi/10.1145/3503161.3548202)][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/PRO-Face)]
 
 ## FaceSecurity
 
 ![](./FacePrivacy/PRO-Face%20S/assets/facesecurity.png)
 
-- TODO
+This module implements various algorithms for facial data analysis.
+### Paper List:
+**`2023.11`**: `Advancing Generalized Deepfake Detector with Forgery Perception Guidance` **ACM Multimedia 2024**.
+[[paper](https://doi.org/10.1145/3664647.3680713)][[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/FPG)] 
 
+**`2024.08`**: `Inspector for Face Forgery Detection: Defending Against Adversarial Attacks From Coarse to Fine` **IEEE TIP 2024**.
+[[paper](https://doi.org/10.1109/TIP.2024.3434388)][[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/Inspector)]
