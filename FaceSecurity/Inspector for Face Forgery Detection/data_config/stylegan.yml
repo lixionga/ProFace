@@ -1,0 +1,48 @@
+train_cfg:
+  root: "./data/StyleGAN/"
+  dataroot: "./data/Stylegan/"
+  split: "train"
+  method: "all"
+  compression: "c0"
+  log_steps: 1000
+  val_steps: 1000
+  num_steps: 90000
+  transforms:
+    - name: "Resize"
+      params:
+        height: 299
+        width: 299
+    - name: "HorizontalFlip"
+      params:
+        p: 0.5
+    - name: "ColorJitter"
+      params:
+        p: 0.5
+    - name: "GaussianBlur"
+      params:
+        blur_limit: [3, 7]
+        p: 0.5
+    - name: "ImageCompression"
+      params:
+        quality_lower: 50
+        quality_upper: 100
+        p: 0.5
+    - name: "Normalize"
+      params:
+        mean: [0.5, 0.5, 0.5]
+        std: [0.5, 0.5, 0.5]
+test_cfg:
+  root: "./data/StyleGAN/"
+  dataroot: "./data/Stylegan/"
+  split: "val"
+  method: "all"
+  compression: "c0"
+  transforms:
+    - name: "Resize"
+      params:
+        height: 299
+        width: 299
+    - name: "Normalize"
+      params:
+        mean: [0.5, 0.5, 0.5]
+        std: [0.5, 0.5, 0.5]
