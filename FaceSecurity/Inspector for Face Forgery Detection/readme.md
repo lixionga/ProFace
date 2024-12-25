@@ -17,7 +17,21 @@ Our training is conducted on the FaceForensics++ dataset, which can be downloade
 
 # Training
 
-Run the training scripts in the ``train`` folder in the following order: ``train_dec.sh``, ``train_rec.sh``, ``train_aut.sh``, ``train_cor.sh`` .If you wish to modify the relevant configurations, please make the changes within the corresponding script files.
+After preparing the dataset and placing it in the corresponding path. Run the training scripts in the ``train`` folder in the following order: ``train_dec.sh``, ``train_rec.sh``, ``train_aut.sh``, ``train_cor.sh`` . If you wish to modify the relevant configurations, please make the changes within the corresponding script files.
+
+# Testing
+This test is divided into two stages: coarse defense and fine defense:
+
+The results of the first stage are obtained by running ``test_aut.sh``.
+The results of the second stage are obtained by running ``test_cor.sh``. 
+
+Of course, just like with training, you can modify the scripts to change configurations.
+
+# Trained model
+
+You can download our trained model from this [BaiduDisk link](https://pan.baidu.com/s/1hBuHfQ5WsXFR6T1HhTFi4g) (Password:`jmc4`).
+
+Then, place the four files in the initial path of the current project.
 
 # Acknowledgement
 
