@@ -35,6 +35,4 @@ Please cite our paper via the following BibTex if you find it useful. Thanks.
     doi={10.1109/TIP.2024.3434388}
     }
 
-
-
 If you have any question, please don't hesitate to contact us by ``yuanlin@cqupt.edu.cn``.
