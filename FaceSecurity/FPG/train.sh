@@ -7,4 +7,4 @@ python src/train.py \
         --dist_url tcp://${HOST}:${PORT} \
         --world_size ${NUM_GPU} \
         --rank 0 \
-        -n fpg \
+        -n fpg
