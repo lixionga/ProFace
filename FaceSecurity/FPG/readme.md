@@ -26,6 +26,11 @@ If you have followed the previous steps to prepare, simply use `bash train.sh` t
 # Testing
 
 The script `test.sh` has a section following the `-w` flag that needs to be replaced with the path to the model. After making this change, you can run `bash test.sh` to start the testing procedure.
+# Trained model
+
+You can download our trained model from this [BaiduDisk link](https://pan.baidu.com/s/1hBuHfQ5WsXFR6T1HhTFi4g) (Password:`jmc4`).
+
+Then, place it anywhere because you can modify the path to load the model in the script file.
 # Acknowledgement
 
 Please cite our paper via the following BibTex if you find it useful. Thanks. 
