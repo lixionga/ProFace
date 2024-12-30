@@ -7,7 +7,7 @@ ProFace: A trustworthy facial data protection research platform developed by Cho
 This project consists of several modules: 
 - **FacePrivacy:** methods for protecting facial privacy in multiple scenarios.
 - **FaceSecurity:** methods for facial data analysis (e.g., DeepFake detection, forensic analysis).
-- **Platform：**  A versitile platform for multimedia security analysis and privacy protection, This platform currently includes two functions:face forgery detection and text sentiment analysis.
+- **Platform：** A versitile platform for multimedia security analysis and privacy protection, This platform currently includes two functions:face forgery detection and text sentiment analysis.
 
 ## FacePrivacy
 
@@ -35,3 +35,7 @@ This module implements various algorithms for facial data analysis.
 
 **`2024.08`**: `Inspector for Face Forgery Detection: Defending Against Adversarial Attacks From Coarse to Fine` **IEEE TIP 2024**.
 [[paper](https://doi.org/10.1109/TIP.2024.3434388)][[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/Inspector)]
+
+## Platform
+![1](https://github.com/user-attachments/assets/81354936-5c59-4d27-bfc5-86da7c584757)
+
