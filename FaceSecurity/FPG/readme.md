@@ -21,10 +21,11 @@ Our training is conducted on the FaceForensics++ dataset, which can be downloade
 The validation datasets FFIW can be downloaded from [tfzhou.FFIW](https://github.com/tfzhou/FFIW) and put into the `` inference/models`` .
 
 # Training
-If you have followed the previous steps to prepare, simply use `bash train.sh` to start the training process. If you wish to modify any configurations, just modify them in the `train.sh` script.
+If you have followed the previous steps to prepare, simply use `bash train.sh` to start the training process. If you wish to modify any configurations, just modify them in the `train.sh` script.The final trained model weights will be saved under the ``output`` directory.
 
 # Testing
 
+The script `test.sh` has a section following the `-w` flag that needs to be replaced with the path to the model. After making this change, you can run `bash test.sh` to start the testing procedure.
 # Acknowledgement
 
 Please cite our paper via the following BibTex if you find it useful. Thanks. 
