@@ -18,6 +18,8 @@ First, the pre-trained face image quality assessment model checkpoints is downlo
 
 Our training is conducted on the FaceForensics++ dataset, which can be downloaded from the repository [FaceForensics](https://github.com/ondyari/FaceForensics) and place it in the ``data/``.
 
+The validation datasets FFIW can be downloaded from [tfzhou.FFIW](https://github.com/tfzhou/FFIW) and put into the `` inference/models`` .
+
 # Training
 If you have followed the previous steps to prepare, simply use `bash train.sh` to start the training process. If you wish to modify any configurations, just modify them in the `train.sh` script.
 
