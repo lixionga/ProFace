@@ -30,3 +30,5 @@ Our training was done is CelebA dateset, where all faces images were preprocesse
 
 Then, place it in the directory specified by `dataset_dir` in the `config.py` file, or alternatively, modify the `dataset_dir` path to point to the location of the dataset
 
+# Training
+Simply run `train_with_utility.py` to start the training process.
