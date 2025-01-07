@@ -32,3 +32,6 @@ Then, place it in the directory specified by `dataset_dir` in the `config.py` fi
 
 # Training
 Simply run `train_with_utility.py` to start the training process.
+
+# Testing
+Simply run `test_with_utility.py` to start the testing process.
