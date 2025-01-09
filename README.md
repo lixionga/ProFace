@@ -37,5 +37,5 @@ This module implements various algorithms for facial data analysis.
 [[paper](https://doi.org/10.1109/TIP.2024.3434388)][[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/Inspector)]
 
 ## Platform
-![1](https://github.com/user-attachments/assets/81354936-5c59-4d27-bfc5-86da7c584757)
+![TO~~(2)7U@_BSBQZ7AE4PHV](https://github.com/user-attachments/assets/60072777-0df4-4fe5-948d-4b2b3e39678b)
 this module currently includes two functions:face forgery detection and text sentiment analysis.
