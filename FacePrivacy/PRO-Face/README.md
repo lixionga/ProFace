@@ -1,7 +1,9 @@
 # Source Code for PRO-Face
 Our paper can be downloaded from [ACM website](https://dl.acm.org/doi/10.1145/3503161.3548202). 
 
-**Introduction**. 
+**Introduction**
+Supports multiple obfuscation methods for flexible privacy protection.
+
 # Prepraration
 ### Dependencies
 All dependencies we use from this implementation is listed in ``requirements.txt``.
