@@ -3,7 +3,7 @@ Our paper can be downloaded from [ACM website](https://dl.acm.org/doi/10.1145/35
 
 # Introduction
 Supports multiple obfuscation methods for flexible privacy protection.
-
+Enables accurate identity recognition from obfuscated images, balancing privacy and utility.
 # Prepraration
 ### Dependencies
 All dependencies we use from this implementation is listed in ``requirements.txt``.
