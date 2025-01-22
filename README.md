@@ -1,6 +1,7 @@
 # ProFace
-<br><br><br>
+<br><br>
 ![](./FacePrivacy/PRO-Face.png)
+<br>
 ProFace: A trustworthy facial data protection research platform developed by Chongqing University of Posts and Telecommunications (CQUPT). It provides efficient implementations of versatile methods for facial data security analysis and privacy protection developed by CQUPT.
 
 This project consists of several modules: 
