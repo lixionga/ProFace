@@ -41,7 +41,7 @@ For other datasets, please refer to `./data/datasets.md` .
 
 ## 3. Pretrained model
 We provide weights of EfficientNet-B4 trained on SBIs from FF-raw.  
-Download [[pre-weights](https://pan.quark.cn/s/fad82ea2a6ef)] and place it in `./weights/` folder.
+Download [[pre-weights](https://pan.quark.cn/s/b125cd8a256e)] and place it in `./weights/` folder.
 
 
 
