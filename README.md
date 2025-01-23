@@ -36,8 +36,9 @@ This module implements various algorithms for facial data analysis.
 
 **`2024.08`**: `Inspector for Face Forgery Detection: Defending Against Adversarial Attacks From Coarse to Fine` **IEEE TIP 2024**.
 [[paper](https://doi.org/10.1109/TIP.2024.3434388)][[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/Inspector)]
+
 **`2025.`**:`Deepfake Detection Leveraging Self-Blended Artifacts Guided by Facial Embedding Discrepancy` **IEEE TCSVT under review**.[[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/EG)]
 
 ## Platform
 ![TO~~(2)7U@_BSBQZ7AE4PHV](https://github.com/user-attachments/assets/60072777-0df4-4fe5-948d-4b2b3e39678b)
-this module currently includes two functions:face forgery detection and text sentiment analysis.
+this module currently includes two functions:face forgery detection and text sentiment analysis.Implementation of the face forgery detection module: When users upload a facial image, the system returns the probability indicating whether the image is forged and a heatmap. Implementation of the text sentiment analysis module: When users enter texts, the system returns the possible emotions contained in the utterance.
