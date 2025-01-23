@@ -36,6 +36,7 @@ This module implements various algorithms for facial data analysis.
 
 **`2024.08`**: `Inspector for Face Forgery Detection: Defending Against Adversarial Attacks From Coarse to Fine` **IEEE TIP 2024**.
 [[paper](https://doi.org/10.1109/TIP.2024.3434388)][[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/Inspector)]
+**`2025.`**:`Deepfake Detection Leveraging Self-Blended Artifacts Guided by Facial Embedding Discrepancy` **IEEE TCSVT under review**.[[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/EG)]
 
 ## Platform
 ![TO~~(2)7U@_BSBQZ7AE4PHV](https://github.com/user-attachments/assets/60072777-0df4-4fe5-948d-4b2b3e39678b)
