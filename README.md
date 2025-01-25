@@ -31,7 +31,7 @@ This module implements various algorithms for facial privacy protection.
 
 This module implements various algorithms for facial data analysis.
 ### Paper List:
-**`2023.11`**: `Advancing Generalized Deepfake Detector with Forgery Perception Guidance` **ACM Multimedia 2024**.
+**`2024.11`**: `Advancing Generalized Deepfake Detector with Forgery Perception Guidance` **ACM Multimedia 2024**.
 [[paper](https://doi.org/10.1145/3664647.3680713)][[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/FPG)] 
 
 **`2024.08`**: `Inspector for Face Forgery Detection: Defending Against Adversarial Attacks From Coarse to Fine` **IEEE TIP 2024**.
