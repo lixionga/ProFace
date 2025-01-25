@@ -14,7 +14,7 @@ This project consists of several modules:
 This module implements various algorithms for facial privacy protection.
 ### Paper List:
 **`2025.01`**: `iFADIT: Invertible Face Anonymization via Disentangled Identity Transform` **Arxiv**.
-[[paper updating]()][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/iFADIT)]
+[[paper](http://arxiv.org/abs/2501.04390)][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/iFADIT)]
 
 **`2024.04`**: `PRO-Face C: Privacy-Preserving Recognition of Obfuscated Face via Feature Compensation` **IEEE TIFS 2024**.
 [[paper](https://ieeexplore.ieee.org/document/10499238)][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/PRO-Face%20C)]
