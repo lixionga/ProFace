@@ -2,7 +2,7 @@
 
 
 
-## Description   
+# Introduction
 Official Implementation of the paper *iFADIT: Invertible Face Anonymization via Disentangled Identity Transformation* for evaluation.
 
 
