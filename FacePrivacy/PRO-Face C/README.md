@@ -4,7 +4,7 @@ Source code for PRO-Face C: Privacy-preserving Recognition of Obfuscated Face vi
 
 # Introduction
 
-An overview of our network architecture:
+An overview of our network architecture:111
 # Prepraration
 
 ### Dependencies
