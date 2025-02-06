@@ -2,6 +2,8 @@
 
 Source code for Inspector: Inspector for Face Forgery Detection: Defending Against Adversarial Attacks From Coarse to Fine (IEEE TIP 2024: https://doi.org/10.1109/TIP.2024.3434388)
 
+# Introduction
+
 # Prepraration
 
 ### Dependencies
