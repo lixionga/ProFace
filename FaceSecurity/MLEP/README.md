@@ -9,13 +9,13 @@ Due to the large number of environment packages, the "solving environment" step 
 
 ## Getting the Test data
 
-|                        | paper  | Url  |
-|:----------------------:|:-----:|:-----:|
-| Test Dataset1          | [CNNDetection CVPR2020](https://github.com/PeterWang512/CNNDetection)                   | [Baidudrive](https://pan.baidu.com/)                 |
-| Test Dataset2          | [FreqNet AAAI2024](https://github.com/chuangchuangtan/FreqNet-DeepfakeDetection)        | [googledrive](https://drive.google.com/)             |
-| Test Dataset3          | [DIRE ICCV2023](https://github.com/ZhendongWang6/DIRE)                                  | [googledrive](https://drive.google.com/)             |
-| Test Dataset4          | [UniversalFakeDetect CVPR2023](https://github.com/Yuheng-Li/UniversalFakeDetect)        | [googledrive](https://drive.google.com/)             |
-| Test Dataset5          | [Diffusion1kStep](https://github.com/chuangchuangtan/NPR-DeepfakeDetection)             | [googledrive](https://drive.google.com/)             |
+|                | paper  | Url  |
+|:--------------:|:------:|:----:|
+| Test Dataset1  | [CNNDetection CVPR2020](https://github.com/PeterWang512/CNNDetection)             | [Baidudrive](https://pan.baidu.com/s/1l-rXoVhoc8xJDl20Cdwy4Q?pwd=ft8b)                                    |
+| Test Dataset2  | [FreqNet AAAI2024](https://github.com/chuangchuangtan/FreqNet-DeepfakeDetection)  | [googledrive](https://drive.google.com/drive/folders/11E0Knf9J1qlv2UuTnJSOFUjIIi90czSj?usp=sharing)       |
+| Test Dataset3  | [DIRE ICCV2023](https://github.com/ZhendongWang6/DIRE)                            | [googledrive](https://drive.google.com/drive/folders/1jZE4hg6SxRvKaPYO_yyMeJN_DOcqGMEf?usp=sharing)       |
+| Test Dataset4  | [UniversalFakeDetect CVPR2023](https://github.com/Yuheng-Li/UniversalFakeDetect)  | [googledrive](https://drive.google.com/drive/folders/1nkCXClC7kFM01_fqmLrVNtnOYEFPtWO-?usp=sharing)       |
+| Test Dataset5  | [Diffusion1kStep](https://github.com/chuangchuangtan/NPR-DeepfakeDetection)       | [googledrive](https://drive.google.com/drive/folders/14f0vApTLiukiPvIHukHDzLujrvJpDpRq?usp=sharing)       |
 
 You can also create a dataset with few images to test, just follow a similar folder structure below, and modify the dataroot in 'test.py'.
 
