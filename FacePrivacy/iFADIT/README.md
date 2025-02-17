@@ -3,6 +3,7 @@
 
 
 # Introduction
+Face capture has become a ubiquitous activity to support various utility scenarios, but has also raised global privacy concerns due to the extensive collection and abuse of individuals facial data. Practical solutions for protecting facial privacy often rely on simplified image obfuscations to suppress facial details, but are prone to deep reconstruction attacks and identity inference by machine vision. 
 Official Implementation of the paper *iFADIT: Invertible Face Anonymization via Disentangled Identity Transformation* for evaluation.
 
 
