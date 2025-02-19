@@ -3,6 +3,7 @@
 PRO-Face U: Real-World Applications of Utility-Guided Reversible Anonymization of Facial Images is currently in preparation.
 
 # Prepraration
+This code proposes a new paradigm for facial privacy protection. By injecting control conditions and keys into reversible neural networks, it can generate three types of facial anonymization images with different properties, including identity-preserving anonymization, visual feature-preserving anonymization, and dual anonymization, thus achieving the diversity of privacy protection. In addition, it can reversibly restore the anonymized images securely through the key, ensuring the security and reversibility of privacy protection.
 
 ### Dependencies
 
