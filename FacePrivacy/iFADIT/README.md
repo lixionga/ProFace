@@ -3,7 +3,7 @@
 
 
 # Introduction
-Face capture has become a ubiquitous activity to support various utility scenarios, but has also raised global privacy concerns due to the extensive collection and abuse of individuals facial data. Practical solutions for protecting facial privacy often rely on simplified image obfuscations to suppress facial details, but are prone to deep reconstruction attacks and identity inference by machine vision. 
+Face capture has become a ubiquitous activity to support various utility scenarios, but has also raised global privacy concerns due to the extensive collection and abuse of individuals facial data. Practical solutions for protecting facial privacy often rely on simplified image obfuscations to suppress facial details, but are prone to deep reconstruction attacks and identity inference by machine vision. In this paper, we explore a disentangled methodology that decouples the sensitive identity information from the image and accomplishes face anonymization by transforming the decoupled identity in a secure and reversible manner. To this end, a secure invertible neural network is adopted to perform secure identity transformation and reconstruction. A dedicated dual-phase training strategy is devised to optimize the disentanglement and the transformation processes progressively. Finally, qualitative and quantitative experiments demonstrate the effectiveness of the proposed approach in anonymity, reversibility, security, diversity, and interpretability.
 Official Implementation of the paper *iFADIT: Invertible Face Anonymization via Disentangled Identity Transformation* for evaluation.
 
 
