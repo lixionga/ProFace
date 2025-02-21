@@ -268,6 +268,89 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
         utility_condition = utility_fc(utility_cond_init).repeat(1, 4).reshape(_bs, 1, _w // 2, _h // 2)
         # condition_utility = torch.full((_bs, 1, _w // 2, _h // 2), torch.tensor(utility_factor)).to(device)
         condition = torch.concat((password_a, utility_condition), dim=1)
+       low1,low2,xa_out_z, xa_adv = embedder(xa,xa_obfs , condition)
+        embedding_adv = recognizer(recognizer.resize(xa_adv))
+        # cosine_sim_orig = torch.nn.functional.cosine_similarity(embedding_orig, embedding_obfs)
+        # #cosine_sim_proc = torch.nn.functional.cosine_similarity(embedding_orig, embedding_proc).cpu()
+        # #cosine_sim_expected = 1 - torch.nn.functional.relu(1 - cosine_sim_orig * np.power(5, utility_factor))
+        # #print(f"Batch-{i_batch} Orig/Proc Cos:", float(cosine_sim_orig.mean()),  float(cosine_sim_proc.mean()))
+        # face_acc=(acc(0.9,cos_loss(embedding_adv,embedding_orig)))
+        # face_list.append(face_acc.detach().cpu())
+        # gender_pred = gender_classifier(embedding_proc).cpu()
+
+        # batch_acc = accuracy(gender_pred, gender_gt)
+        # batch_acc_list.append(batch_acc.detach().cpu())
+
+        # Correct recovery
+        key_rec = skey1_dwt.repeat(1, 3, 1, 1) if c.SECRET_KEY_AS_NOISE else \
+            gauss_noise((_bs, _c * 4, _w // 2, _h // 2)).to(device)
+        xa_rev, xa_rev_2 = embedder(key_rec, xa_adv, condition, rev=True)  # Recovery using noisy image
+        embedding_rev=recognizer(recognizer.resize(xa_rev))
+        gender_predrev = gender_classifier(embedding_rev).cpu()
+        # batch_accrev = accuracy(gender_predrev, gender_gt)
+
+        # batch_acc_listrev.append(batch_accrev.detach().cpu())
+
+        password = random_password()
+        skey2 = generate_key(password, _bs, _w, _h).to(device)
+        skey2_dwt = dwt(skey2)
+
+        key_rec = skey2_dwt.repeat(1, 3, 1, 1) if c.SECRET_KEY_AS_NOISE else \
+            gauss_noise((_bs, _c * 4, _w // 2, _h // 2)).to(device)
+        xa_rev_wrong, xa_rev_wrong_2 = embedder(key_rec, xa_adv, condition, rev=True)
+
+        if i_batch <= 500:
+            save_image(normalize(xa), f"{dir_image}/batch{i_batch}_orig.jpg", nrow=4)
+            save_image(normalize(xa_adv), f"{dir_image}/batch{i_batch}_adv.jpg", nrow=4)
+            save_image(normalize(xa_obfs), f"{dir_image}/batch{i_batch}_obfs.jpg", nrow=4)
+            # # save_image(normalize(img_z, True), f"{dir_image}/batch{i_batch}_{obf_name}_proc_byproduct.jpg", nrow=4)
+            # save_image(normalize(xn), f"{dir_image}/batch{i_batch}_{obf_name}.jpg", nrow=4)
+            # save_image(normalize(xa_rev), f"{dir_image}/batch{i_batch}_{obf_name}_rev_u.jpg", nrow=4)
+            # # save_image(normalize(xa_rev_2, True), f"{dir_image}/batch{i_batch}_{obf_name}_rev_byproduct.jpg", nrow=4)
+            # save_image(normalize(xa_rev_wrong, True), f"{dir_image}/batch{i_batch}_{obf_name}_rev_wrong_u.jpg", nrow=4)
+            # save_image(normalize(xa_rev_wrong_2, True), f"{dir_image}/batch{i_batch}"
+            #                                                   f"_{obf_name}_rev_wrong_byproduct.jpg", nrow=4)
+
+            # ########### Recover the image using pre-obfuscated directly ###########
+            # key_rec = skey1_dwt.repeat(1, 3, 1, 1) if c.SECRET_KEY_AS_NOISE else \
+            #     gauss_noise((_bs, _c * 4, _w // 2, _h // 2)).to(device)
+            # xa_revFromObfs, xa_revFromObfs_2 = embedder(key_rec, xa_obfs, skey1_dwt, rev=True)  # Recovery using noisy image
+            # save_image(normalize(xa_revFromObfs, adaptive=True),
+            #            f"{dir_image}/batch{i_batch}_{obf_name}_revFromObfs.jpg", nrow=4)
+            # save_image(normalize(xa_revFromObfs_2, adaptive=True),
+            #            f"{dir_image}/batch{i_batch}_{obf_name}_revFromObfs_byproduct.jpg", nrow=4)
+            #
+            # ########### Recovery image using wrong password with only 1 bit difference ###########
+            # password = 1
+            # skey_1bit = generate_key(password, _bs, _w, _h).to(device)
+            # skey_1bit_dwt = dwt(skey_1bit)
+            # key_rec = skey_1bit_dwt.repeat(1, 3, 1, 1) if c.SECRET_KEY_AS_NOISE else \
+            #     gauss_noise((_bs, _c * 4, _w // 2, _h // 2)).to(device)
+            # xa_rev_wrong1bit, xa_rev_wrong1bit_2 = embedder(key_rec, xa_proc, skey_1bit_dwt, rev=True)
+            # save_image(normalize(xa_rev_wrong1bit, adaptive=True),
+            #            f"{dir_image}/batch{i_batch}_{obf_name}_rev_wrong1bit.jpg", nrow=4)
+            #
+            # ########### Noise Test: Recovery with noised add on image ##########
+            # for m in range(0, 11):
+            #     key_rec = skey1_dwt.repeat(1, 3, 1, 1) if c.SECRET_KEY_AS_NOISE else \
+            #         gauss_noise((_bs, _c * 4, _w // 2, _h // 2)).to(device)
+            #     img_nose = gauss_noise(xa_proc.shape).to(device) * 0.001 * m
+            #     xa_revNoise, xa_revNoise_2 = embedder(key_rec, xa_proc + img_nose, skey1_dwt, rev=True)  # Recovery using
+            #     # noisy image
+            #     save_image(normalize(xa_revNoise), f"{dir_image}/batch{i_batch}_{obf_name}_rev_noise{m}.jpg", nrow=4)
+        sum0=sum0+1
+        # diff = np.subtract(embedding_orig.cpu().detach().numpy(), embedding_adv.cpu().detach().numpy())  # 计算两组嵌入（embeddings1 和 embeddings2）之间的差异
+        # dist = np.sum(np.square(diff), 1)
+        embedding_orig = embedding_orig / torch.linalg.norm(embedding_orig, axis=1, keepdims=True)
+        embedding_adv = embedding_adv / torch.linalg.norm(embedding_adv, axis=1, keepdims=True)
+        dist = torch.nn.functional.cosine_similarity(embedding_adv, embedding_orig).detach().cpu().numpy().mean()
+        # print(loss_cos)
+        if dist<0.17:
+            right=right+1
+
+
+        xa_norm = normalize(xa)
+
 if __name__ == '__main__':
     print("runs")
     embedder_configs = [
