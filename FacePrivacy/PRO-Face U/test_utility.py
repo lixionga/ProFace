@@ -139,6 +139,135 @@ def acc(threshold,predict):
     # 计算准确率
     acc2 = binary_predictions.mean()
     return acc2
+def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gender_classifier, dataloader,
+                    swap_target_set=(), typeWR='', dir_image='./images'):
+
+    pro_ssim_list = []
+    pro_psnr_list = []
+    pro_lpips_list = []
+    pro_cos_list = []
+
+
+    rec_ssim_list = []
+    rec_psnr_list = []
+    rec_lpips_list = []
+
+    wrec_ssim_list = []
+    wrec_psnr_list = []
+    wrec_lpips_list = []
+
+    features_list = []
+    labels_list = []
+    batch_acc_list = []
+    face_list=[]
+    batch_acc_listrev=[]
+
+    swap_target_set_len = len(swap_target_set)
+    # cartoon_set_len = len(cartoon_set)
+    right=0
+    # resize_transforms = [
+    #     T.Resize(112, interpolation=InterpolationMode.BICUBIC),
+    # ]
+    sum0=0
+    # recognizer.resize = T.Compose(resize_transforms)
+    for i_batch, data_batch in tqdm(enumerate(dataloader)):
+    # for i_batch, data_batch in enumerate(dataloader):
+        i_batch += 1
+        if i_batch>500:
+            break
+        xa,identity = data_batch
+        # custom_transform = transforms.Compose([
+        #     transforms.ToTensor(),
+        #     transforms.Normalize(mean=0.5, std=0.5)
+        # ])
+        # image_path1 = '/home/lixiong/Projects/ProFaceUtility/one/1/Ann_Veneman_0001.jpg'
+        # image_path2 = '/home/lixiong/Projects/ProFaceUtility/one/1/Ann_Veneman_0001.jpg'  # 替换为你的图像文件路径
+        # image1 = Image.open(image_path1)
+        # image2 = Image.open(image_path2)
+        # tensor_image1 = custom_transform(image1)
+        # tensor_image2 = custom_transform(image2)
+        # tensor_image1 = torch.cat([tensor_image1.unsqueeze(0).to(device) for _ in range(1)], dim=0)
+        # tensor_image2 = torch.cat([tensor_image2.unsqueeze(0).to(device) for _ in range(1)], dim=0)
+        # embedding_orig1 = recognizer(recognizer.resize(tensor_image1))
+        # embedding_adv1 = recognizer(recognizer.resize(tensor_image2))
+
+        _bs, _c, _w, _h = xa.shape
+        # _bs = 1
+        xa = xa.to(device)
+        # xa = Image.open('/home/yuanlin/Projects/ProFaceUtility/runs/Mar08_16-18-43_YL1_hybridAll_inv3_recTypeRandom_utility/train_out/Train_ep16_batch1_orig.jpg').convert("RGB")
+        # custom_transform = transforms.Compose([
+        #     transforms.Resize(112, interpolation=Image.BICUBIC),
+        #     transforms.ToTensor(),
+        #     transforms.Normalize(mean=0.5, std=0.5)
+        # ])
+        # xa = custom_transform(xa)
+        #
+        # num_repeats = 1
+        # xa = torch.cat([xa.unsqueeze(0).to("cuda:0") for _ in range(num_repeats)], dim=0)
+        # xn = Image.open('/home/yuanlin/Projects/ProFaceUtility/runs/Mar05_20-30-03_YL1_hybridAll_inv3_recTypeRandom_utility/checkpoints/hybridAll_inv3_recTypeRandom_utility_x_ori1_iter3000.pth').convert("RGB")
+        # custom_transform = transforms.Compose([
+        #     transforms.Resize(112, interpolation=Image.BICUBIC),
+        #     transforms.ToTensor(),
+        #     transforms.Normalize(mean=0.5, std=0.5)
+        # ])
+        # xn = custom_transform(xn)
+        #
+        #
+        # xn = torch.cat([xn.unsqueeze(0).to("cuda:0") ], dim=0)
+        # xa_adv = Image.open('/home/yuanlin/Projects/ProFaceUtility/runs/Mar08_16-18-43_YL1_hybridAll_inv3_recTypeRandom_utility/train_out/Train_ep16_batch1_adv.jpg').convert("RGB")
+        # custom_transform = transforms.Compose([
+        #     transforms.Resize(112, interpolation=Image.BICUBIC),
+        #     transforms.ToTensor(),
+        #     transforms.Normalize(mean=0.5, std=0.5)
+        # ])
+        # xa_adv = custom_transform(xa_adv)
+        #
+        # num_repeats = 1
+        # xa_adv = torch.cat([xa_adv.unsqueeze(0).to("cuda:0") for _ in range(num_repeats)], dim=0)
+
+        # xn=torch.full((1, 3, 112, 112), 0.5).to(device)
+        # image_size = (3, 112, 112)
+        #
+        # std_dev = 1
+        #
+        # gaussian_noise = np.random.normal(0, std_dev, image_size)
+        # gaussian_noise = np.clip(gaussian_noise, -1, 1)
+        # gaussian_noise = torch.tensor(gaussian_noise, dtype=torch.float32)
+        #
+        # num_repeats = 1
+        # xn = torch.cat([gaussian_noise.unsqueeze(0).to("cuda:0") for _ in range(num_repeats)], dim=0)
+
+        # embedding_orig = recognizer(recognizer.resize(xa))
+        # xn = noise_mk(embedding_orig).repeat(1, 4).reshape(_bs, 3, _w, _h)
+
+        # targ_img = None
+        # obf_name = obfuscator.func.__class__.__name__
+        # if obf_name in ['FaceShifter', 'SimSwap']:
+        #     targ_img, _ = swap_target_set[i_batch % swap_target_set_len]
+        #     # targ_img, _ = swap_target_set[i_batch]
+        # elif obf_name == 'Mask':
+        #     targ_img, _ = cartoon_set[(i_batch - 1) % cartoon_set_len]
+        embedding_orig = recognizer(recognizer.resize(xa))
+        xa_id = obfuscator.extract_features(xa).to(device)
+        xa_obfs_id = noise_mk(xa_id).to(device)
+
+        xa_obfs = obfuscator(xa, xa_obfs_id)
+        xa_obfs.to(device)
+
+################################################################################################################
+        ## Create password from protection
+        # password = random_password()
+        password = 0
+        skey1 = generate_key(password, _bs, _w, _h).to(device)
+        skey1_dwt = dwt(skey1)
+
+        password_a = dwt(torch.randint(0, 2, (_bs, 1, _w, _h)).mul(2).sub(1).to(device))
+        utility_factor = 0
+        utility_cond_init = torch.tensor([1.0,0.0]).repeat(_bs, 1).to(device)
+        # utility_cond_init = torch.tensor[float(utility_factor), 1 - float(utility_factor)]).repeat(_bs, 1).to(device)
+        utility_condition = utility_fc(utility_cond_init).repeat(1, 4).reshape(_bs, 1, _w // 2, _h // 2)
+        # condition_utility = torch.full((_bs, 1, _w // 2, _h // 2), torch.tensor(utility_factor)).to(device)
+        condition = torch.concat((password_a, utility_condition), dim=1)
 if __name__ == '__main__':
     print("runs")
     embedder_configs = [
