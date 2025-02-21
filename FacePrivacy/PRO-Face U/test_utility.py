@@ -476,6 +476,61 @@ def main(inv_nblocks, embedder_path, fc_path, noise_path,dataset_path, test_sess
     target_set_train_nums = int(test_frontal_nums * 0.9)
     target_set_test_nums = test_frontal_nums - target_set_train_nums
     torch.manual_seed(0)
+    target_set_train, target_set_test = \
+        torch.utils.data.random_split(test_frontal_set, [target_set_train_nums, target_set_test_nums])
+
+    # Sticker images used for face masking in train and test
+    # cartoon_set = datasets.ImageFolder(c.cartoon_face_path, loader=rgba_image_loader)
+    # cartoon_num = len(cartoon_set)
+    # _train_num = int(cartoon_num * 0.9)
+    # _test_num = cartoon_num - _train_num
+    # torch.manual_seed(1)
+    # cartoon_set_train, cartoon_set_test = torch.utils.data.random_split(cartoon_set, [_train_num, _test_num])
+
+    # Try run validation first
+    embedder.eval()
+    utility_fc.eval()
+    noise_mk.eval()
+    # Create obfuscator
+    #obf_options = ['medianblur_15', 'blur_21_6_10', 'pixelate_9', 'faceshifter', 'simswap', 'mask']
+    obf_options = ['simswap']
+
+
+
+
+    # Create train dataloader
+    dir_test = os.path.join(dataset_path)
+    dataset_test = datasets.ImageFolder(dir_test, transform=input_trans)
+
+    # # Add gender label to test set
+    # celeba_attr_dict = get_celeba_attr_labels(attr_file=c.celeba_attr_file, attr='Male')
+    # dataset_test.samples = [
+    #     (p, (idx, celeba_attr_dict[os.path.basename(p)]))
+    #     for p, idx in dataset_test.samples
+    # ]
+
+    loader_test = DataLoader(dataset_test, num_workers=workers, batch_size=batch_size, shuffle=False)
+
+    results = {}
+    for obf_opt in obf_options:
+        print('__________ {} __________'.format(obf_opt))
+        obfuscator = Obfuscator(obf_opt, device)
+        obfuscator.eval()
+        #utility_factors = np.arange(0, 1.1, 0.2)
+        acc_list = []
+        #for uf in utility_factors:
+        ssim_orig_adv,psnr_orig_adv,lpips_orig_adv,cos,lc = test_epoch_mm23(
+                embedder, obfuscator, utility_fc,noise_mk,recognizer, gender_classifier, loader_test,
+                target_set_test, typeWR, dir_image=test_session_dir
+            )
+        # acc_list.append(obfuscator_metrics)
+        print('ssim:{} - psnr:{} -lpips:{} -CosSim:{} -acc:{}'.format( ssim_orig_adv,psnr_orig_adv,lpips_orig_adv,cos,lc))
+
+        # print('{}: {}'.format(obf_opt, obfuscator_metrics))
+        # results[obf_opt] = obfuscator_metrics
+        print('{}: {}'.format(obf_opt, acc_list))
+
+    return results
 if __name__ == '__main__':
     print("runs")
     embedder_configs = [
