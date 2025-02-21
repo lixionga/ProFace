@@ -4,6 +4,10 @@ Source code for PRO-Face C: Privacy-preserving Recognition of Obfuscated Face vi
 
 # Introduction
 PRO-Face-C achieves high-precision recognition of obfuscated faces through an end-cloud collaborative feature compensation mechanism. Its core technologies include hybrid blurring, block-based feature map channel shuffling, feature map quantization, and pruning. These technologies work together to ensure that the user's original facial appearance is not clearly disclosed while also ensuring recognition accuracy. In terms of system architecture, PRO-Face-C adopts a client-server model. The client is responsible for obtaining and transmitting the blurred image and auxiliary feature map to the server, and the server utilizes a pre-trained facial recognition model and a feature compensation module for high-precision recognition.
+An overview of our network architecture:
+![image](https://github.com/user-attachments/assets/cb28c752-fee9-4325-b7c2-316484e571fe)
+
+
 # Prepraration
 
 ### Dependencies
