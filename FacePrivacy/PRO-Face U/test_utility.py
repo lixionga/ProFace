@@ -350,6 +350,76 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
 
 
         xa_norm = normalize(xa)
+         #### Privacy metrics
+        xa_adv_norm = normalize(xa_adv)
+        # SSIM
+        pro_ssim_score = ssim(xa_norm, xa_adv_norm).detach().cpu()
+        pro_ssim_list.append(pro_ssim_score)
+        # PSNR
+        pro_psnr = psnr(xa_norm, xa_adv_norm).detach().cpu()
+        pro_psnr_list.append(pro_psnr)
+        # LPIPS
+        pro_lpips = lpips_loss(xa_norm, xa_adv_norm).detach().cpu()
+        pro_lpips_list.append(pro_lpips)
+        #
+        pro_cos_list.append(dist)
+        # #### Recovery metrics
+        # # SSIM
+        # xa_rev_norm = normalize(xa_rev)
+        # rec_ssim_score = ssim(xa_rev_norm, xa_norm).detach().cpu()
+        # rec_ssim_list.append(rec_ssim_score)
+        # # PSNR
+        # rec_psnr = psnr(xa_rev_norm, xa_norm).detach().cpu()
+        # rec_psnr_list.append(rec_psnr)
+        # # LPIPS
+        # rec_lpips = lpips_loss(xa_rev_norm, xa_norm).detach().cpu()
+        # rec_lpips_list.append(rec_lpips)
+        #
+        # #### Wrong Recovery metrics
+        # xa_rev_wrong_norm = normalize(xa_rev_wrong, adaptive=True)
+        #
+        # if typeWR == 'RandWR':
+        #     # SSIM
+        #     wrec_ssim_score = ssim(xa_rev_wrong_norm, xa_norm).detach().cpu()
+        #     wrec_ssim_list.append(wrec_ssim_score)
+        #     # PSNR
+        #     wrec_psnr = psnr(xa_rev_wrong_norm, xa_norm).detach().cpu()
+        #     wrec_psnr_list.append(wrec_psnr)
+        #     # LPIPS
+        #     wrec_lpips = lpips_loss(xa_rev_wrong_norm, xa_norm).detach().cpu()
+        #     wrec_lpips_list.append(wrec_lpips)
+        # else:
+        #     # SSIM
+        #     wrec_ssim_score = ssim(xa_rev_wrong_norm, xa_obfs_norm).detach().cpu()
+        #     wrec_ssim_list.append(wrec_ssim_score)
+        #     # PSNR
+        #     wrec_psnr = psnr(xa_rev_wrong_norm, xa_obfs_norm).detach().cpu()
+        #     wrec_psnr_list.append(wrec_psnr)
+        #     # LPIPS
+        #     wrec_lpips = lpips_loss(xa_rev_wrong_norm, xa_obfs_norm).detach().cpu()
+        #     wrec_lpips_list.append(wrec_lpips)
+
+
+    # metric_results = {
+    #     'pSSIM': float(np.mean(pro_ssim_list)),
+    #     'pLPIPS': float(np.mean(pro_lpips_list)),
+    #     'pPSNR': float(np.mean(pro_psnr_list)),
+    #     'rSSIM': float(np.mean(rec_ssim_list)),
+    #     'rLPIPS': float(np.mean(rec_lpips_list)),
+    #     'rPSNR': float(np.mean(rec_psnr_list)),
+    #     'wrSSIM': float(np.mean(wrec_ssim_list)),
+    #     'wrLPIPS': float(np.mean(wrec_lpips_list)),
+    #     'wrPSNR': float(np.mean(wrec_psnr_list)),
+    # }
+    #
+    # return metric_results
+    ssim_ori_adv=np.mean(pro_ssim_list)
+    psnr_ori_adv = np.mean(pro_psnr_list)
+    lpips_ori_adv=np.mean(pro_lpips_list)
+    cos_ori_adv=np.mean(pro_cos_list)
+    resule=right/sum0
+    # print("Gender classify acc.", mean_acc)
+    return ssim_ori_adv,psnr_ori_adv,lpips_ori_adv,cos_ori_adv,resule
 
 if __name__ == '__main__':
     print("runs")
