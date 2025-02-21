@@ -420,7 +420,62 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
     resule=right/sum0
     # print("Gender classify acc.", mean_acc)
     return ssim_ori_adv,psnr_ori_adv,lpips_ori_adv,cos_ori_adv,resule
+def main(inv_nblocks, embedder_path, fc_path, noise_path,dataset_path, test_session_dir, typeWR, batch_size):
 
+    workers = 0 if os.name == 'nt' else 8
+
+    # Determine if an nvidia GPU is available
+    print('Running on device: {}'.format(device))
+
+    #### Define the models
+    embedder = ModelDWT(n_blocks=inv_nblocks)
+    state_dict = torch.load(embedder_path)
+    embedder.load_state_dict(state_dict)
+    embedder.to(device)
+
+    utility_fc = UtilityConditioner()
+    state_dict = torch.load(fc_path)
+    utility_fc.load_state_dict(state_dict)
+    utility_fc.to(device)
+
+    noise_mk = Noisemaker()
+    state_dict = torch.load(noise_path)
+    noise_mk.load_state_dict(state_dict)
+    noise_mk.to(device)
+
+    fr_model1 = irse.MobileFaceNet(512)
+    fr_model1.load_state_dict(torch.load('./Pretrained_FR_Models/mobile_face.pth'))
+    fr_model1.to(device)
+    fr_model1.eval()
+
+    fr_model2 = irse.Backbone(50, 0.6, 'ir_se')
+    fr_model2.load_state_dict(torch.load('./Pretrained_FR_Models/irse50.pth'))
+    fr_model2.to(device)
+    fr_model2.eval()
+
+    fr_model = ir152.IR_152((112, 112))
+    fr_model.load_state_dict(torch.load('./Pretrained_FR_Models/ir152.pth'))
+    fr_model.to(device)
+    fr_model.eval()
+
+    recognizer = get_recognizer(c.recognizer)
+    recognizer.to(device)
+    recognizer.eval()
+
+    gender_classifier = AttrClassifierHead()
+    state_dict = torch.load(os.path.join(DIR_PROJ, "face/gender_model/gender_classifier_AdaFaceIR100.pth"))
+    gender_classifier.load_state_dict(state_dict)
+    gender_classifier.to(device)
+    gender_classifier.eval()
+
+    print('Number of parameters: {}'.format(get_parameter_number(embedder)))
+
+    # Target images used for face swapping
+    test_frontal_set = datasets.ImageFolder(c.target_img_dir_test)
+    test_frontal_nums = len(test_frontal_set)
+    target_set_train_nums = int(test_frontal_nums * 0.9)
+    target_set_test_nums = test_frontal_nums - target_set_train_nums
+    torch.manual_seed(0)
 if __name__ == '__main__':
     print("runs")
     embedder_configs = [
