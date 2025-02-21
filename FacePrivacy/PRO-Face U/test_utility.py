@@ -105,3 +105,66 @@ def get_test_celeA(data_path, pairs_file):
     # 将list转换为ndarray
     issame = np.array(issame)
     return img_list, issame
+def generate_key(password,  bs, w, h):
+    '''
+    Function to generate a secret key with length nbits, based on an input password
+    :param password: string password
+    :param bs, w, h: batch_size, weight, height
+    :return: tensor of 1 and -1 in shape(bs, 1, w, h)
+    '''
+    salt = 1
+    key = PBKDF2(password, salt, int(w * h / 8), count=10, hmac_hash_module=SHA512)
+    list_int = list(key)
+    array_uint8 = np.array(list_int, dtype=np.uint8)
+    array_bits = np.unpackbits(array_uint8).astype(int) * 2 - 1
+    array_bits_2d = array_bits.reshape((w, h))
+    skey_tensor = torch.tensor(array_bits_2d).repeat(bs, 1, 1, 1)
+    return skey_tensor
+
+
+dwt.to(device)
+lpips_loss.to(device)
+ssim = StructuralSimilarityIndexMeasure(data_range=1.0).to(device)
+mse = MeanSquaredError().to(device)
+psnr = PeakSignalNoiseRatio().to(device)
+
+
+#def acc(param, param1):
+#    pass
+
+
+def acc(threshold,predict):
+    # 将余弦相似度张量与阈值比较，得到二元张量
+    binary_predictions = (predict >= threshold).float()\
+    # 计算准确率
+    acc2 = binary_predictions.mean()
+    return acc2
+if __name__ == '__main__':
+    print("runs")
+    embedder_configs = [
+        [3, 'RandWR',
+         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec29_23-14-01_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_ep23.pth"),
+         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec29_23-14-01_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_utilityFC_ep23.pth"),
+         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec25_02-00-59_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_ep3_iter500.pth"),
+         ],
+
+    ]
+
+    # Path to original datasets
+    datasets1k = (
+        # ('CelebA', '/media/Data8T/Datasets/CelebA/align_crop_224/test'),
+        # ('FFHQ', '/media/Data8T/Datasets/FFHQ128/test'),
+        ('LFW', os.path.join(c.DIR_PROJECT, 'experiments/test_data/LFW')),
+    )
+
+    for inv_nblocks, typeWR, embedder_path, fc_path,noise_path in embedder_configs:
+        print(f"******************* {inv_nblocks} inv blocks **********************")
+        for dataset_name, dataset_path in datasets1k:
+            test_session = f"{dataset_name}_{inv_nblocks}InvBlocks_{typeWR}_utility"
+            test_session_dir = os.path.join(DIR_EVAL_OUT, test_session)
+            os.makedirs(test_session_dir, exist_ok=True)
+            result_file = os.path.join(DIR_EVAL_OUT, f"{test_session}.json")
+            result_dict = main(inv_nblocks, embedder_path, fc_path, noise_path,dataset_path, test_session_dir, typeWR,
+                               batch_size=1)
+            # with open(result_file, 'w') as f:
+            #     json.dump(result_dict, f)
