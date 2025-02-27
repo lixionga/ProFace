@@ -78,7 +78,95 @@ def prepare_logger(session):
     return writer, dir_train_out, dir_checkpoints, dir_eval_out
 
 
+def main(rec_name, obf_options, utility_level, attr_rec_model, dataset_dir, eval_dir, eval_pairs, debug):
 
+    batch_size = c.batch_size
+    epochs = 50
+    start_epoch, epoch_iter = 1, 0
+    workers = 0 if os.name == 'nt' else 8
+    max_batch = np.inf
+    embedder_model_path = None
+
+    if debug:
+        epochs = 2
+        max_batch = 10
+
+    # Determine if an nvidia GPU is available
+    # device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
+    print('Running on device: {}'.format(device))
+
+    #### Define the models
+    embedder = ModelDWT(n_blocks=c.INV_BLOCKS)
+    embedder.to(device)
+    init_model(embedder, device)
+    # para = get_parameter_number(embedder)
+    # print(para)
+
+    utility_fc = UtilityConditioner()
+    utility_fc.to(device)
+
+    noise_mk = Noisemaker()
+    state_dict = torch.load(os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec25_02-00-59_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_ep3_iter500.pth"))
+    noise_mk.load_state_dict(state_dict)
+    noise_mk.to(device)
+    noise_mk.eval()
+
+    params_trainable = (
+        list(filter(lambda p: p.requires_grad, embedder.parameters()))
+        + list(filter(lambda p: p.requires_grad, utility_fc.parameters()))
+    )
+
+    ### Define optimizer, scheduler, dataset, and dataloader
+    optimizer = torch.optim.Adam(params_trainable, lr=c.lr, eps=1e-6, weight_decay=c.weight_decay)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, c.weight_step, gamma=c.gamma)
+
+    recognizer = get_recognizer(rec_name)
+    recognizer.to(device)
+    recognizer.eval()
+
+    gender_classifier = AttrClassifierHead()
+    state_dict = torch.load(os.path.join(DIR_PROJ, "face/gender_model/gender_classifier_AdaFaceIR100.pth"))
+    gender_classifier.load_state_dict(state_dict)
+    gender_classifier.to(device)
+    gender_classifier.eval()
+
+
+
+
+    # #### Define the utility classification face_detection
+    # classifier = None
+    # if utility_level > 0 and attr_rec_model and os.path.isfile(attr_rec_model):
+    #     classifier = FaceClassifierHead()
+    #     _state_dict = torch.load(attr_rec_model)
+    #     classifier.load_state_dict(_state_dict)
+    #     classifier.to(device)
+    #     classifier.eval()
+
+    # Create obfuscator
+    obfuscator = Obfuscator(obf_options, device)
+
+    # Create train dataloader
+    dir_train = os.path.join(dataset_dir, 'train')
+    dataset_train = datasets.ImageFolder(dir_train, transform=input_trans)
+    celeba_attr_dict = get_celeba_attr_labels(attr_file=c.celeba_attr_file, attr='Male')
+    dataset_train.samples = [
+        (p, (idx, celeba_attr_dict[os.path.basename(p)]))
+        for p, idx in dataset_train.samples
+    ]
+    loader_train = DataLoader(dataset_train, num_workers=workers, batch_size=batch_size, shuffle=True)
+
+
+
+
+    # Create valid dataloader
+    dir_valid = os.path.join(dataset_dir, 'valid')
+
+    dataset_valid = datasets.ImageFolder(dir_valid, transform=input_trans)
+    dataset_valid.samples = [
+        (p, (idx, celeba_attr_dict[os.path.basename(p)]))
+        for p, idx in dataset_valid.samples
+    ]
+    loader_valid = DataLoader(dataset_valid, num_workers=workers, batch_size=batch_size, shuffle=True)
 
 
 
