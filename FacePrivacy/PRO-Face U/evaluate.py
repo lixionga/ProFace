@@ -114,3 +114,49 @@ def run_eval(embedder, recognizer, obfuscator, dataloader, path_list, issame_lis
     embeddings_dict_orig = dict(zip(file_paths, embeddings_list_orig))
     embeddings_dict_proc = dict(zip(file_paths, embeddings_list_proc))
     embeddings_dict_obfs = dict(zip(file_paths, embeddings_list_obfs))
+     embeddings_list_p2o_ordered = []
+    embeddings_list_obfs_ordered = []
+    for path_a, path_b in zip(path_list[0::2], path_list[1::2]):
+        # embeddings_list_o2p.append(embeddings_dict_orig[path_a])
+        # embeddings_list_o2p.append(embeddings_dict_proc[path_b])
+        embeddings_list_p2o_ordered.append(embeddings_dict_proc[path_a])
+        embeddings_list_p2o_ordered.append(embeddings_dict_orig[path_b])
+        embeddings_list_obfs_ordered.append(embeddings_dict_obfs[path_a])
+        embeddings_list_obfs_ordered.append(embeddings_dict_orig[path_b])
+    # embeddings_list_o2p = np.array(embeddings_list_o2p)
+    embeddings_list_p2o_ordered = np.array(embeddings_list_p2o_ordered)
+    embeddings_list_orig_ordered = np.array([embeddings_dict_orig[path] for path in path_list])
+    embeddings_list_proc_ordered = np.array([embeddings_dict_proc[path] for path in path_list])
+    embeddings_list_obfs_ordered = np.array(embeddings_list_obfs_ordered)
+
+    test_cases = [
+        ('Original', embeddings_list_orig_ordered, 'k-'),
+        ('Protected', embeddings_list_proc_ordered, 'k--'),
+        ('Prot-Orig', embeddings_list_p2o_ordered, 'k-.'),
+        ('Obfuscated', embeddings_list_obfs_ordered, 'k:'),
+    ]
+
+    plt.clf()
+
+    for case, embedding_list, line_style in test_cases:
+        tpr, fpr, roc_auc, eer, accuracy, precision, recall, tars, tar_std, fars, bts = \
+            evaluate(embedding_list, issame_list, distance_metric=1)
+        acc, thres = np.mean(accuracy), np.mean(bts)
+        result_msg = '{}：\n' \
+                     '    ACC: {:.4f} | THRES: {:.4f} | AUC: {:.4f} | EER: {:.4f} | TARs: {} | FARs: {} | PS: {:.4f}'. \
+            format(case, acc, thres, roc_auc, eer, [round(i, 4) for i in tars], [round(i, 4) for i in fars],
+                   np.mean(privacy_scores))
+        logging.info(result_msg)
+        print(result_msg)
+        plt.plot(fpr, tpr, line_style, label='{} | Acc. {:.4f} | Thres. {:.4f}'.format(case, acc, thres))
+
+    plt.xlabel('FPR')
+    plt.ylabel('TPR')
+    plt.title(model_name)
+    plt.legend()
+    plt.grid()
+    plt.savefig(f'{out_dir}/roc_{model_name}.pdf', bbox_inches='tight')
+    plt.show()
+
+    # print('AVG. Triplet Loss:', np.mean(triplet_losses))
+    print('AVG. Privacy Score:', np.mean(privacy_scores))
