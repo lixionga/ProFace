@@ -196,3 +196,44 @@ def generate():
             save_name = os.path.join(opt.save_path, reference_name, source_name)
             save_image(out, f'{save_name}')
     print('Finished! Image saved in:', os.path.abspath(opt.save_path))
+def attack_FR_models(attack=True):
+    for test_model in test_models.keys():
+        size = test_models[test_model][0]
+        model = test_models[test_model][1]
+        target = read_img(opt.target_image, 0.5, 0.5, device)
+        target_embbeding = model((F.interpolate(target, size=size, mode='bilinear')))
+        FAR001 = 0
+        total = 0
+        if attack:
+            for ref in os.listdir(opt.save_path):
+                path = os.path.join(opt.save_path, ref)
+                for img in tqdm(os.listdir(path), desc=test_model + ' ' + ref,position=0,mininterval=30):
+                    adv_example = read_img(os.path.join(path, img), 0.5, 0.5, device)#adv_example shape is [1,3,256,256]
+                    if(opt.gaussian_blur):
+                        adv_example=gaussian_blur_tensor_image(adv_example, opt.kernel_sigma_list[0][0],opt.kernel_sigma_list[0][1])
+                    elif(opt.gaussian_noise):
+                        adv_example=add_gaussian_noise(adv_example, opt.mean_std_list[0][0], opt.mean_std_list[0][1])
+                    elif(opt.image_jpeg):
+                        adv_example=denorm(adv_example)
+                        adv_example=image_jpeg(adv_example,opt.quality_list[0])
+                        adv_example=norm(adv_example)
+
+                    adv_embbeding = model((F.interpolate(adv_example, size=size, mode='bilinear')))
+                    cos_simi = torch.cosine_similarity(adv_embbeding, target_embbeding)
+                    
+                    if cos_simi.item() > th_dict[test_model][1]:
+                        FAR001 += 1
+                    total += 1
+        
+        print(test_model, "ASR in FAR@0.01: {:.4f}".format(FAR001 / total))
+
+
+
+
+
+if __name__ == '__main__':
+    type = sys.getfilesystemencoding()
+    sys.stdout = Logger(opt.log_path)
+    generate()
+    attack_FR_models()
+      
