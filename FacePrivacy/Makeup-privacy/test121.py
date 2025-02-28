@@ -112,3 +112,87 @@ def cos_similarity( emb_before_pasted, emb_target_img):
     """
     return torch.mean(torch.sum(torch.mul(emb_target_img, emb_before_pasted), dim=1)
                       / emb_target_img.norm(dim=1) / emb_before_pasted.norm(dim=1))
+model = Pix2PixModel(opt)
+
+if len(opt.gpu_ids) > 0:
+            model = DataParallelWithCallback(model,device_ids=opt.gpu_ids)
+model.eval()
+
+
+
+n_classes = 19
+parsing_net = BiSeNet(n_classes=n_classes)
+parsing_net.load_state_dict(torch.load('./models/networks/face_parsing/79999_iter.pth'))
+parsing_net.eval()
+for param in parsing_net.parameters():
+    param.requires_grad = False
+
+if not os.path.exists(opt.save_path):
+    os.mkdir(opt.save_path)
+
+
+
+#log record
+
+
+class Logger(object):
+    def __init__(self, filename="Default.log"):
+        self.terminal = sys.stdout
+        self.log = open(filename, "a")
+ 
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+    def flush(self):
+        pass
+ 
+
+def generate():
+    source_paths = os.listdir(opt.source_dir)
+    source_paths.sort(key=lambda x: int(x.split('.')[0]))  
+    reference_paths = os.listdir(opt.reference_dir)
+    for source_path in tqdm(source_paths):
+        source_name = source_path.replace('.jpg', '.png')
+        source_path = os.path.join(opt.source_dir, source_path)
+        c= Image.open(source_path).convert("RGB")
+        for reference_path in reference_paths:
+            reference_name = reference_path.split('.')[0]
+            reference_path = os.path.join(opt.reference_dir, reference_path)
+            s = Image.open(reference_path).convert("RGB")
+            height, width = c.size[0], c.size[1]
+            c_m = c.resize((512, 512))
+            s_m = s.resize((512, 512))
+            c = c.resize((256, 256))
+            s = s.resize((256, 256))
+            # print(c.size)
+            c_tensor = trans(c).unsqueeze(0)
+            s_tensor = trans(s).unsqueeze(0)
+            c_m_tensor = trans(c_m).unsqueeze(0)
+            s_m_tensor = trans(s_m).unsqueeze(0)
+
+            x_label = parsing_net(c_m_tensor)[0]
+            y_label = parsing_net(s_m_tensor)[0]
+            x_label = F.interpolate(x_label, (256, 256), mode='bilinear', align_corners=True)
+            y_label = F.interpolate(y_label, (256, 256), mode='bilinear', align_corners=True)
+            x_label = torch.softmax(x_label, 1)
+            y_label = torch.softmax(y_label, 1)
+
+            nonmakeup_unchanged = (x_label[0, 0, :, :] + x_label[0, 4, :, :] + x_label[0, 5, :, :] + x_label[0, 11, :,:] + x_label[0, 16,:,:] + x_label[0, 17, :,:]).unsqueeze(0).unsqueeze(0)
+            makeup_unchanged = (y_label[0, 0, :, :] + y_label[0, 4, :, :] + y_label[0, 5, :, :] + y_label[0, 11, :,:] + y_label[0, 16, :,:] + y_label[0,17, :,:]).unsqueeze(0).unsqueeze(0)
+
+            input_dict = {'nonmakeup': c_tensor,
+                          'makeup': s_tensor,
+                          'label_A': x_label,
+                          'label_B': y_label,
+                          'makeup_unchanged': makeup_unchanged,
+                          'nonmakeup_unchanged': nonmakeup_unchanged
+                          }
+            synthetic_image = model([input_dict], mode='inference')
+            out = denorm(synthetic_image[0])
+            out = F.interpolate(out, (256, 256 * height // width), mode='bilinear', align_corners=False)
+            save_path = os.path.join(opt.save_path, reference_name)
+            if not os.path.exists(save_path):
+                os.makedirs(save_path)
+            save_name = os.path.join(opt.save_path, reference_name, source_name)
+            save_image(out, f'{save_name}')
+    print('Finished! Image saved in:', os.path.abspath(opt.save_path))
