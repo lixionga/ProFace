@@ -48,3 +48,67 @@ class TestOptions(BaseOptions):
 opt = TestOptions().parse()
 
 device = torch.device('cuda:{}'.format(opt.gpu_ids[0])) if opt.gpu_ids[0] >= 0 else torch.device('cpu')
+test_models = {}
+for model_name in opt.test_models_list:
+    if model_name == 'ir152':
+        test_models[model_name] = []
+        test_models[model_name].append((112, 112))
+        fr_model = ir152.IR_152((112, 112))
+        fr_model.load_state_dict(torch.load('./Pretrained_FR_Models/ir152.pth'))
+        fr_model.to(device)
+        fr_model.eval()
+        test_models[model_name].append(fr_model)
+    if model_name == 'irse50':
+        test_models[model_name] = []
+        test_models[model_name].append((112, 112))
+        fr_model = irse.Backbone(50, 0.6, 'ir_se')
+        fr_model.load_state_dict(torch.load('./Pretrained_FR_Models/irse50.pth'))
+        fr_model.to(device)
+        fr_model.eval()
+        test_models[model_name].append(fr_model)
+    if model_name == 'facenet':
+        test_models[model_name] = []
+        test_models[model_name].append((160, 160))
+        fr_model = facenet.InceptionResnetV1(num_classes=8631, device=device)
+        fr_model.load_state_dict(torch.load('./Pretrained_FR_Models/facenet.pth'))
+        fr_model.to(device)
+        fr_model.eval()
+        test_models[model_name].append(fr_model)
+    if model_name == 'mobile_face':
+        test_models[model_name] = []
+        test_models[model_name].append((112, 112))
+        fr_model = irse.MobileFaceNet(512)
+        fr_model.load_state_dict(torch.load('./Pretrained_FR_Models/mobile_face.pth'))
+        fr_model.to(device)
+        fr_model.eval()
+        test_models[model_name].append(fr_model)
+
+th_dict = {'ir152': (0.094632, 0.166788, 0.227922), 'irse50': (0.144840, 0.241045, 0.312703),
+            'facenet': (0.256587, 0.409131, 0.591191), 'mobile_face': (0.183635, 0.301611, 0.380878)}
+
+normalize = transforms.Normalize(mean=[0.5, 0.5, 0.5],std=[0.5, 0.5, 0.5])
+
+trans = transforms.Compose([transforms.ToTensor(),normalize])
+
+def denorm(tensor):
+    device = tensor.device
+    std = torch.Tensor([0.5, 0.5, 0.5]).reshape(-1, 1, 1).to(device)
+    mean = torch.Tensor([0.5, 0.5, 0.5]).reshape(-1, 1, 1).to(device)
+    res = torch.clamp(tensor * std + mean, 0, 1)
+    return res
+
+def norm(tensor):
+    device = tensor.device
+    std = torch.Tensor([0.5, 0.5, 0.5]).reshape(-1, 1, 1).to(device)
+    mean = torch.Tensor([0.5, 0.5, 0.5]).reshape(-1, 1, 1).to(device)
+    res = torch.clamp((tensor-mean) / std, 0, 1)
+    return res
+
+def cos_similarity( emb_before_pasted, emb_target_img):
+    """
+    :param emb_before_pasted: feature embedding for the generated adv-makeup face images
+    :param emb_target_img: feature embedding for the victim target image
+    :return: cosine similarity between two face embeddings
+    """
+    return torch.mean(torch.sum(torch.mul(emb_target_img, emb_before_pasted), dim=1)
+                      / emb_target_img.norm(dim=1) / emb_before_pasted.norm(dim=1))
