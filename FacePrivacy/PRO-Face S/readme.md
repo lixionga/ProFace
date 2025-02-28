@@ -58,6 +58,7 @@ Then, place it in the directory specified by `dataset_dir` in the `config.py` fi
 
 Additionally, for testing, you will need to provide a target image. Place the target image in the directory specified by `target_img_dir_test` in the `config.py` file, or alternatively, modify the `target_img_dir_test` path to point to the location of the target image.
 
+By following these steps, you should be able to prepare your environment for testing without any issues.
 # Trained model
 
 You can download our trained model from this [BaiduDisk link](https://pan.baidu.com/s/1q-s1G4aqSzcXEofDOEfeHg) (Password:`3cvh`).
