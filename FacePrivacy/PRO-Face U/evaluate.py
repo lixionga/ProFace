@@ -160,3 +160,67 @@ def run_eval(embedder, recognizer, obfuscator, dataloader, path_list, issame_lis
 
     # print('AVG. Triplet Loss:', np.mean(triplet_losses))
     print('AVG. Privacy Score:', np.mean(privacy_scores))
+def prepare_eval_data(data_dir, data_pairs, transform, batch_size=16):
+    workers = 0 if os.name == 'nt' else 8
+    dataset = datasets.ImageFolder(data_dir, transform=transform)
+
+    # overwrites class labels in dataset with path so path can be used for saving output
+    dataset.samples = [
+        (p, (p, idx))
+        for p, idx in dataset.samples
+    ]
+    pairs = read_pairs(data_pairs)
+    path_list, issame_list = get_paths(data_dir, pairs)
+    test_loader = DataLoader(
+        dataset,
+        num_workers=workers,
+        batch_size=batch_size,
+        sampler=SequentialSampler(dataset)
+    )
+
+    return test_loader, path_list, issame_list
+
+
+def main(embedder_path, rec_name, data_dir, data_pairs, obfuscator, out_dir, targ_img_path=None):
+    embedder_basename = os.path.basename(embedder_path)
+    filename, _ = os.path.splitext(embedder_basename)
+
+    # Load pretrained embedder and recognizer model
+    embedder = PrivFaceEmbedder().to(device)
+    embedder.load_state_dict(torch.load(embedder_path))
+    embedder.eval()
+
+    num_params = lambda model: sum(p.numel() for p in model.parameters())
+    print(num_params(embedder))
+
+    recognizer = get_recognizer(rec_name)
+    recognizer.to(device).eval()
+
+    # Test config:
+    test_loader, path_list, issame_list = prepare_eval_data(data_dir, data_pairs, recognizer.trans)
+
+    dataset_target = datasets.ImageFolder(targ_img_path, transform=recognizer.trans)
+    run_eval(embedder, recognizer, obfuscator, test_loader, path_list, issame_list, dataset_target, out_dir, filename)
+
+
+def parse_opt():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-e', '--embedder_path', type=str, help="Path to trained face embedder.")
+    parser.add_argument('-f', '--recognizer_name', type=str, default='MobileFaceNet',
+                        help="Name of the face recognizer.")
+    opt = parser.parse_args()
+    return opt
+
+
+if __name__ == '__main__':
+    rec_name = f'MobileFaceNet'
+    data_dir = os.path.join(dir_home, 'Datasets/LFW/LFW_112')
+    data_pairs = os.path.join(dir_home, 'Datasets/LFW/pairs.txt')
+    targ_img_path = os.path.join(dir_home, 'Datasets/CelebA/align_crop_224/test_frontal')
+
+    # Evaluate pixelate
+    embedder_path = f'{dir_facenet}/runs/Mar02_15-15-23_YL1_faceshifter_MobileFaceNet/checkpoints/faceshifter_MobileFaceNet_ep31_iter20346.pth'
+    # obfuscator = Obfuscator('pixelate', 10)
+    obfuscator = Obfuscator('faceshifter')
+    out_dir = f'{dir_facenet}/eval'
+    main(embedder_path, rec_name, data_dir, data_pairs, obfuscator, out_dir, targ_img_path)
