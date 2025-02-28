@@ -167,7 +167,62 @@ def main(rec_name, obf_options, utility_level, attr_rec_model, dataset_dir, eval
         for p, idx in dataset_valid.samples
     ]
     loader_valid = DataLoader(dataset_valid, num_workers=workers, batch_size=batch_size, shuffle=True)
+    # loader_nonface_train, loader_nonface_valid = None, None
+    # if utility_level == c.Utility.FACE:
+    #     dataset_nonface = datasets.ImageFolder(c.mini_imagenet_dir, transform=input_trans_nonface)
+    #     dataset_nonface.samples = [(p, (id_label, 1)) for p, id_label in dataset_nonface.samples] # Label nonface as 1
+    #     _dataset_nonface_size = len(dataset_nonface)
+    #     _train_size = int(_dataset_nonface_size * 0.7)
+    #     _valid_size = int(_dataset_nonface_size * 0.2)
+    #     _test_size  = _dataset_nonface_size - _train_size - _valid_size
+    #     dataset_nonface_train, dataset_nonface_valid, dataset_nonface_test = random_split(
+    #         dataset=dataset_nonface,
+    #         lengths=[_train_size, _valid_size, _test_size],
+    #         generator=torch.Generator().manual_seed(0)
+    #     )
+    #
+    #     loader_nonface_train = DataLoader(
+    #         dataset_nonface_train,
+    #         num_workers=workers,
+    #         batch_size=batch_size * 3,
+    #         shuffle=True
+    #     )
+    #
+    #     loader_nonface_valid = DataLoader(
+    #         dataset_nonface_valid,
+    #         num_workers=workers,
+    #         batch_size=batch_size * 3,
+    #         shuffle=True
+    #     )
 
+    # # # Create evaluation dataloader
+    # test_loader, test_path_list, test_issame_list = prepare_eval_data(eval_dir, eval_pairs, input_trans)
+
+    # Target images used for face swapping in train and test
+    target_set_train, target_set_test = [], []
+
+    # Sticker images used for face masking in train and test
+    cartoon_set_train, cartoon_set_test = [], []
+
+    if obfuscator.name in ['faceshifter', 'simswap', 'hybridMorph', 'hybridAll']:
+        # target_dir_train = os.path.join(dataset_dir, 'valid_frontal')
+        # target_dir_test = os.path.join(dataset_dir, 'test_frontal')
+        # target_set_train = datasets.ImageFolder(target_dir_train)
+        test_frontal_set = datasets.ImageFolder(os.path.join(dataset_dir, 'test_frontal'))
+        test_frontal_nums = len(test_frontal_set)
+        target_set_train_nums = int(test_frontal_nums * 0.9)
+        target_set_test_nums  = test_frontal_nums - target_set_train_nums
+        torch.manual_seed(0)
+        target_set_train, target_set_test = \
+            torch.utils.data.random_split(test_frontal_set, [target_set_train_nums, target_set_test_nums])
+
+    if obfuscator.name in ['mask', 'hybridAll']:
+        cartoon_set = datasets.ImageFolder(c.cartoon_face_path, loader=rgba_image_loader)
+        cartoon_num = len(cartoon_set)
+        _train_num = int(cartoon_num * 0.9)
+        _test_num  = cartoon_num - _train_num
+        torch.manual_seed(1)
+        cartoon_set_train, cartoon_set_test = torch.utils.data.random_split(cartoon_set, [_train_num, _test_num])
 
 
 
