@@ -3,7 +3,7 @@
 Source code for Inspector: Inspector for Face Forgery Detection: Defending Against Adversarial Attacks From Coarse to Fine (IEEE TIP 2024: https://doi.org/10.1109/TIP.2024.3434388)
 
 # Introduction
-
+a novel framework aimed at enhancing the robustness of face forgery detection systems against adversarial attacks. The proposed method, known as Inspector, is designed to provide a defense mechanism that does not require alterations to the existing detectors or the data instances themselves.It employs a layered approach to defense, starting with a coarse level to identify potential adversarial manipulations and then proceeding to a finer level for more detailed analysis.The framework is designed to be generic, meaning it can be applied to various face forgery detection models without the need for retraining or fine-tuning these models.The experimental results demonstrate that Inspector achieves superior performance compared to other defense strategies, across different datasets and detection algorithms.It is effective in defending against a wide range of adversarial attacks, including those that are specifically tailored to evade detection.In summary, Inspector represents an advancement in the field of digital forensics, particularly in the area of face forgery detection, by providing a robust and adaptable defense against adversarial threats.
 # Prepraration
 
 ### Dependencies
