@@ -224,7 +224,75 @@ def main(rec_name, obf_options, utility_level, attr_rec_model, dataset_dir, eval
         torch.manual_seed(1)
         cartoon_set_train, cartoon_set_test = torch.utils.data.random_split(cartoon_set, [_train_num, _test_num])
 
+    suffix = '_utility' if c.SECRET_KEY_AS_NOISE else ''
+    session = f'{obf_options}_inv{c.INV_BLOCKS}_recType{c.WRONG_RECOVER_TYPE}{suffix}'
+    writer, dir_train_out, dir_checkpoints, dir_eval_out = prepare_logger(session)
+    x_1 = torch.full((16, 3, 112, 112), 0.2).to(device)
+    x_ori = x_1.to(device)
+    x_ori = x_ori.requires_grad_(True)
+    optim2 = torch.optim.Adam([x_ori], lr=1 / 255)
 
+    #### Train face_detection
+    print('\n-------------- Start training ----------------')
+
+    # Try run validation first
+    embedder.eval()
+    obfuscator.eval()
+    utility_fc.eval()
+    noise_mk.eval()
+    with torch.no_grad():
+        pass_epoch_utility(
+        embedder, utility_fc,noise_mk,x_ori,optim2, obfuscator,gender_classifier, recognizer, loader_valid, target_set_test,
+        cartoon_set_test,
+        dir_image=dir_train_out, optimizer=optimizer, scheduler=scheduler, show_running=True, writer=writer,
+        epoch=0, debug=True
+    )
+
+    for epoch in range(start_epoch, epochs + start_epoch):
+        logging.info('\nEpoch {}/{}'.format(epoch, epochs))
+        logging.info('-' * 11)
+        print('\nEpoch {}/{}'.format(epoch, epochs))
+        print('-' * 11)
+
+        embedder.train()
+        obfuscator.train()
+
+        utility_fc.train()
+
+        _, _, models_saved = pass_epoch_utility(
+            embedder, utility_fc, noise_mk,x_ori,optim2,obfuscator,gender_classifier, recognizer, loader_train, target_set_train, cartoon_set_train,
+            session=session, dir_image=dir_train_out, dir_checkpoint=dir_checkpoints, optimizer=optimizer,
+            scheduler=None, show_running=True, writer=writer, epoch=epoch, debug=debug
+        )
+
+        ###embedder.eval()
+        #obfuscator.eval()
+        #utility_fc.eval()
+        #with torch.no_grad():
+            #pass_epoch_utility(
+            #embedder, utility_fc, obfuscator, gender_classifier,recognizer, loader_valid, target_set_test, cartoon_set_test,
+            #dir_image=dir_train_out, optimizer=optimizer, scheduler=scheduler, show_running=True, writer=writer,
+            #epoch=epoch, debug=debug
+        #)
+
+        model_name = f'{session}_ep{epoch}'
+        saved_path = f'{dir_checkpoints}/{model_name}.pth'
+        torch.save(embedder.state_dict(), saved_path)
+
+        model_name = f'{session}_utilityFC_ep{epoch}'
+        saved_path = f'{dir_checkpoints}/{model_name}.pth'
+        torch.save(utility_fc.state_dict(), saved_path)
+
+
+        # ## Run testing
+        # logging.info(f'-------------- Evaluation ----------------')
+        # print(f'-------------- Evaluation ----------------')
+        # embedder.eval()
+        # obfuscator.eval()
+        # run_eval(embedder, recognizer, obfuscator, test_loader, test_path_list, test_issame_list,
+        #          [], dir_eval_out, model_name)
+
+    print('-------------- Done ----------------')
 
 
 
