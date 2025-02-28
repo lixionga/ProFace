@@ -1,7 +1,7 @@
 # Deepfake Detection Leveraging Self-Blended Artifacts Guided by Facial Embedding Discrepancy
 ![Overview](overview.jpg)  
 # Introduction
-
+This study presents a novel approach to deepfake detection that utilizes self-blended artifacts guided by facial embedding discrepancy。This method likely involves using facial embedding differences to guide self-blended artifacts, aiming to improve the accuracy of deepfake detection。
 # Recomended Development Environment
 * GPU: NVIDIA 3090
 * CUDA: 11.7
