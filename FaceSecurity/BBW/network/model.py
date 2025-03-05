@@ -1,8 +1,7 @@
 import torch.optim
 import torch.nn as nn
-from hinet import Hinet
-
 import config as c
+
 device = torch.device(c.device if torch.cuda.is_available() else "cpu")
 
 class Model(nn.Module):

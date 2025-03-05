@@ -1,5 +1,4 @@
 import random
-import sys
 import warnings
 import cv2
 import kornia
@@ -7,70 +6,24 @@ import numpy as np
 import torch.nn
 import torch.nn.functional as F
 import torch.optim
-from matplotlib import pyplot as plt
 from nvidia import cudnn
 from sklearn.metrics import roc_auc_score
-
-from Mobilefaceswap.image import Mobile_face
-from components.xception import Xception
-from img_utils import *
+from FaceSecurity.BBW.utils.img_utils import *
 from lpips import lpips
 from torchvision.transforms import transforms
-from Vector import vector_var
-# from mobilefaceswap.image import Mobile_face
-from model import *
-import basedatasets
-from modules.Unet_common import *
+from FaceSecurity.BBW.network.Vector import vector_var
+from FaceSecurity.BBW.network.model import *
+import FaceSecurity.BBW.utils.basedatasets
+from FaceSecurity.BBW.network.Unet_common import *
 from PIL import Image
 import torchvision.transforms as T
-from ESRGAN import *
-
-from torchmetrics.classification import BinaryAccuracy, BinaryAUROC
+from torchmetrics.classification import BinaryAccuracy
 from torchvision import datasets
 from torchmetrics import ROC, F1Score, Recall
-
-# from Talk_to_Edit_main.TTS import TalkSwap
-# from Talk_to_Edit_main.utils.crop_img import crop_img_256
-
-# from selfblended.SelfBlendedImage.src.utils.sbi import SBI
-from simswap.obfuscate import SimSwap
-#
-# from face_identity_transformer_master.FIT import FITSwap
-#
-# from FaceShifter.face_modules.model import Backbone
-# from FaceShifter.face_modules.mtcnn import MTCNN
-# from FaceShifter.network.AEI_Net import AEI_Net
-#
-# from starganV2master.StarGANV2 import StarGANv2
+import config.config as c
 
 
-# paddle.disable_signal_handler() # 在2.2版本提供了disable_signal_handler接口
-
-def load(name, dis_model):
-    tmp = name.split("/")
-    tmp[-2] = dis_model
-    name = "/".join(tmp)
-    state_dicts = torch.load(name, map_location=c.device)
-    print(name)
-    network_state_dict = {k: v for k, v in state_dicts['net'].items() if 'tmp_var' not in k}
-    net.load_state_dict(network_state_dict)
-    discriminator.load_state_dict(state_dicts['discriminator'])
-    template_init.load_state_dict(state_dicts['template_init'])
-    # encoder.load_state_dict(state_dicts['encoder'])
-    # decoder.load_state_dict(state_dicts['decocder'])
-
-    try:
-        optim.load_state_dict(state_dicts['opt'])
-        optim_d.load_state_dict(state_dicts['optim_d'])
-        optim_template.load_state_dict(state_dicts['optim_template_init'])
-        # optim_encoder.load_state_dict(state_dicts['optim_encoder'])
-        # optim_decoder.load_state_dict(state_dicts['optim_decoder'])
-
-    except:
-        print('Cannot load optimizer for some reason or other')
-
-
-def old_load(name):
+def load(name):
     state_dicts = torch.load(name)
     print(name)
     network_state_dict = {k: v for k, v in state_dicts['net'].items() if 'tmp_var' not in k}
@@ -247,12 +200,6 @@ def rand_distortion(img, step):
 #             arg = 0.6 + (step % 5) * 0.1
 #         res = transform(res, arg)
 # return res
-
-def get_solid_image(path):
-    image = Image.open(path)
-    image = to_rgb(image)
-    return data_transform(image).unsqueeze(dim=0)
-
 
 def nonLinearTrans(input_image):
     input_image = input_image + 0.5
@@ -507,7 +454,8 @@ def test(trans_fun, param, swap_fun):
             ssim_temp = 1 - 2 * kornia.losses.ssim_loss(cover.detach(), steg, window_size=11, reduction="mean")
             ssim_c.append(ssim_temp.cpu().numpy())
 
-            ssim_s_temp = 1 - 2 * kornia.losses.ssim_loss(secret.detach(), secret_rev_val.detach(), window_size=11, reduction="mean")
+            ssim_s_temp = 1 - 2 * kornia.losses.ssim_loss(secret.detach(), secret_rev_val.detach(), window_size=11,
+                                                          reduction="mean")
             ssim_s.append(ssim_s_temp.cpu().numpy())
 
             lpips_temp = LPIPSLoss(cover.detach().to(c.device), steg.detach().to(c.device))
@@ -548,69 +496,54 @@ def test(trans_fun, param, swap_fun):
 
 
 if __name__ == '__main__':
+
     seed_torch(25)
     warnings.filterwarnings("ignore")
 
-    # 初始化换脸的target datasets
-    data_transform = transforms.Compose([
-        transforms.ToTensor(),  # 转换为张量
-    ])
-
-    net = Model()
-    net.to(c.device)
+    # init models
+    net = Model().to(c.device)
     init_model(net)
-    net = torch.nn.DataParallel(net, device_ids=c.device_ids)
     params_trainable = (list(filter(lambda p: p.requires_grad, net.parameters())))
     optim = torch.optim.Adam(params_trainable, lr=c.lr, betas=c.betas, eps=1e-6, weight_decay=c.weight_decay)
     weight_scheduler = torch.optim.lr_scheduler.StepLR(optim, c.weight_step, gamma=c.gamma)
 
-    cos1 = nn.CosineSimilarity(dim=0, eps=1e-6)
-
-    # simswap model
+    # simswap
     swap_model = SimSwap().to(c.device)
 
-    # self blend model
-    # SBI_model = SBI(image_size=c.cropsize).to(device)
-
     # starGANV2
-    # startGAN_target_dataset = datasets.ImageFolder(root=c.StarGAN_DATA_PAHT, transform=data_transform)
-    # StarGANV2_model = StarGANv2().to(c.device)
-    #
-    # # faceshifter model init
-    # detector = MTCNN()
-    # G = AEI_Net(c_id=512)
+    starGAN_data_transform = transforms.Compose([
+        transforms.ToTensor(),
+    ])
+
+    startGAN_target_dataset = datasets.ImageFolder(root=c.StarGAN_DATA_PAHT, transform=starGAN_data_transform)
+    StarGANV2_model = StarGANv2().to(c.device)
+
+    # faceshifter model init
+    detector = MTCNN()
+    G = AEI_Net(c_id=512).eval()
     # G.eval()
-    # G.load_state_dict(torch.load('G_latest.pth', map_location=device))
-    # G = G.to(device)
-    # arcface = Backbone(50, 0.6, 'ir_se').to(device)
+    G.load_state_dict(torch.load('G_latest.pth', map_location=device))
+    G = G.to(device)
+    arcface = Backbone(50, 0.6, 'ir_se').to(device).eval()
     # arcface.eval()
-    # arcface.load_state_dict(
-    #     torch.load('model_ir_se50.pth', map_location=device),
-    #     strict=False)
-    # face_shifter_transform = transforms.Compose([  # 传入faceshifter之前将数据从[0,1]->[-1,1]
-    #     transforms.Normalize(mean=0.5, std=0.5)
-    # ])
-    #
-    # mobile_mode = Mobile_face()
-
-    # fitswap_model = FITSwap().to(device)
-    #
-    # whkfaceswap_model = WHKFaceSwap() # 只能一号机跑
-
-    # tte_model = TalkSwap().to(c.device)  # 必须0卡
+    arcface.load_state_dict(
+        torch.load('model_ir_se50.pth', map_location=device),
+        strict=False)
+    face_shifter_transform = transforms.Compose([  # 传入faceshifter之前将数据从[0,1]->[-1,1]
+        transforms.Normalize(mean=0.5, std=0.5)
+    ])
 
     discriminator = Discriminator(input_shape=(c.channels_in, c.cropsize, c.cropsize)).to(device)
     optim_d = torch.optim.Adam(discriminator.parameters(), lr=c.discriminator_lr, weight_decay=c.weight_decay)
 
-    # 初始化模板
+    # init template vector
     template_init = vector_var(size=c.cropsize).to(c.device)
     optim_template = torch.optim.Adam(template_init.parameters(), lr=c.template_lr, weight_decay=c.weight_decay)
+    template = template_init()
 
-    # 使用ImageFolder加载数据集 初始化target datasets
+    # init face swap target datasets
     target_dir = c.TARGET_PATH
     target_dataset = datasets.ImageFolder(root=target_dir, transform=data_transform)
-
-    template = template_init()
 
     LPIPSLoss = lpips.LPIPS(net='vgg').to(c.device)
 
@@ -634,46 +567,22 @@ if __name__ == '__main__':
 
     # 定义所有变换方法和参数
     transformations = [
-        # (image_jpeg, [55, 65, 75, 85, 95]),
-        (image_jpeg, [75]),
-        # (image_blur, [1.20]),
+        (image_jpeg, [55, 65, 75, 85, 95]),
+        (image_blur, [2.00, 1.80, 1.60, 1.40, 1.20]),
         (image_gaussnoise, [0.05, 0.04, 0.03, 0.02, 0.01]),
-        # (image_resize, [0.50, 0.60, 0.70, 0.80, 0.90]),
-        # (image_blur, [2.00, 1.80, 1.60, 1.40, 1.20]),
+        (image_resize, [0.50, 0.60, 0.70, 0.80, 0.90]),
     ]
 
-    swap_func = [("simswap", simswap)]
-    # swap_func = [("whk_faceswap", whk_faceswap)]
-
-    # swap_func = [("simswap", simswap), ("face_shifter", face_shifter),
-    #              ("mobile_swap", mobile_swap),
-    #              ("starGANV2_swap", starGANV2_swap), ("FIT_swap", FIT_swap)]
-
-    # swap_func = [("mobile_swap", mobile_swap), ("FIT_swap", FIT_swap)]
-
-    # dis_model = ["efficientnet", "resnet50", "xception"]
+    swap_func = [("simswap", simswap), ("face_shifter", face_shifter), ("starGANV2_swap", starGANV2_swap)]
 
     # 生成一个扁平化的变换方法和参数列表
     flat_transformations = [(func, param) for func, params in transformations for param in params]
 
-    old_load(c.MODEL_PATH_FRE + c.suffix_fre)
+    load(c.MODEL_PATH_FRE + c.suffix_fre)
 
     for j in range(len(swap_func)):
-
-        # if dis_model[j] == "efficientnet":
-        #     discriminator = EfficientNet(num_class=1).to(device)  #
-        # elif dis_model[j] == "resnet50":
-        #     discriminator = Resnet50cls().to(device)  #
-        # elif dis_model[j] == "xception":
-        #     discriminator = Xception(num_classes=1).to(device)
-        # else:
-        #     discriminator = Discriminator(input_shape=(c.channels_in, c.cropsize, c.cropsize)).to(c.device)
-        #
-        # optim_d = torch.optim.Adam(discriminator.parameters(), lr=c.discriminator_lr, weight_decay=c.weight_decay)
-
         for i in range(len(flat_transformations)):
             func, param = flat_transformations[i]
             print("****************************************")
             print(str(func).split(" ")[1] + " " + swap_func[j][0] + " " + str(param))
-            # print(swap_func[j][0] + " " + str(param))
             test(trans_fun=func, param=param, swap_fun=swap_func[j][1])
