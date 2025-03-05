@@ -3,7 +3,7 @@
 Ruiyang Xia, Dawei Zhou, Decheng Liu, Lin Yuan, Shuodi Wang, Jie Li, Nannan Wang, Xinbo Gao. Advancing Generalized Deepfake Detector with Forgery Perception Guidance. ACM International Conference on Multimedia (MM '24), 6676–6685, 2024. https://doi.org/10.1145/3664647.3680713
 
 # Introduction
-
+A forgery perception guidance approach that enhances the detector's ability to identify forgeries from unseen datasets and methods. This advancement is crucial for maintaining the reliability and robustness of deepfake detection systems in real-world applications, where the variety and complexity of forgeries are constantly evolving.
 # Prepraration
 
 ### Dependencies
