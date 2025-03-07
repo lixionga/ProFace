@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <!-- fav icon -->
+        <link rel="icon" href="{{ url_for('static', filename='assets/images/fav-icon/fav-icon.png') }}">
+        
+        <!-- bootstarp -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/bootstrap.min.css') }}">
+        
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/jquery.fancybox.min.css') }}">
+        
+        <!-- animate.css file -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/animate.css') }}">
+            
+        <!-- Swiper -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/swiper.min.css') }}">
+            
+        <!-- Splitting -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/splitting.css') }}">
+            
+        <!-- fontAwesome -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/all.min.css') }}">
+            
+        <!-- Font Family -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Nunito:wght@400;500;600;700;800;900&amp;display=swap">
+            
+        <!-- main-LTR-1 -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main-LTR-1.css') }}">
+            
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>首页</title>
+  </head>
+  <body class="overlay-is-linear-gradient rounded-btns">
+    <!--Start Page Header-->
+    <header class="page-header menu-on-end " id="page-header">
+      <!--start navbar-->
+      <div class="container-fluid">
+        <nav class="main-navbar " id="main-nav">
+          <a class="navbar-brand " href="#">
+            <img class="brand-logo light-logo img-fluid " src="{{ url_for('static', filename='assets/images/logo/logo-light-square.png') }}" alt=""/>
+            <img class="brand-logo dark-logo img-fluid " src="{{ url_for('static', filename='assets/images/logo/logo-light-square.png') }}" alt=""/>
+          </a>
+          <div class="menu-toggler-btn"><span></span><span></span><span></span></div>
+          <div class="navbar-menu-wraper" id="navbar-menu-wraper">
+            <ul class="navbar-nav mobile-menu">
+              <li class="nav-item has-sub-menu"><a class="nav-link active" href="{{ url_for('index') }}"><i class="fas fa-home icon"></i>首页</a></li>
+              <li class="nav-item has-sub-menu"><a class="nav-link" href="#0"><i class="fas fa-cog icon"></i>在线工具<i class="fas fa-chevron-down down-Arrow-icon"></i></a>
+                <ul class="sub-menu">
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link" href="{{ url_for('forgery') }}"><i class="fas fa-cog icon"></i>深度伪造检测</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link" href="{{ url_for('anonymization') }}"><i class="fas fa-cog icon"></i>人脸匿名化</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link" href="{{ url_for('makeup') }}"><i class="fas fa-cog icon"></i>妆容迁移</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link" href="{{ url_for('tamper') }}"><i class="fas fa-cog icon"></i>主动防御</a></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('contact_us') }}"><i class="fas fa-address-card icon"></i>SDK</a></li>
+              <li class="nav-item has-sub-menu"><a class="nav-link" href="https://github.com/lixionga/ProFace"><i class="fas fa-edit icon"></i>Sourcecode</a></li>
+              <li class="nav-item has-sub-menu"><a class="nav-link" href="#0"><i class="fas fa-cogs icon"></i>产品文档</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('contact_us') }}"><i class="fas fa-mobile-alt icon"></i>联系我们</a></li>
+            </ul>
+          </div><a class="header-cta ma-btn-primary" href="#0">登录</a>
+        </nav>
+      </div>
+      <!--End navbar-->
+    </header>
+    <!--End Page Header-->
+    <!-- Start  Page hero-->
+    <section class="d-flex page-hero page-hero_vertical-content" id="page-hero">
+      <div class="overlay-shape-image-bg"></div>
+      <div class="overlay-color"></div>
+      <div class="anim-shapes wow zoomIn" data-wow-delay="1s">
+        <div class="shape-1"></div>
+        <div class="shape-2"></div>
+        <div class="shape-3"><div class="cross"></div></div>
+        <div class="shape-4"><div class="lines"></div></div>
+      </div>
+      <div class="container">
+        <div class="row d-flex">
+          <div class="col-12 mx-auto col-lg-10 mb-5 text-center">
+            <!--Start of .hero-text-area-->
+            <div class="hero-text-area wow fadeInLeft" data-wow-delay="0.4s">
+              <h1 class="hero-title" data-splitting>
+                <!-- <span class="heading-brand-name">ProFace</span> -->
+                <span class="small-text">可信人脸安全分析与隐私保护平台<br></span>
+                <span class="heading-brand-name">ProFace</span>
+                
+              </h1>
+              <p class="hero-subtitle narrow-centerd-text" data-splitting></p>
+              <div class="cta-links-area"><a class="ma-btn-primary cta-link" href="#0">免费使用</a></div>
+            </div>
+          </div>
+          <!--End of .hero-text-area-->
+          <!--Start of hero-image-->
+          <div class="col-12 mx-md-auto col-lg-8 text-center">  
+            <div class="hero-image-area bottom-one-col-img wow fadeInRight" data-wow-delay="0.4s">
+              <div class="hero-img-wraper">
+                <div class="overlay-color"></div>
+                <div class="play-btn-col-dir"><a class="video-link" href="#" role="button" data-fancybox="data-fancybox">
+                    <div class="play-video-btn">
+                      <div class="play-btn"><img class="img-fluid play-icon" src="{{ url_for('static', filename='assets/images/icons/play-icon.svg') }}" alt=""/></div>
+                      <div class="play-btn-text">观看我们的视频</div>
+                    </div></a></div><img class="img-fluid" src="{{ url_for('static', filename='assets/images/logo/logo-light-square2.png') }}" alt="hero image">
+              </div>
+            </div>
+          </div>
+          <!--End of hero-image-->
+        </div>
+        <!--End Of .row -->
+      </div>
+      <!--End Of .container-->
+      <div class="section-shape-divider-bottom fill-shade">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 250" preserveAspectRatio="none">
+          <g transform="translate(0 280)">
+            <path d="M1442.534,98.682c-265.574,25.019-554.112,16.544-830.8,19.755-161.831,1.884-362.453,1.861-495.05,35.506C64.243,167.249,26.643,191.243,0,214.582H1920V0C1796.678,48.528,1628.16,81.19,1442.534,98.682Z" transform="translate(0 -244.927)" opacity="0.25"></path>
+            <path d="M1395.845,114.97c-256.979,29.149-536.178,19.275-803.914,23.016C373.225,141.052,90.775,154.256,0,250H1857.857V0C1738.527,56.537,1575.463,94.591,1395.845,114.97Z" transform="translate(62 -280)" opacity="0.25"></path>
+            <path d="M1456.051,130.829c-248.646,22.25-518.7,14.71-777.773,17.567-211.506,2.334-484.752,12.391-572.558,85.468H1903V43.1C1787.56,86.24,1629.855,115.261,1456.051,130.829Z" transform="translate(17.28 -263.864)"></path>
+            <path d="M477.466,98.682c265.574,25.019,554.112,16.544,830.8,19.755,161.831,1.884,362.453,1.861,495.05,35.506,52.438,13.306,90.038,37.3,116.681,60.639H0V0C123.322,48.528,291.84,81.19,477.466,98.682Z" transform="translate(0.28 -244.927)" opacity="0.25"></path>
+            <path d="M462.012,114.97c256.979,29.149,536.178,19.275,803.913,23.016,218.707,3.066,501.157,16.27,591.932,112.014H0V0C119.33,56.537,282.394,94.591,462.012,114.97Z" transform="translate(0.423 -280)" opacity="0.25"></path>
+            <path d="M552.668,130.829c248.646,22.25,518.7,14.71,777.773,17.567,211.506,2.334,484.752,12.391,572.558,85.468H105.72V43.1C221.16,86.24,378.865,115.261,552.668,130.829Z" transform="translate(-105.72 -263.864)"></path>
+          </g>
+        </svg>
+      </div>
+    </section>
+    <!-- End  Page hero-->
+
+    <!-- End  Features Section-->
+    <!-- Start  about Section-->
+    <section class="about mega-section" id="about">
+      <div class="circle-shape-top-start"></div>
+      <div class="circle-shape-bottom-end"></div>
+      <div class="pattern-top-end"></div>
+      <div class="pattern-bottom-start"></div>
+      <div class="container">
+        <!-- Start first about div-->
+        <div class="content-block">
+          <div class="row">
+            <div class="col-12 col-lg-6 d-flex align-items-center about-col wow fadeInUp" data-wow-delay="0.2s">
+              <div class="img-area"><img class="img-fluid about-img" src="{{ url_for('static', filename='assets/images/about/about-1_illustration.jpg') }}" alt="Our vision"></div>
+            </div>
+            <div class="col-12 col-lg-6 d-flex align-items-center about-col wow fadeInUp" data-wow-delay="0.4s">
+              <div class="text-area"><span class="tag-line">脸部隐私</span>
+                <h3 class="about-title">该模块实现了面部隐私保护的各种算法</h3>
+                <p class="about-text">
+                  基于妆容风格补丁激活的对抗性人脸隐私保护
+                </p>
+                <p class="about-text">
+                  通过特征补偿实现模糊人脸的隐私保护识别
+                </p>
+                <p class="about-text">
+                  通过安全流实现面部隐私保护的可逆图像混淆
+                </p>
+                <p class="about-text">
+                  实用引导式可逆匿名化面部图像
+                </p>
+                <div class="about-stats stats-counter">
+                  <div class="row g-0">
+                    <!--Info One-->
+                    <div class="col-4">
+                      <div class="stat-box">
+                        <p class="stat-num"><span class="sign">+</span><span class="counter" data-from="0" data-to="33" data-speed="3000" data-refresh-interval="20"></span></p>
+                        <h5 class="stat-desc">Watch</h5>
+                      </div>
+                    </div>
+                    <!--Info Two-->
+                    <div class="col-4">
+                      <div class="stat-box">
+                        <p class="stat-num"><span class="sign">+</span><span class="counter" data-from="0" data-to="56" data-speed="3000" data-refresh-interval="20"></span></p>
+                        <h5 class="stat-desc">Fork</h5>
+                      </div>
+                    </div>
+                    <!--Info Three-->
+                    <div class="col-4">
+                      <div class="stat-box">
+                        <p class="stat-num"><span class="sign">+</span><span class="counter" data-from="0" data-to="150" data-speed="3000" data-refresh-interval="20"></span></p>
+                        <h5 class="stat-desc">Star</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div><a class="ma-btn-primary" href="#0">想要了解更多</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--End first about div-->
+        <!-- Start Second about div-->
+        <div class="content-block">
+          <div class="row">
+            <div class="col-12 col-lg-6 d-flex align-items-center order-2 order-lg-0 about-col wow fadeInUp" data-wow-delay="0.2s">
+              <div class="text-area"><span class="tag-line">人脸安全</span>
+                <h3 class="about-title">该模块实现了面部数据分析的各种算法</h3>
+                <div class="info-items">
+                  <p class="about-text">
+                    推进具有伪造感知指导的通用 Deepfake 检测器
+                  </p>
+                  <p class="about-text">
+                    利用面部嵌入差异引导的自混合伪造物进行 Deepfake 检测
+                  </p>
+                  <p class="about-text">
+                    人脸伪造检测 Inspector：从粗到细防御对抗攻击
+                  </p>
+                </div><a class="ma-btn-primary" href="#0">想要了解更多</a>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 d-flex align-items-center about-col order-0 order-lg-2 wow fadeInUp" data-wow-delay="0.4s">
+              <div class="img-area"><img class="about-img img-fluid" src="{{ url_for('static', filename='assets/images/about/about-2_illustration.png') }}" alt="Our vision"></div>
+            </div>
+          </div>
+        </div>
+        <!--End Second about div-->
+      </div>
+    </section>
+    <!-- End  about Section-->
+    <!-- Start  Features Section-->
+    <section class="features mega-section section-bg-shade" id="features">
+      <div class="container">
+        <div class="section-heading center-heading">
+          <h2 class="section-title wow" data-splitting="chars">我们的方案</h2>
+          <p class="section-subtitle wow fadeInUp" data-wow-delay=".5s">多种方案适用于不同的应用场景</p>
+          <div class="line line-solid-main-color wow fadeIn" data-wow-delay="1s"></div>
+        </div>
+        <div class="row features-row">  
+          <!--Start First feature box-->
+          <div class="col-12 col-md-6 col-lg-3 mx-auto">
+            <a href="{{ url_for('forgery') }}">
+              <div class="feature-box wow fadeInUp" data-wow-delay="0.2s">
+                <div class="feat-icon">
+                  <img class="img-icon" src="{{ url_for('static', filename='assets/images/features/1.png') }}" alt="feature image 1" draggable="false">
+                </div>
+                <div class="feat-content">
+                  <h3 class="feat-title">在线工具</h3>
+                  <p class="feat-text">
+                    提供深度伪造检测与人脸隐私保护等功能，便捷高效。
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!-- End First feature box                    -->
+          <!--Start Second feature box-->
+          <div class="col-12 col-md-6 col-lg-3 mx-auto">
+            <div class="feature-box wow fadeInUp" data-wow-delay="0.4s">
+              <div class="feat-icon"><img class="img-icon" src="{{ url_for('static', filename='assets/images/features/2.png') }}" alt="feature image 2" draggable="false"></div>
+              <div class="feat-content">
+                <h3 class="feat-title">SDK</h3>
+                <p class="feat-text">
+                  集成开发包，支持快速开发与定制化解决方案。               
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- End First feature box                    -->
+          <!--Start Second feature box-->
+          <!-- <div class="col-12 col-md-6  col-lg-3 mx-auto">
+            <div class="feature-box  wow fadeInUp" data-wow-delay="0.4s">
+              <div class="feat-icon"><img class="img-icon" src="{{ url_for('static', filename='assets/images/features/2.png')}}" alt="feature image 2" draggable="false"></div>
+              <div class="feat-content">
+                <h3 class="feat-title">SDK</h3>
+                <p class="feat-text">
+                  集成开发包，支持快速开发与定制化解决方案。               
+                </p>
+              </div>
+            </div>
+          </div> -->
+          <!-- End Second feature box-->
+          <!--Start Third feature box-->
+          <div class="col-12 col-md-6  col-lg-3 mx-auto">
+            <div class="feature-box  wow fadeInUp" data-wow-delay="0.6s">
+              <div class="feat-icon"><img class="img-icon" src="{{ url_for('static', filename='assets/images/features/3.png') }}" alt="feature image 3" draggable="false"></div>
+              <div class="feat-content">
+                <h3 class="feat-title">Sourcecode</h3>
+                <p class="feat-text">
+                  GitHub上开源代码，供开发者自由使用与贡献。
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- End Third feature box-->
+
+        </div>
+        <!--Start .see-more-area-->
+        <div class=" see-more-area wow fadeInUp" data-wow-delay="0.8s"><a class=" ma-btn-primary " href="#0">试用</a></div>
+        <!--End Of .see-more-area -->
+      </div>
+    </section> 
+    <!-- Start  portfolio Section-->
+    <section class="portfolio portfolio-squared-with-gaps mega-section  section-bg-shade  " id="portfolio">
+      <div class="container">
+        <div class="section-heading center-heading">
+          <h2 class="section-title wow" data-splitting="chars">我们的成果</h2>
+          <p class="section-subtitle wow fadeInUp" data-wow-delay=".5s"></p>
+          <div class="line line-solid-main-color wow fadeIn" data-wow-delay="1s"></div>
+        </div>
+        <div class="portfolio-wraper  wow fadeInUp" data-wow-delay="0s">
+          <!--a menu of links to show the photos users needs   -->
+          <ul class="portfolio-btn-list ">
+            <li class="portfolio-btn active " data-filter="*">全部</li>
+            <li class="portfolio-btn        " data-filter=".programming">论文</li>
+            <li class="portfolio-btn        " data-filter=".consulting">专利</li>
+          </ul>
+          <div class="portfolio-group ">
+            <div class="row  g-0 ">
+              <div class="col-12  col-sm-6  col-lg-4  portfolio-item programming">
+                <div class="item"><a class="portfolio-img-link " href="{{ url_for('static', filename='assets/images/portfolio/1.png') }}" data-fancybox=".filter">
+                    <div class="overlay overlay-color"></div><img class="portfolio-img  img-fluid " src="{{ url_for('static', filename='assets/images/portfolio/thumbs/1.png') }}" alt="portfolio item photo"><i class="fas fa-search icon"></i></a>
+                  <div class="item-info "><span class="info-title">Arxiv </span>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-12  col-sm-6  col-lg-4  portfolio-item programming">
+                <div class="item"><a class="portfolio-img-link " href="{{ url_for('static', filename='assets/images/portfolio/2.png') }}" data-fancybox=".filter">
+                    <div class="overlay overlay-color"></div><img class="portfolio-img  img-fluid " src="{{ url_for('static', filename='assets/images/portfolio/thumbs/2.png') }}" alt="portfolio item photo"><i class="fas fa-search icon"></i></a>
+                  <div class="item-info "><span class="info-title">IEEE TIFS 2024 </span>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-12  col-sm-6  col-lg-4  portfolio-item programming">
+                <div class="item"><a class="portfolio-img-link " href="{{ url_for('static', filename='assets/images/portfolio/3.png') }}" data-fancybox=".filter">
+                    <div class="overlay overlay-color"></div><img class="portfolio-img  img-fluid " src="{{ url_for('static', filename='assets/images/portfolio/thumbs/3.png') }}" alt="portfolio item photo"><i class="fas fa-search icon"></i></a>
+                  <div class="item-info "><span class="info-title">IEEE TCSVT 2023  </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12  col-sm-6  col-lg-4  portfolio-item programming">
+                <div class="item"><a class="portfolio-img-link " href="{{ url_for('static', filename='assets/images/portfolio/4.png') }}" data-fancybox=".filter">
+                    <div class="overlay overlay-color"></div><img class="portfolio-img  img-fluid " src="{{ url_for('static', filename='assets/images/portfolio/thumbs/4.png') }}" alt="portfolio item photo"><i class="fas fa-search icon"></i></a>
+                  <div class="item-info "><span class="info-title">ACM Multimedia 2022 </span>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-12  col-sm-6  col-lg-4  portfolio-item programming">
+                <div class="item"><a class="portfolio-img-link " href="{{ url_for('static', filename='assets/images/portfolio/5.png') }}" data-fancybox=".filter">
+                    <div class="overlay overlay-color"></div><img class="portfolio-img  img-fluid " src="{{ url_for('static', filename='assets/images/portfolio/thumbs/5.png') }}" alt="portfolio item photo"><i class="fas fa-search icon"></i></a>
+                  <div class="item-info "><span class="info-title">ACM Multimedia 2024 </span>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-12  col-sm-6  col-lg-4  portfolio-item programming">
+                <div class="item"><a class="portfolio-img-link " href="{{ url_for('static', filename='assets/images/portfolio/6.png') }}" data-fancybox=".filter">
+                    <div class="overlay overlay-color"></div><img class="portfolio-img  img-fluid " src="{{ url_for('static', filename='assets/images/portfolio/thumbs/6.png') }}" alt="portfolio item photo"><i class="fas fa-search icon"></i></a>
+                  <div class="item-info "><span class="info-title">IEEE TIP 2024 </span>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Start .see-more-area-->
+        <div class=" see-more-area   wow fadeInUp" data-wow-delay="0s"> <a class=" ma-btn-primary " href="#0">查看全部成果</a></div>
+        <!--End .see-more-area-->
+      </div>
+    </section>
+    <!-- End  portfolio Section-->
+    <!-- Start  our-team Section-->
+    <section class="our-team mega-section d-flex align-items-center" id="our-team">
+      <div class="container">
+        <div class="section-heading center-heading">
+          <h2 class="section-title wow" data-splitting="chars">我们的团队</h2>
+          <p class="section-subtitle wow fadeInUp" data-wow-delay=".5s">重庆邮电大学自主研发的可信人脸数据保护研究平台，为重庆邮电大学自主研发的人脸数据安全分析与隐私保护等多种方法提供了高效实现</p>
+          <div class="line line-solid-main-color wow fadeIn" data-wow-delay="1s"></div>
+        </div>
+        <div class="row">
+          <!--first Team Member-->
+          <div class="col-12 col-md-8  col-lg-4 mx-md-auto ">
+            <div class="tm-member-card   wow   fadeInUp" data-wow-delay="0.2s">
+              <div class="tm-image ">
+                <div class="overlay overlay-color"> </div><img class="img-fluid " src="{{ url_for('static', filename='assets/images/our-team/1.jpg')}}" alt="Team Member 1">
+                <div class="tm-desc">
+                  <div class="sc-wraper dir-row sc-size-40">
+                    <ul class="sc-list">
+                      <li class="sc-item" title="Facebook"><a class="sc-link" href="#0"><i class="fab fa-facebook-f sc-icon"></i></a></li>
+                      <li class="sc-item" title="youtube"><a class="sc-link" href="#0"><i class="fab fa-youtube sc-icon"></i></a></li>
+                      <li class="sc-item" title="instagram"><a class="sc-link" href="#0"><i class="fab fa-instagram sc-icon"></i></a></li>
+                      <li class="sc-item" title="X"><a class="sc-link" href="#0"><i class="fab fa-x-twitter sc-icon"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="tm-details">
+                <h6 class="tm-name">*****</h6><span class="tm-role">web developer</span>
+              </div>
+            </div>
+          </div>
+          <!--Second Team Member-->
+          <div class="col-12 col-md-8  col-lg-4 mx-md-auto ">
+            <div class="tm-member-card   wow   fadeInUp" data-wow-delay="0.4s">
+              <div class="tm-image ">
+                <div class="overlay overlay-color"> </div><img class="img-fluid " src="{{ url_for('static', filename='assets/images/our-team/2.jpg')}}" alt="Team Member 2">
+                <div class="tm-desc">
+                  <div class="sc-wraper dir-row sc-size-40">
+                    <ul class="sc-list">
+                      <li class="sc-item" title="Facebook"><a class="sc-link" href="#0"><i class="fab fa-facebook-f sc-icon"></i></a></li>
+                      <li class="sc-item" title="youtube"><a class="sc-link" href="#0"><i class="fab fa-youtube sc-icon"></i></a></li>
+                      <li class="sc-item" title="instagram"><a class="sc-link" href="#0"><i class="fab fa-instagram sc-icon"></i></a></li>
+                      <li class="sc-item" title="X"><a class="sc-link" href="#0"><i class="fab fa-x-twitter sc-icon"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="tm-details">
+                <h6 class="tm-name ">******</h6><span class="tm-role">web designer</span>
+              </div>
+            </div>
+          </div>
+          <!--Third Team Member-->
+          <div class="col-12 col-md-8  col-lg-4 mx-md-auto ">
+            <div class="tm-member-card   wow   fadeInUp" data-wow-delay="0.6s">
+              <div class="tm-image ">
+                <div class="overlay overlay-color"> </div><img class="img-fluid " src="{{ url_for('static', filename='assets/images/our-team/3.jpg')}}" alt="Team Member 3">
+                <div class="tm-desc">
+                  <div class="sc-wraper dir-row sc-size-40">
+                    <ul class="sc-list">
+                      <li class="sc-item" title="Facebook"><a class="sc-link" href="#0"><i class="fab fa-facebook-f sc-icon"></i></a></li>
+                      <li class="sc-item" title="youtube"><a class="sc-link" href="#0"><i class="fab fa-youtube sc-icon"></i></a></li>
+                      <li class="sc-item" title="instagram"><a class="sc-link" href="#0"><i class="fab fa-instagram sc-icon"></i></a></li>
+                      <li class="sc-item" title="X"><a class="sc-link" href="#0"><i class="fab fa-x-twitter sc-icon"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="tm-details">
+                <h6 class="tm-name">******</h6><span class="tm-role">graphic designer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Start teamsee-more-area-->
+        <div class="see-more-area   wow fadeInUp" data-wow-delay="0.8s"><a class=" ma-btn-primary" href="#0">查看所有的团队成员</a></div>
+      </div>
+    </section>
+    <!-- End  our-team Section-->
+    <!-- Start  pricing Section--> 
+    <!-- End  pricing Section-->
+    <!-- Start  our-clients Section-->
+    <!-- End  blog Section-->
+    <!-- Start  take-action Section-->
+    <!-- End  take-action Section-->
+    <!-- Start  page-footer Section-->
+    <footer class="page-footer dark-color-footer" id="page-footer">
+      <div class="container">
+        <div class="row footer-cols">
+          <div class="col-12 col-md-8 col-lg-4  footer-col wow fadeInUp " data-wow-delay="0.3s">
+            <h6 class=" footer-col-title  ">关于ProFace</h6>
+            <div class="footer-col-content-wrapper">        
+              <p class="footer-text-about-us ">
+                重庆邮电大学研发的可信人脸数据安全保护研究平台
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-2  footer-col wow fadeInUp " data-wow-delay="0.5s">
+            <h6 class=" footer-col-title    ">联系我们</h6>
+            <div class="footer-col-content-wrapper">       
+              <div class="contact-info-card"><i class="fas fa-envelope icon"></i><a class="text-lowercase  info" href="mailto:example@support.com">example@support.com</a></div>
+              <div class="contact-info-card"><i class="fas fa-globe-africa icon"></i><a class="text-lowercase  info" href="#0">www.yoursite.com</a></div>
+              <div class="contact-info-card"><i class="fas fa-map-marker-alt icon"></i><span class="text-lowercase  info">重庆邮电大学</span></div>
+              <div class="contact-info-card"><i class="fas fa-mobile-alt icon"></i><a class="info" href="tel:+20123456789">+20123456789      </a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights ">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p class="creadits">&copy; 2025 <a target="_blank" title="ProFace">ProFace</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End  page-footer Section-->
+    <!-- Start loading-screen Component-->
+    <div class="loading-screen" id="loading-screen">
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
+    <!-- End loading-screen Component-->
+    <!-- Start back-to-top Component-->
+    <div class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up icon"></i></div>
+    <!-- End back-to-top Component-->   
+        
+        <!--     JQuery     -->
+        <script src="{{ url_for('static', filename='js/vendors/jquery-3.4.1.min.js')}}"></script>
+        
+        <!--     bootstrap     -->
+        <script src="{{ url_for('static', filename='js/vendors/bootstrap.bundle.min.js')}}"></script>
+        
+        <!--     fancybox     -->
+        <script src="{{ url_for('static', filename='js/vendors/jquery.fancybox.min.js') }}"></script>
+
+        <!-- countTo -->
+        <script src="{{ url_for('static', filename='js/vendors/jquery.countTo.js') }}"></script>
+        
+        <!-- wow -->
+        <script src="{{ url_for('static', filename='js/vendors/wow.min.js') }}"></script>
+        
+        <!-- swiper -->
+        <script src="{{ url_for('static', filename='js/vendors/swiper.min.js') }}"></script>
+        
+        <!-- Splitting -->
+        <script src="{{ url_for('static', filename='js/vendors/splitting.min.js') }}"></script>
+        
+        <!-- isotope -->
+        <script src="{{ url_for('static', filename='js/vendors/isotope-min.js') }}"></script>
+        
+        <!-- main -->
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
