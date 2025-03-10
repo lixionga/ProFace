@@ -1,0 +1,343 @@
+.container_custom {
+    height: 0px;  /* 设置固定高度 */
+  }
+  
+/* 基础样式 */
+.sm-pc-trial-wrapper-content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 让内容垂直居中 */
+    padding: 20px;
+    background: linear-gradient(to left, #08bce9, #113f8a); /* 更现代的蓝色渐变背景 */
+}
+
+.sm-pc-trial-wrapper-content {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    background-color: #ffffff; /* 白色背景 */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px; /* 增加圆角 */
+}
+
+/* 左侧图片部分 */
+.sm-pc-trial-wrapper-left {
+    width: 200px; /* 保持宽度不变 */
+    padding: 20px;
+    background-color: #ffffff; /* 亮蓝色背景 */
+    border-right: 2px solid #d0d7e0; /* 柔和的边框颜色 */
+    border-radius: 15px 0 0 15px; /* 圆角设计 */
+}
+
+.sm-check-img, .sm-opacity-img {
+    margin-bottom: 20px;
+}
+
+.sm-check-img img, .sm-opacity-img img {
+    width: 135px; 
+    height: 110px;
+    border-radius: 8px;
+}
+
+/* 中间上传部分 */
+.sm-pc-trial-wrapper-large {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff; /* 白色背景 */
+    border-radius: 0 15px 15px 0; /* 圆角设计 */
+    justify-content: flex-start; /* 保持内容从顶部开始 */
+    height: 100%;  /* 高度为100% */
+    position: relative; /* 允许子元素相对于父容器定位 */
+}
+
+/* 图片容器 */
+.sm-pc-trial-wrapper-img {
+    width: 500px;   /* 固定宽度 */
+    height: 400px;  /* 固定高度 */
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center;     /* 垂直居中 */
+    overflow: hidden; /* 防止图片超出容器 */
+    margin-bottom: 25px;
+}
+
+.sm-pc-trial-wrapper-img img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 等比例放缩并居中 */
+    border-radius: 12px;
+}
+
+/* 上传区域 */
+.upload-section {
+    width: 500px;  /* 固定宽度 */
+    height: 400px; /* 固定高度 */
+    background-color: #f7f7f7;  /* 浅灰色背景 */
+    border: 2px solid #d3d3d3;  /* 浅灰色边框 */
+    border-radius: 12px;  /* 圆角边框 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* 垂直居中 */
+    align-items: center;  /* 水平居中 */
+    padding: 15px;  /* 内边距 */
+    box-sizing: border-box; /* 确保padding不会影响布局 */
+}
+
+/* 图片预览容器 */
+.upload-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;  /* 水平居中 */
+    align-items: center;      /* 垂直居中 */
+    overflow: hidden;  /* 防止图片超出容器 */
+}
+
+/* 图片样式 */
+.upload-placeholder img {
+    max-width: 100%;     /* 最大宽度为容器的宽度 */
+    max-height: 100%;    /* 最大高度为容器的高度 */
+    object-fit: contain; /* 等比例放缩 */
+}
+
+/* 输入框和按钮容器 */
+.sm-pc-trial-wrapper-input {
+    width: 100%;
+    margin-top: 20px; /* 与图片区域有间距 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 中心对齐 */
+}
+
+/* 输入框和按钮 */
+.input-and-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* 输入框 */
+.ant-input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #c0d6e2; /* 更柔和的边框 */
+    border-radius: 8px;
+    font-size: 18px; /* 更大的字体 */
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; /* 更现代的字体 */
+    transition: border-color 0.3s ease;
+    background-color: #f4f8fb; /* 输入框背景色 */
+}
+
+.ant-input:focus {
+    border-color: #007bff;
+}
+
+.ant-btn {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif; /* 更现代的字体 */
+}
+
+.ant-btn-primary {
+    background-color: #08bce9;
+    color: white;
+}
+
+.ant-btn-primary:hover {
+    background-color: #0699c6;
+}
+
+.ant-btn-default {
+    background-color: #113f8a;
+    color: white;
+}
+
+.ant-btn-default:hover {
+    background-color: #0a2c5f;
+}
+
+.sm-pc-trial-info {
+    margin-top: 25px;
+    font-size: 16px;
+    color: #666; /* 更柔和的文字颜色 */
+    text-align: center;
+    font-family: 'Roboto', 'Arial', sans-serif; /* 更现代的字体 */
+}
+
+
+
+/* 右侧检测结果部分 */
+.sm-pc-trial-wrapper-right {
+    width: 300px;
+    padding: 20px;
+    background-color: #ffffff; /* 亮蓝色背景 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 15px; /* 圆角设计 */
+    border-left: 2px solid #d0d7e0; /* 柔和的边框颜色 */
+}
+
+/* 下载按钮样式 */
+.download-report-button {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.download-report-button .ant-btn {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #A0AEC0;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-report-button .ant-btn:hover {
+    background-color: #4299E1;
+}
+
+/* 风险结果 */
+.sm-risk-result-wrapper {
+    margin-top: 25px;
+}
+
+.sm-risk-result-line {
+    margin-bottom: 20px; /* 增加间距 */
+}
+
+.sm-risk-result-title {
+    font-weight: bold;
+    color: #333;
+    font-size: 17px; /* 增加字体大小 */
+    font-family: 'Roboto', 'Arial', sans-serif; /* 更现代的字体 */
+}
+
+.sm-risk-result-value {
+    color: #555;
+    font-size: 15px; /* 增加字体大小 */
+    font-family: 'Roboto', 'Arial', sans-serif; /* 更现代的字体 */
+}
+
+/* 折叠面板标题 */
+.ant-collapse-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #f1f8ff; /* 浅蓝色背景 */
+    border: 2px solid #d1e6f7; /* 柔和的边框 */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 轻微的阴影 */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 动效 */
+}
+
+.ant-collapse-header:hover {
+    background-color: #e2f1ff; /* 悬停时的浅蓝色 */
+    transform: translateY(-3px); /* 悬停时轻微上浮效果 */
+}
+
+/* 标题文本 */
+.ant-collapse-header-text {
+    font-size: 14px; /* 减小字体大小 */
+    font-weight: bold;
+    font-family: 'Roboto', 'Arial', sans-serif; /* 更现代的字体 */
+}
+
+/* 图标 */
+.ant-collapse-expand-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease; /* 旋转动画 */
+    color: #ffffff; /* 白色图标 */
+}
+
+.ant-collapse-header[aria-expanded="true"] .ant-collapse-expand-icon {
+    transform: rotate(90deg); /* 展开时旋转图标 */
+}
+
+.ant-collapse-header[aria-expanded="false"] .ant-collapse-expand-icon {
+    transform: rotate(0deg); /* 收起时不旋转 */
+}
+
+/* 结果展示标题 */
+.m-demo-result-title {
+    font-size: 18px; /* 减小字体大小 */
+    font-weight: 500;
+    text-transform: uppercase; /* 强调标题 */
+    letter-spacing: 1px; /* 字母间距 */
+    font-family: 'Roboto', 'Arial', sans-serif; /* 更现代的字体 */
+}
+
+/* 折叠面板标题 */
+.ant-collapse-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px; /* 减小内边距，使框变窄 */
+    background-color: #E2E8F0; /* 深灰色背景 */
+    border: 2px solid #E2E8F0; /* 稍浅的灰色边框 */
+    border-radius: 8px; /* 圆角设计 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 轻微的阴影 */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* 动效 */
+    width: 100%; /* 使框变窄 */
+    margin: 0 auto; /* 居中 */
+}
+
+.ant-collapse-header:hover {
+    background-color: #4a5568; /* 悬停时的稍浅灰色 */
+    transform: translateY(-3px); /* 悬停时轻微上浮效果 */
+}
+
+/* 折叠面板内容 */
+.ant-collapse-content {
+    width: 100%; /* 宽度与父容器一致 */
+    background-color: #E2E8F0; /* 深灰色背景，与标题一致 */
+    border: 2px solid #E2E8F0; /* 稍浅的灰色边框 */
+    border-radius: 0 0 8px 8px; /* 圆角设计，与标题一致 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 轻微的阴影 */
+    overflow: hidden; /* 隐藏超出部分 */
+    transition: max-height 0.3s ease, padding 0.3s ease; /* 平滑动画 */
+}
+
+/* 展开时的样式 */
+.ant-collapse-content-active {
+    max-height: 500px; /* 设置最大高度，根据需要调整 */
+    overflow-y: auto; /* 内容超出时滚动 */
+    padding: 16px; /* 内边距，确保内容不紧贴边框 */
+}
+
+/* 收起时的样式 */
+.ant-collapse-content-inactive {
+    max-height: 0; /* 收起时高度为0 */
+    padding: 0 16px; /* 收起时保留左右内边距 */
+}
+
+/* 内容区域 */
+.ant-collapse-content-box {
+    padding: 16px; /* 内容内边距 */
+    font-family: 'Roboto', 'Arial', sans-serif; /* 更现代的字体 */
+    font-size: 14px; /* 适当字体大小 */
+}
+
+#image-display {
+    max-width: 470px;  /* 最大宽度 */
+    width: 100%;
+    height: auto;
+  }
+  
