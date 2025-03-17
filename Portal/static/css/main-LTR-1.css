@@ -65,3 +65,115 @@ Template Description:    multipurpose HTML5 Template
 .hero-swiper-slider .swiper-slide-active .slide-subtitle.splitting .char .word, .page-hero .hero-text-area .hero-subtitle.splitting .word, .section-heading .section-subtitle.splitting.animated .word {
   animation-delay: calc(1s + 0.001s * var(--word-index));
 }
+body {
+  font-family: "Nunito", "sans-serif";
+  direction: ltr;
+  text-align: left;
+  position: relative;
+  background: #fff;
+}
+
+section {
+  overflow: hidden;
+  position: relative;
+}
+
+.skewed-section {
+  overflow: visible;
+  position: relative;
+  margin: 2rem 0;
+}
+.skewed-section::before, .skewed-section::after {
+  content: "";
+  width: 100%;
+  height: 70px;
+  position: absolute;
+  left: 0;
+  background: #08bce9;
+  transform: translateY(-50%) skewY(-1deg);
+}
+.skewed-section::before {
+  top: 0;
+}
+.skewed-section::after {
+  top: 100%;
+}
+
+.mega-section {
+  padding: 6rem 0;
+}
+@media (max-width: 767px) {
+  .mega-section {
+    padding: 4rem 0;
+  }
+}
+
+.elf-section {
+  padding: 4rem 0;
+}
+@media (max-width: 767px) {
+  .elf-section {
+    padding: 3rem 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1170px;
+  }
+}
+
+.hollow-text {
+  -webkit-text-stroke-color: inherit;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-fill-color: rgba(0, 0, 0, 0);
+}
+
+.section-heading {
+  margin-bottom: 3rem;
+}
+.section-heading .section-title {
+  text-align: center;
+  margin-bottom: 1.25rem;
+  font-size: 3rem;
+  font-family: "Montserrat", "sans-serif";
+  font-weight: 800;
+  text-transform: capitalize;
+  color: #333;
+  line-height: 1.1;
+  letter-spacing: 2px;
+}
+.section-heading .section-title.splitting .char {
+  text-transform: initial;
+}
+.section-heading .section-title.splitting .char:first-child {
+  text-transform: uppercase;
+}
+@media (max-width: 767px) {
+  .section-heading .section-title {
+    font-size: 2rem;
+  }
+}
+.section-heading .section-subtitle {
+  text-align: center;
+  margin: 0 auto;
+  width: 60%;
+  padding: 0 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #707070;
+}
+.section-heading .section-subtitle.splitting .char:first-child {
+  text-transform: uppercase;
+}
+@media (max-width: 991px) {
+  .section-heading .section-subtitle {
+    width: 80%;
+  }
+}
+@media (max-width: 767px) {
+  .section-heading .section-subtitle {
+    width: 100%;
+  }
+}
