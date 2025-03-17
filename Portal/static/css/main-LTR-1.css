@@ -177,3 +177,181 @@ section {
     width: 100%;
   }
 }
+.adding-shadow {
+  box-shadow: 1px 1px 25px 0px rgba(0, 0, 0, 0.25);
+}
+
+body.overlay-is-grey .overlay-color {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  display: block;
+  transition: all 0.5s ease-in-out 0s;
+  background: #000;
+  opacity: 0.5;
+}
+body.overlay-is-main-color .overlay-color {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  display: block;
+  transition: all 0.5s ease-in-out 0s;
+  background: #08bce9;
+  opacity: 0.75;
+}
+body.overlay-is-accent-color .overlay-color {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  display: block;
+  transition: all 0.5s ease-in-out 0s;
+  background: #113f8a;
+  opacity: 0.75;
+}
+body.overlay-is-linear-gradient .overlay-color {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  display: block;
+  transition: all 0.5s ease-in-out 0s;
+  background: -webkit-linear-gradient(45deg, #113f8a, #08bce9);
+  opacity: 0.75;
+}
+
+.parallax {
+  background-attachment: fixed !important;
+}
+
+.overlay-image-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  display: block;
+  transition: all 0.5s ease-in-out 0s;
+  opacity: 0.05;
+  /*add  background-image value wherever you use this class to choose the custom image  */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.overlay-shape-image-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  display: block;
+  transition: all 0.5s ease-in-out 0s;
+  /*add  background-image value wherever you use this class to choose the custom image  */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.05;
+}
+
+.overlay-photo-image-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  display: block;
+  transition: all 0.5s ease-in-out 0s;
+  /*add  background-image value wherever you use this class to choose the custom image  */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.05;
+}
+
+.circle-shape-bottom-end, .circle-shape-top-start {
+  position: absolute;
+  z-index: -1;
+  opacity: 0.25;
+  border: 15px solid #08bce9;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+}
+@media (max-width: 991px) {
+  .circle-shape-bottom-end, .circle-shape-top-start {
+    width: 125px;
+    height: 125px;
+  }
+}
+
+.circle-shape-top-start {
+  left: -80px;
+  top: -80px;
+}
+@media (max-width: 991px) {
+  .circle-shape-top-start {
+    left: -40px;
+    top: -40px;
+  }
+}
+
+.circle-shape-bottom-end {
+  right: -80px;
+  bottom: -80px;
+}
+@media (max-width: 991px) {
+  .circle-shape-bottom-end {
+    right: -40px;
+    bottom: -40px;
+  }
+}
+
+.pattern-bottom-start, .pattern-top-end {
+  position: absolute;
+  background-image: url("../assets/images/patterns/dots-pattern-black.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.1;
+  transform: rotate(30deg);
+  width: 200px;
+  height: 200px;
+  z-index: -1;
+}
+@media (max-width: 991px) {
+  .pattern-bottom-start, .pattern-top-end {
+    width: 135px;
+    height: 135px;
+  }
+}
+
+.pattern-top-end {
+  top: -40px;
+  right: -40px;
+}
+
+.pattern-bottom-start {
+  bottom: -40px;
+  left: -40px;
+}
+
+.line-solid-main-color, .line-solid-accent-color, .line-gradient-color {
+  display: block;
+  width: 75px;
+  height: 4px;
+  border-radius: 0 6px;
+  margin: 1rem auto;
+}
