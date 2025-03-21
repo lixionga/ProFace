@@ -3646,3 +3646,396 @@ light-header.header-stand-out {
   -webkit-text-stroke-width: 1.5px;
   -webkit-text-fill-color: transparent;
 }
+.contact-info .info-title {
+  text-transform: capitalize;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+.contact-info .info-text {
+  text-transform: capitalize;
+  font-size: 1rem;
+  color: #707070;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+.contact-info .link {
+  display: block;
+  text-transform: lowercase;
+  text-decoration: none;
+  color: #707070;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease-in-out 0s;
+}
+.contact-info .link:hover {
+  color: #00b4a5;
+}
+
+.contact-us-image {
+  padding-top: 1.25rem;
+  padding-bottom: 2.5rem;
+  text-align: center;
+}
+
+/*End user-form Rules*/
+/*   15- End contact-us Section  */
+/*  16- Start take-action Section   */
+.take-action {
+  background: #00b4a5;
+}
+.take-action .wave-shape {
+  background: #00b4a5;
+}
+.take-action .section-title {
+  color: #fff;
+}
+.take-action .line-solid-color {
+  color: #fff;
+}
+.take-action .cta-wrapper .cta-title {
+  text-transform: capitalize;
+}
+@media (max-width: 991px) {
+  .take-action .cta-wrapper .cta-title {
+    margin-bottom: 1.25rem;
+  }
+}
+.take-action .cta-wrapper .email-capture-form {
+  position: relative;
+}
+.take-action .cta-wrapper .email-capture-form .email-lbl {
+  text-transform: capitalize;
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  text-align: left;
+}
+.take-action .cta-wrapper .email-capture-form .captured-email {
+  display: inline-block;
+  font-size: 1.5rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  outline: none;
+  padding: 0.25rem 1rem;
+  border: 2px solid #fff;
+  border-radius: 5rem;
+  text-align: center;
+  background: rgba(0, 0, 0, 0);
+  color: #fff;
+}
+.take-action .cta-wrapper .email-capture-form .captured-email::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.take-action .cta-wrapper .email-capture-form .email-warning {
+  position: absolute;
+  bottom: -1.25rem;
+  left: 0;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: #f1f1f1;
+}
+.take-action .cta-wrapper .email-capture-form .subscripe-btn {
+  display: block;
+  margin: 0 auto;
+  border: 1px solid;
+  border-radius: 5rem;
+  padding: 0.5rem 3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  cursor: pointer;
+  background: #fff;
+  color: #00b4a5;
+  transition: all 0.5s ease-in-out 0s;
+}
+.take-action .cta-wrapper .email-capture-form .subscripe-btn:hover {
+  background: #00b4a5;
+  color: #fff;
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+.take-action .cta-wrapper .email-capture-form .subscripe-btn:focus {
+  outline: none !important;
+}
+
+/*  16- End take-action Section   */
+/*   17- Start page-footer Section  */
+.page-footer {
+  padding-top: 4rem;
+  position: relative;
+}
+
+.footer-cols {
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.footer-col {
+  margin-bottom: 1.5rem;
+}
+
+.footer-col-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.footer-text-about-us {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.75;
+  padding-right: 1rem;
+  margin-bottom: 1.25rem;
+  color: #575757;
+}
+
+.sc-wraper {
+  padding: 0;
+}
+
+.contact-info-card {
+  font-weight: 600;
+  padding: 0;
+  padding-bottom: 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out 0s;
+}
+.contact-info-card:last-of-type {
+  padding-bottom: 0;
+}
+.contact-info-card .icon {
+  font-size: 1.25rem;
+  width: 1.5rem;
+  text-align: center;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  color: #00b4a5;
+}
+.contact-info-card .info {
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #575757;
+  display: inline-block;
+  transition: all 0.25s ease-in-out 0s;
+}
+.contact-info-card .info:hover {
+  color: #00b4a5;
+  transform: translateX(0.25rem);
+}
+
+.footer-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-menu-item {
+  display: block;
+  position: relative;
+  padding-bottom: 1rem;
+}
+.footer-menu-link {
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-decoration: none;
+  text-transform: capitalize;
+  text-decoration: none;
+  color: #707070;
+  display: inline-block;
+  transition: all 0.25s ease-in-out 0s;
+}
+.footer-menu-link:hover {
+  color: #00b4a5;
+  text-decoration: none;
+  transform: translateX(0.25rem);
+}
+
+.copyrights {
+  padding: 0.5rem 0;
+  overflow: hidden;
+}
+.copyrights .creadits {
+  text-align: left;
+  font-weight: 600;
+  margin: 0;
+  font-size: 0.85rem;
+  color: #575757;
+}
+.copyrights .creadits .link {
+  font-weight: 600;
+  color: #00b4a5;
+  text-decoration: none;
+}
+.copyrights .terms-links {
+  text-align: right;
+}
+.copyrights .terms-links > a {
+  text-decoration: none !important;
+  font-weight: 600;
+  transition: all 0.5s ease-in-out 0s;
+  color: #575757;
+  text-decoration: none;
+}
+
+.dark-color-footer {
+  background-color: #333;
+}
+.dark-color-footer .footer-col-title,
+.dark-color-footer .contact-info-card .icon,
+.dark-color-footer .sc-wraper .sc-list .sc-item:hover .sc-icon,
+.dark-color-footer .terms-links,
+.dark-color-footer .copyrights .creadits .link,
+.dark-color-footer .terms-links > a:hover {
+  color: #00b4a5;
+}
+.dark-color-footer .footer-text-about-us,
+.dark-color-footer .contact-info-card .info,
+.dark-color-footer .contact-info-card .info:hover,
+.dark-color-footer .footer-menu .footer-menu-link,
+.dark-color-footer .copyrights .creadits,
+.dark-color-footer .terms-links > a {
+  color: #f1f1f1;
+}
+.dark-color-footer .contact-info-card .info:hover,
+.dark-color-footer .footer-menu .footer-menu-link:hover,
+.dark-color-footer .copyrights .creadits .link {
+  color: #fff;
+}
+
+.light-color-footer {
+  background-color: #f1f1f1;
+}
+.light-color-footer .footer-col-title,
+.light-color-footer .contact-info-card .icon,
+.light-color-footer .terms-links,
+.light-color-footer .copyrights .creadits .link,
+.light-color-footer .sc-wraper .sc-list .sc-item:hover .sc-icon {
+  color: #00b4a5;
+}
+.light-color-footer .footer-text-about-us,
+.light-color-footer .contact-info-card .info,
+.light-color-footer .footer-menu .footer-menu-link,
+.light-color-footer .copyrights .creadits,
+.light-color-footer .terms-links > a {
+  color: #575757;
+}
+.light-color-footer .contact-info-card .info:hover,
+.light-color-footer .footer-menu .footer-menu-link:hover,
+.light-color-footer .terms-links > a:hover {
+  color: #333;
+}
+
+.main-color-footer {
+  background-color: #00b4a5;
+  border-top: 2px solid #fff;
+}
+.main-color-footer .copyrights {
+  border-color: #f1f1f1;
+}
+.main-color-footer .sc-wraper .sc-list .sc-item:hover .sc-icon {
+  color: #00b4a5;
+}
+.main-color-footer .contact-info-card .icon,
+.main-color-footer .terms-links,
+.main-color-footer .copyrights .creadits .link {
+  color: #f1f1f1;
+}
+.main-color-footer .footer-col-title,
+.main-color-footer .footer-text-about-us,
+.main-color-footer .contact-info-card .info,
+.main-color-footer .footer-menu .footer-menu-link,
+.main-color-footer .copyrights .creadits,
+.main-color-footer .terms-links > a {
+  color: #f1f1f1;
+}
+.main-color-footer .contact-info-card .info:hover,
+.main-color-footer .footer-menu .footer-menu-link:hover,
+.main-color-footer .terms-links > a:hover {
+  color: #fff;
+}
+
+.index-page-footer {
+  padding: 20px 0;
+  text-align: center;
+  border-top: 2px solid rgba(0, 180, 165, 0.5);
+}
+.index-page-footer .footer-brand {
+  text-decoration: none;
+  display: inline-block;
+  padding-bottom: 1rem;
+  width: auto;
+}
+.index-page-footer .footer-brand img {
+  width: 120px;
+}
+.index-page-footer .copyrights {
+  text-transform: capitalize;
+  display: block;
+  text-align: center;
+  color: #00b4a5;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/*   17- End page-footer Section  */
+/* 18- Start blog Page  */
+.blog .box {
+  box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.1);
+}
+.blog .posts-pagination {
+  margin: 2rem 0;
+}
+.blog .posts-pagination .deactive-posts-page-item {
+  pointer-events: none;
+  background-color: #f1f1f1 !important;
+  border-color: #707070 !important;
+  opacity: 0.5;
+}
+.blog .posts-pagination .deactive-posts-page-item .posts-page-link {
+  color: #707070 !important;
+}
+.blog .posts-pagination .posts-page-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #00b4a5;
+  border: 1px solid;
+  border-color: #00b4a5;
+  transition: all 0.3s ease 0s;
+}
+.blog .posts-pagination .posts-page-item:not(:last-child) {
+  margin-right: 0.5rem;
+}
+.blog .posts-pagination .posts-page-item:hover, .blog .posts-pagination .posts-page-item.active {
+  background-color: #00b4a5;
+  color: #fff;
+}
+.blog .posts-pagination .posts-page-item:hover .posts-page-link, .blog .posts-pagination .posts-page-item.active .posts-page-link {
+  color: #fff;
+}
+.blog .posts-pagination .posts-page-item.active {
+  pointer-events: none;
+}
+.blog .posts-pagination .posts-page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: none !important;
+  color: #00b4a5;
+  text-decoration: none;
+}
+.blog .blog-sidebar {
+  padding-left: 2rem;
+}
