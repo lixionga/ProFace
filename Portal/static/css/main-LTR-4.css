@@ -4731,3 +4731,355 @@ body.hard-squared-btns .portfolio-btn {
   font-weight: 600;
   color: #707070;
 }
+.blog .post-main-area .comments-area .comment-wraper {
+  margin-bottom: 2rem;
+}
+.blog .post-main-area .comments-area .comment-reply {
+  padding-left: 3rem;
+}
+.blog .post-main-area .comments-area .author-avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  overflow: hidden;
+  float: left;
+  border: 3px solid #9a36fd;
+}
+.blog .post-main-area .comments-area .author-avatar .author-avatar-img {
+  width: 100%;
+  height: 100%;
+}
+.blog .post-main-area .comments-area .comment-body {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(154, 54, 253, 0.5);
+  padding: 1rem;
+  padding-top: 0;
+  overflow: hidden;
+}
+.blog .post-main-area .comments-area .comment-body .comment-author-link {
+  text-decoration: none;
+  color: #9a36fd;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  transition: color 0.3s ease-in-out 0s;
+}
+.blog .post-main-area .comments-area .comment-body .comment-date {
+  margin-bottom: 1rem;
+}
+.blog .post-main-area .comments-area .comment-body .comment-date .date-link {
+  font-size: 0.8rem;
+  color: #707070;
+  text-decoration: none;
+}
+.blog .post-main-area .comments-area .comment-body .comment-text {
+  font-size: 1rem;
+  color: #707070;
+}
+.blog .post-main-area .comments-area .comment-body .reply-action {
+  text-align: right;
+}
+.blog .post-main-area .comments-area .comment-body .reply-action .reply-link {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: rgba(154, 54, 253, 0.7);
+  font-size: 1rem;
+  font-weight: 800;
+  position: relative;
+  padding-left: 1.5rem;
+}
+.blog .post-main-area .comments-area .comment-body .reply-action .reply-link:hover {
+  color: #9a36fd;
+}
+.blog .post-main-area .comments-area .comment-body .reply-action .reply-link .icon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9a36fd;
+}
+
+.main-form-wraper .input-wraper.has-text label, .main-form-wraper input[type=email]:focus ~ label,
+.main-form-wraper input[type=text]:focus ~ label,
+.main-form-wraper input[type=password]:focus ~ label,
+.main-form-wraper input[type=url]:focus ~ label,
+.main-form-wraper input[type=search]:focus ~ label,
+.main-form-wraper input[type=number]:focus ~ label,
+.main-form-wraper textarea:focus ~ label {
+  top: -20px;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #9a36fd;
+}
+.main-form-wraper .not-req {
+  display: none;
+}
+.main-form-wraper .req {
+  color: red;
+}
+.main-form-wraper .error-msg {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: #fc0000;
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  transform: translateY(50%);
+  display: none;
+}
+.main-form-wraper .done-msg {
+  position: absolute;
+  right: 1rem;
+  bottom: 0;
+  font-size: 1rem;
+  background-color: #217234;
+  color: #fff;
+  padding: 0.5rem 0;
+  visibility: hidden;
+  opacity: 0;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  z-index: 11111111;
+  transition: all 0.5s ease-in-out 0s;
+}
+.main-form-wraper .done-msg.show {
+  visibility: visible;
+  opacity: 1;
+  margin-bottom: 5rem;
+}
+.main-form-wraper .input-wraper {
+  position: relative;
+  margin-bottom: 3rem;
+}
+.main-form-wraper .input-wraper.has-text .b-border {
+  transform: scaleX(1);
+}
+.main-form-wraper .input-wraper .input-icon {
+  position: absolute;
+  left: auto;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #707070;
+}
+.main-form-wraper .b-border {
+  display: block;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: center;
+  height: 2px;
+  background: #9a36fd;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  transition: all 0.3s ease-in-out 0s;
+}
+.main-form-wraper label:not(.lbl-for-checkbox) {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #9a36fd;
+  position: absolute;
+  font-size: 0.95rem;
+  left: 0;
+  top: 10px;
+  color: rgba(112, 112, 112, 0.5);
+  transition: all 0.3s ease-in-out 0s;
+}
+.main-form-wraper .lbl-for-checkbox {
+  margin: 0;
+  padding: 0;
+  margin-left: 0.5rem;
+  text-transform: capitalize;
+  color: #707070;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.main-form-wraper input[type=email],
+.main-form-wraper input[type=text],
+.main-form-wraper input[type=password],
+.main-form-wraper input[type=url],
+.main-form-wraper input[type=search],
+.main-form-wraper input[type=number],
+.main-form-wraper textarea {
+  display: block;
+  width: 100%;
+  padding: 5px 0;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgba(154, 54, 253, 0.5);
+  transition: all 0.3s ease-in-out 0s;
+  background: rgba(0, 0, 0, 0);
+  color: #333;
+}
+.main-form-wraper input[type=email]:focus ~ .b-border,
+.main-form-wraper input[type=text]:focus ~ .b-border,
+.main-form-wraper input[type=password]:focus ~ .b-border,
+.main-form-wraper input[type=url]:focus ~ .b-border,
+.main-form-wraper input[type=search]:focus ~ .b-border,
+.main-form-wraper input[type=number]:focus ~ .b-border,
+.main-form-wraper textarea:focus ~ .b-border {
+  transform: scaleX(1);
+}
+.main-form-wraper input[type=email] [type=submit]:focus,
+.main-form-wraper input[type=text] [type=submit]:focus,
+.main-form-wraper input[type=password] [type=submit]:focus,
+.main-form-wraper input[type=url] [type=submit]:focus,
+.main-form-wraper input[type=search] [type=submit]:focus,
+.main-form-wraper input[type=number] [type=submit]:focus,
+.main-form-wraper textarea [type=submit]:focus {
+  outline: none !important;
+}
+.main-form-wraper textarea {
+  min-height: 8rem;
+}
+.main-form-wraper .keep-me-logged-in {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.main-form-wraper .keep-me-logged-in .check-input {
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid #9a36fd;
+  outline: none;
+  cursor: pointer;
+}
+.main-form-wraper .keep-me-logged-in .check-input:checked ~ .icon {
+  opacity: 1;
+  visibility: visible;
+}
+.main-form-wraper .keep-me-logged-in .icon {
+  position: absolute;
+  left: 2px;
+  top: 4px;
+  font-size: 0.75rem;
+  color: #9a36fd;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.5s ease-in-out 0s;
+}
+.main-form-wraper input[type=submit] {
+  outline: none;
+  border: none;
+}
+
+.contact-info .map-box .mapouter {
+  position: relative;
+  text-align: right;
+  height: 500px;
+  width: 100%;
+}
+.contact-info .map-box .mapouter .gmap_canvas {
+  overflow: hidden;
+  background: none !important;
+  height: 500px;
+  width: 100%;
+}
+.contact-info .map-box .mapouter .map-iframe {
+  width: 100%;
+  height: 500px;
+  border: none;
+}
+@media (max-width: 1199px) {
+  .contact-info .map-box {
+    margin-bottom: 3rem;
+  }
+}
+.contact-info .info-section {
+  padding: 2rem 0;
+}
+.contact-info .info-panel {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+.contact-info .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9a36fd;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 50%;
+  -webkit-text-stroke-color: #9a36fd;
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-fill-color: transparent;
+}
+.contact-info .info-title {
+  text-transform: capitalize;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+.contact-info .info-text {
+  text-transform: capitalize;
+  font-size: 1rem;
+  color: #707070;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+.contact-info .link {
+  display: block;
+  text-transform: lowercase;
+  text-decoration: none;
+  color: #707070;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease-in-out 0s;
+}
+.contact-info .link:hover {
+  color: #9a36fd;
+}
+
+.contact-us-image {
+  padding-top: 1.25rem;
+  padding-bottom: 2.5rem;
+  text-align: center;
+}
+
+/*End user-form Rules*/
+/* 18- End blog Page  */
+/*  19- Start signing Page  */
+.signing-page {
+  min-height: 100vh;
+}
+.signing-page .overlay-image-bg {
+  background-image: url("../assets/images/hero/hero-img-4.jpg");
+  opacity: 0.5;
+}
+
+.sining-area {
+  max-width: 30rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  margin-top: 100px;
+  margin: 100px auto 50px auto;
+}
+@media (max-width: 991px) {
+  .sining-area {
+    width: 75%;
+  }
+}
+@media (max-width: 767px) {
+  .sining-area {
+    width: 100%;
+    padding: 2rem 1rem;
+  }
+}
+
+.sining-heading {
+  text-transform: capitalize;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  color: #9a36fd;
+  margin-bottom: 1.25rem;
+}
