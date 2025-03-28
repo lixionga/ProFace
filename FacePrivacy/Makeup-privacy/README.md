@@ -10,17 +10,17 @@ torchvision 0.10.1
   Makeup-privacy-main/Dataset-test
 ```
 # Pre-trained model weights
- 1. Please download four pre-trained face recognition model weights to this path：
+ 1. Please download four [pre-trained face recognition model weights]( https://pan.baidu.com/s/12BhQkR8YBp9ergCmIR2H-A)(Password: wbnz) to this path：
 
 ```
   Makeup-privacy-main/Pretrained_FR_Models/
 ```
 
- 2. Please download the pre-trained face parsing model weights to this path：
+ 2. Please download the [pre-trained face parsing model weights]( https://pan.baidu.com/s/1_1uyZuWHXmmovMvwFt1J1g)(Password: grr5) to this path：
 ```
   Makeup-privacy-main/models/networks/face_parsing/
 ```
- 3. Download the trained model weights to this path：
+ 3. Download the [trained model weights]( https://pan.baidu.com/s/1m5LukyEqoOIE90tl31jHbA)(Password: n8bw)to this path：
 ```
   Makeup-privacy-main/checkpoints/1_facenet_multiscale=2/
 ```
