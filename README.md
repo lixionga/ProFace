@@ -46,5 +46,8 @@ This module implements various algorithms for facial data analysis.
 
 ![](./FacePrivacy/PRO-Face%20S/assets/platform.png)
 
-![TO~~(2)7U@_BSBQZ7AE4PHV](https://github.com/user-attachments/assets/60072777-0df4-4fe5-948d-4b2b3e39678b)
-This module currently includes two functions:face forgery detection and text sentiment analysis.Implementation of the face forgery detection module: When users upload a facial image, the system returns the probability indicating whether the image is forged and a heatmap. Implementation of the text sentiment analysis module: When users enter texts, the system returns the possible emotions contained in the utterance.
+//![TO~~(2)7U@_BSBQZ7AE4PHV](https://github.com/user-attachments/assets/60072777-0df4-4fe5-948d-4b2b3e39678b)
+This module implements two system platforms, with all relevant functionalities powered by the algorithms from Face Privacy and Face Security.
+
+
+This platform currently includes two functions:face forgery detection and text sentiment analysis.Implementation of the face forgery detection module: When users upload a facial image, the system returns the probability indicating whether the image is forged and a heatmap. Implementation of the text sentiment analysis module: When users enter texts, the system returns the possible emotions contained in the utterance.
