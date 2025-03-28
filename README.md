@@ -30,7 +30,7 @@ This module implements various algorithms for facial privacy protection.
 
 ## FaceSecurity
 
-![](./FacePrivacy/PRO-Face%20S/assets/facesecurity.png)
+![](./FacePrivacy/PRO-Face%20S/assets/image(8)(1).png)
 
 This module implements various algorithms for facial data analysis.
 ### Paper List:
