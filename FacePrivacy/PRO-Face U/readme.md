@@ -35,7 +35,7 @@ Then, place it in the directory specified by `dataset_dir` in the `config.py` fi
 Simply run `train_with_utility.py` to start the training process.
 
 # Testing
-Simply run `test_with_utility.py` to start the testing process.
+Simply run `test_with_utility.py` to start the testing process.If you have trained your own client model, you can modify the checkpoints option in config\config.py.
 
 # Trained model
 You can download our trained model from this [BaiduDisk link](https://pan.baidu.com/s/1q-s1G4aqSzcXEofDOEfeHg) (Password:`3cvh`).
