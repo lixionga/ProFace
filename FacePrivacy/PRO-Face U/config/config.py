@@ -11,7 +11,9 @@ DEVICE = GPU0
 # DEVICE = GPU1
 WRONG_RECOVER_TYPE = 'Random'
 
-
+INN_checkpoints="simswap_inv3_recTypeRandom_utility_ep23.pth"
+FC_checkpoints="simswap_inv3_recTypeRandom_utility_utilityFC_ep23.pth"
+mlp_checkpoints="simswap_inv3_recTypeRandom_utility_ep3_iter500.pth"
 INV_BLOCKS = 3
 
 SECRET_KEY_AS_NOISE = True
