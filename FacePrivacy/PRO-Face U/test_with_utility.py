@@ -620,9 +620,9 @@ if __name__ == '__main__':
     print("runs")
     embedder_configs = [
         [3, 'RandWR',
-         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec29_23-14-01_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_ep23.pth"),
-         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec29_23-14-01_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_utilityFC_ep23.pth"),
-         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec25_02-00-59_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_ep3_iter500.pth"),
+         os.path.join(DIR_PROJ, "/model/checkpoints//"+c.INN_checkpoints),
+         os.path.join(DIR_PROJ, "/model/checkpoints/"+c.FC_checkpoints),
+         os.path.join(DIR_PROJ, "/model/checkpoints/"+c.mlp_checkpoints),
          ],
 
     ]
