@@ -8,7 +8,7 @@ import Pretrained_FR_Models.irse as irse
 from torchvision.utils import save_image
 from torchvision.transforms.functional import InterpolationMode
 from utils.utils_train import normalize, gauss_noise, accuracy
-from utils.image_processing import Obfuscator, input_trans, rgba_image_loader
+from utils.image_processing import Obfuscator, input_trans, rgba_image_loader,FaceShifter
 from torchmetrics import StructuralSimilarityIndexMeasure, MeanSquaredError, PeakSignalNoiseRatio
 from utils.loss_functions import lpips_loss,cos_loss
 from utils.utils_func import get_parameter_number
@@ -32,6 +32,7 @@ import math
 from torch.autograd import Variable
 from torchvision import transforms
 import logging
+# import torch.nn.functional as F
 import torchvision.transforms.functional as F
 from torchvision.utils import save_image
 from utils.loss_functions import  l1_loss, triplet_loss, lpips_loss, logits_loss,l2_loss,cos_loss
@@ -55,8 +56,39 @@ GPU0 = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
 device =GPU0
 
 
+def gaussian_blur_fixed(xa, kernel_size=31, sigma=5):
+    """
+    对输入张量 xa 进行高斯模糊处理。
+    Args:
+        xa (torch.Tensor): 输入张量，形状为 (batch_size, channels, height, width)。
+        kernel_size (int): 高斯核大小。
+        sigma (float): 高斯核的标准差。
+    Returns:
+        torch.Tensor: 高斯模糊后的张量。
+    """
+    # 使用固定大小和 sigma 值进行高斯模糊
+    xa_blurred = F.gaussian_blur(xa, kernel_size=[kernel_size, kernel_size], sigma=[sigma, sigma])
+    return xa_blurred
+def pixelate(xa, pixel_size=7):
+    """
+    对输入张量 xa 进行像素化处理。
+    Args:
+        xa (torch.Tensor): 输入张量，形状为 (batch_size, channels, height, width)。
+        pixel_size (int): 像素块的大小。
+    Returns:
+        torch.Tensor: 像素化后的张量。
+    """
+    # 获取输入张量的形状
+    batch_size, channels, height, width = xa.shape
 
+    # 将图像分割为 pixel_size x pixel_size 的块
+    # 使用平均池化来实现像素化
+    xa_pixelated = F.avg_pool2d(xa, kernel_size=pixel_size, stride=pixel_size)
 
+    # 将像素化后的图像上采样回原始尺寸
+    xa_pixelated = F.interpolate(xa_pixelated, size=(height, width), mode='nearest')
+
+    return xa_pixelated
 def random_password(length=16):
    return ''.join(random.choice(string.printable) for i in range(length))
 
@@ -139,7 +171,7 @@ def acc(threshold,predict):
     # 计算准确率
     acc2 = binary_predictions.mean()
     return acc2
-def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gender_classifier, dataloader,
+def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, utility_cond_init,gender_classifier, dataloader,
                     swap_target_set=(), typeWR='', dir_image='./images'):
 
     pro_ssim_list = []
@@ -173,9 +205,16 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
     for i_batch, data_batch in tqdm(enumerate(dataloader)):
     # for i_batch, data_batch in enumerate(dataloader):
         i_batch += 1
-        if i_batch>500:
+        if i_batch>300:
             break
         xa,identity = data_batch
+        xb=xa
+    #     for i_batch, data_batch in tqdm(enumerate(dataloader)):
+    # # for i_batch, data_batch in enumerate(dataloader):
+    #         i_batch += 1
+    #         if i_batch>5:
+    #             break
+    #         xb, identity = data_batch
         # custom_transform = transforms.Compose([
         #     transforms.ToTensor(),
         #     transforms.Normalize(mean=0.5, std=0.5)
@@ -194,6 +233,9 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
         _bs, _c, _w, _h = xa.shape
         # _bs = 1
         xa = xa.to(device)
+        xb=xb.to(device)
+        blurred_xa = gaussian_blur_fixed(xa, kernel_size=31, sigma=5)
+        # pixelated_xa = pixelate(xa, pixel_size=7)
         # xa = Image.open('/home/yuanlin/Projects/ProFaceUtility/runs/Mar08_16-18-43_YL1_hybridAll_inv3_recTypeRandom_utility/train_out/Train_ep16_batch1_orig.jpg').convert("RGB")
         # custom_transform = transforms.Compose([
         #     transforms.Resize(112, interpolation=Image.BICUBIC),
@@ -240,15 +282,25 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
         # embedding_orig = recognizer(recognizer.resize(xa))
         # xn = noise_mk(embedding_orig).repeat(1, 4).reshape(_bs, 3, _w, _h)
 
-        # targ_img = None
-        # obf_name = obfuscator.func.__class__.__name__
-        # if obf_name in ['FaceShifter', 'SimSwap']:
-        #     targ_img, _ = swap_target_set[i_batch % swap_target_set_len]
-        #     # targ_img, _ = swap_target_set[i_batch]
-        # elif obf_name == 'Mask':
-        #     targ_img, _ = cartoon_set[(i_batch - 1) % cartoon_set_len]
+        targ_img = None
+        obf_name = obfuscator.func.__class__.__name__
+        if obf_name in ['FaceShifter', 'SimSwap']:
+            targ_img, _ = swap_target_set[i_batch % swap_target_set_len]
+            # targ_img, _ = swap_target_set[i_batch]
         embedding_orig = recognizer(recognizer.resize(xa))
+        embedding_xb = recognizer(recognizer.resize(xb))
+        # dist1 = torch.nn.functional.cosine_similarity(embedding_xb, embedding_orig).detach().cpu().numpy().mean()
+        # print(dist1)
+        # target_trans = transforms.Compose([
+        #     transforms.Resize((112, 112)),
+        #     transforms.ToTensor(),
+        # transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        # ])
+        # targ_img=target_trans(targ_img)
+        # targ_img = targ_img.to(device)
+        # targ_img = targ_img.unsqueeze(0)
         xa_id = obfuscator.extract_features(xa).to(device)
+        # xa_obfs_id=xa_id
         xa_obfs_id = noise_mk(xa_id).to(device)
 
         xa_obfs = obfuscator(xa, xa_obfs_id)
@@ -261,14 +313,17 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
         skey1 = generate_key(password, _bs, _w, _h).to(device)
         skey1_dwt = dwt(skey1)
 
+        tensor = torch.rand(1, 4, 56, 56)
+        tensor=tensor.to(device)
         password_a = dwt(torch.randint(0, 2, (_bs, 1, _w, _h)).mul(2).sub(1).to(device))
         utility_factor = 0
-        utility_cond_init=c.utility_cond_init
+        utility_cond_init = utility_cond_init.repeat(_bs, 1).to(device)
         # utility_cond_init = torch.tensor[float(utility_factor), 1 - float(utility_factor)]).repeat(_bs, 1).to(device)
         utility_condition = utility_fc(utility_cond_init).repeat(1, 4).reshape(_bs, 1, _w // 2, _h // 2)
         # condition_utility = torch.full((_bs, 1, _w // 2, _h // 2), torch.tensor(utility_factor)).to(device)
         condition = torch.concat((password_a, utility_condition), dim=1)
-       low1,low2,xa_out_z, xa_adv = embedder(xa,xa_obfs , condition)
+
+        low1,low2,xa_out_z, xa_adv = embedder(xa,xa_obfs , condition)
         embedding_adv = recognizer(recognizer.resize(xa_adv))
         # cosine_sim_orig = torch.nn.functional.cosine_similarity(embedding_orig, embedding_obfs)
         # #cosine_sim_proc = torch.nn.functional.cosine_similarity(embedding_orig, embedding_proc).cpu()
@@ -280,11 +335,26 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
 
         # batch_acc = accuracy(gender_pred, gender_gt)
         # batch_acc_list.append(batch_acc.detach().cpu())
-
+        # noise = torch.randn_like(xa_adv) * 0.05
+        # xa_adv = torch.clamp(xa_adv + noise, min=0.0, max=1.0)
         # Correct recovery
         key_rec = skey1_dwt.repeat(1, 3, 1, 1) if c.SECRET_KEY_AS_NOISE else \
             gauss_noise((_bs, _c * 4, _w // 2, _h // 2)).to(device)
-        xa_rev, xa_rev_2 = embedder(key_rec, xa_adv, condition, rev=True)  # Recovery using noisy image
+        # key_rec=torch.concat((key_rec, utility_condition.repeat(1, 4, 1, 1)), dim=1)
+
+        xa_rev, xa_rev_2 = embedder(key_rec, xa_adv, condition, rev=True) # Recovery using noisy image
+
+        xa_id = obfuscator.extract_features(xa_rev).to(device)
+        # xa_obfs_id=xa_id
+        xa_obfs_id = noise_mk(xa_id).to(device)
+
+        xa_obfs = obfuscator(xa_rev, xa_obfs_id)
+        xa_obfs.to(device)
+        low1, low2, xa_out_z, xa_adv = embedder(xa_rev, xa_obfs, condition)
+        xa_rev, xa_rev_2 = embedder(key_rec, xa_adv, condition, rev=True)
+
+
+
         embedding_rev=recognizer(recognizer.resize(xa_rev))
         gender_predrev = gender_classifier(embedding_rev).cpu()
         # batch_accrev = accuracy(gender_predrev, gender_gt)
@@ -294,10 +364,12 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
         password = random_password()
         skey2 = generate_key(password, _bs, _w, _h).to(device)
         skey2_dwt = dwt(skey2)
-
+        password_wrong = dwt(torch.randint(0, 2, (_bs, 1, _w, _h)).mul(2).sub(1).to(device))
+        condition_wrong = torch.concat((password_wrong, utility_condition), dim=1)
         key_rec = skey2_dwt.repeat(1, 3, 1, 1) if c.SECRET_KEY_AS_NOISE else \
             gauss_noise((_bs, _c * 4, _w // 2, _h // 2)).to(device)
-        xa_rev_wrong, xa_rev_wrong_2 = embedder(key_rec, xa_adv, condition, rev=True)
+        xa_rev_wrong, xa_rev_wrong_2 = embedder(key_rec, xa_adv, condition_wrong, rev=True)
+        embedding_adv = recognizer(recognizer.resize(xa_adv))
 
         if i_batch <= 500:
             save_image(normalize(xa), f"{dir_image}/batch{i_batch}_orig.jpg", nrow=4)
@@ -305,9 +377,11 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
             save_image(normalize(xa_obfs), f"{dir_image}/batch{i_batch}_obfs.jpg", nrow=4)
             # # save_image(normalize(img_z, True), f"{dir_image}/batch{i_batch}_{obf_name}_proc_byproduct.jpg", nrow=4)
             # save_image(normalize(xn), f"{dir_image}/batch{i_batch}_{obf_name}.jpg", nrow=4)
-            # save_image(normalize(xa_rev), f"{dir_image}/batch{i_batch}_{obf_name}_rev_u.jpg", nrow=4)
+            save_image(normalize(xa_rev), f"{dir_image}/batch{i_batch}_rev_u.jpg", nrow=4)
+            # save_image(normalize(xa_rev_2), f"{dir_image}/batch{i_batch}_rev_u.jpg", nrow=4)
+            # save_image(normalize(key_rec), f"{dir_image}/batch{i_batch}_rev_u.jpg", nrow=4)
             # # save_image(normalize(xa_rev_2, True), f"{dir_image}/batch{i_batch}_{obf_name}_rev_byproduct.jpg", nrow=4)
-            # save_image(normalize(xa_rev_wrong, True), f"{dir_image}/batch{i_batch}_{obf_name}_rev_wrong_u.jpg", nrow=4)
+            save_image(normalize(xa_rev_wrong, True), f"{dir_image}/batch{i_batch}_rev_wrong_u.jpg", nrow=4)
             # save_image(normalize(xa_rev_wrong_2, True), f"{dir_image}/batch{i_batch}"
             #                                                   f"_{obf_name}_rev_wrong_byproduct.jpg", nrow=4)
 
@@ -342,7 +416,7 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
         # diff = np.subtract(embedding_orig.cpu().detach().numpy(), embedding_adv.cpu().detach().numpy())  # 计算两组嵌入（embeddings1 和 embeddings2）之间的差异
         # dist = np.sum(np.square(diff), 1)
         embedding_orig = embedding_orig / torch.linalg.norm(embedding_orig, axis=1, keepdims=True)
-        embedding_adv = embedding_adv / torch.linalg.norm(embedding_adv, axis=1, keepdims=True)
+        embedding_adv = embedding_rev / torch.linalg.norm(embedding_rev, axis=1, keepdims=True)
         dist = torch.nn.functional.cosine_similarity(embedding_adv, embedding_orig).detach().cpu().numpy().mean()
         # print(loss_cos)
         if dist<0.17:
@@ -350,8 +424,9 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
 
 
         xa_norm = normalize(xa)
-         #### Privacy metrics
-        xa_adv_norm = normalize(xa_adv)
+
+        #### Privacy metrics
+        xa_adv_norm = normalize(xa_rev)
         # SSIM
         pro_ssim_score = ssim(xa_norm, xa_adv_norm).detach().cpu()
         pro_ssim_list.append(pro_ssim_score)
@@ -420,7 +495,9 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
     resule=right/sum0
     # print("Gender classify acc.", mean_acc)
     return ssim_ori_adv,psnr_ori_adv,lpips_ori_adv,cos_ori_adv,resule
-def main(inv_nblocks, embedder_path, fc_path, noise_path,dataset_path, test_session_dir, typeWR, batch_size):
+
+
+def main(inv_nblocks, embedder_path, fc_path, utility_cond_init,noise_path,dataset_path, test_session_dir, typeWR, batch_size):
 
     workers = 0 if os.name == 'nt' else 8
 
@@ -437,6 +514,7 @@ def main(inv_nblocks, embedder_path, fc_path, noise_path,dataset_path, test_sess
     state_dict = torch.load(fc_path)
     utility_fc.load_state_dict(state_dict)
     utility_fc.to(device)
+
 
     noise_mk = Noisemaker()
     state_dict = torch.load(noise_path)
@@ -510,7 +588,12 @@ def main(inv_nblocks, embedder_path, fc_path, noise_path,dataset_path, test_sess
     # ]
 
     loader_test = DataLoader(dataset_test, num_workers=workers, batch_size=batch_size, shuffle=False)
-
+    if utility_cond_init==torch.tensor([1.0,0.0]):
+        type= "Identity Preservation"
+    if utility_cond_init==torch.tensor([1.0,1.0]):
+        type = "Double Anonymous"
+    if utility_cond_init==torch.tensor([0.0,1.0]):
+        type= "Visual Preservation"
     results = {}
     for obf_opt in obf_options:
         print('__________ {} __________'.format(obf_opt))
@@ -520,43 +603,51 @@ def main(inv_nblocks, embedder_path, fc_path, noise_path,dataset_path, test_sess
         acc_list = []
         #for uf in utility_factors:
         ssim_orig_adv,psnr_orig_adv,lpips_orig_adv,cos,lc = test_epoch_mm23(
-                embedder, obfuscator, utility_fc,noise_mk,recognizer, gender_classifier, loader_test,
+                embedder, obfuscator, utility_fc,noise_mk,recognizer, utility_cond_init,gender_classifier,loader_test,
                 target_set_test, typeWR, dir_image=test_session_dir
             )
         # acc_list.append(obfuscator_metrics)
-        print('ssim:{} - psnr:{} -lpips:{} -CosSim:{} -acc:{}'.format( ssim_orig_adv,psnr_orig_adv,lpips_orig_adv,cos,lc))
+        print('type:{} ssim:{} - psnr:{} -lpips:{} -CosSim:{} -acc:{}'.format( type,ssim_orig_adv,psnr_orig_adv,lpips_orig_adv,cos,lc))
 
         # print('{}: {}'.format(obf_opt, obfuscator_metrics))
         # results[obf_opt] = obfuscator_metrics
         print('{}: {}'.format(obf_opt, acc_list))
 
     return results
+
+
 if __name__ == '__main__':
     print("runs")
     embedder_configs = [
         [3, 'RandWR',
-         os.path.join(DIR_PROJ, "/model/checkpoints/simswap_inv3_recTypeRandom_utility_ep23.pth"),
-         os.path.join(DIR_PROJ, "/model/checkpoints/simswap_inv3_recTypeRandom_utility_utilityFC_ep23.pth"),
-         os.path.join(DIR_PROJ, "/model/checkpoints/simswap_inv3_recTypeRandom_utility_ep3_iter500.pth"),
+         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec29_23-14-01_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_ep23.pth"),
+         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec29_23-14-01_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_utilityFC_ep23.pth"),
+         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec25_02-00-59_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_ep3_iter500.pth"),
          ],
 
     ]
 
     # Path to original datasets
     datasets1k = (
-        # ('CelebA', '/media/Data8T/Datasets/CelebA/align_crop_224/test'),
+        ('CelebA', '/media/Data8T/Datasets/CelebA/align_crop_224/test'),
         # ('FFHQ', '/media/Data8T/Datasets/FFHQ128/test'),
         ('LFW', os.path.join(c.DIR_PROJECT, 'experiments/test_data/LFW')),
+    )
+    utility_cond_init=(
+        (torch.tensor([1.0,0.0])),
+        (torch.tensor([1.0,1.0])),
+        torch.tensor([0.0, 1.0])
     )
 
     for inv_nblocks, typeWR, embedder_path, fc_path,noise_path in embedder_configs:
         print(f"******************* {inv_nblocks} inv blocks **********************")
-        for dataset_name, dataset_path in datasets1k:
-            test_session = f"{dataset_name}_{inv_nblocks}InvBlocks_{typeWR}_utility"
-            test_session_dir = os.path.join(DIR_EVAL_OUT, test_session)
-            os.makedirs(test_session_dir, exist_ok=True)
-            result_file = os.path.join(DIR_EVAL_OUT, f"{test_session}.json")
-            result_dict = main(inv_nblocks, embedder_path, fc_path, noise_path,dataset_path, test_session_dir, typeWR,
-                               batch_size=1)
-            # with open(result_file, 'w') as f:
-            #     json.dump(result_dict, f)
+        for utility_cond_init in utility_cond_init:
+            for dataset_name, dataset_path in datasets1k:
+                test_session = f"{dataset_name}_{inv_nblocks}InvBlocks_{typeWR}_utility"
+                test_session_dir = os.path.join(DIR_EVAL_OUT, test_session)
+                os.makedirs(test_session_dir, exist_ok=True)
+                result_file = os.path.join(DIR_EVAL_OUT, f"{test_session}.json")
+                result_dict = main(inv_nblocks, embedder_path, fc_path,utility_cond_init, noise_path,dataset_path, test_session_dir, typeWR,
+                                   batch_size=1)
+                # with open(result_file, 'w') as f:
+                #     json.dump(result_dict, f)
