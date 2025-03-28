@@ -263,7 +263,7 @@ def test_epoch_mm23(embedder, obfuscator,  utility_fc, noise_mk,recognizer, gend
 
         password_a = dwt(torch.randint(0, 2, (_bs, 1, _w, _h)).mul(2).sub(1).to(device))
         utility_factor = 0
-        utility_cond_init = torch.tensor([1.0,0.0]).repeat(_bs, 1).to(device)
+        utility_cond_init=c.utility_cond_init
         # utility_cond_init = torch.tensor[float(utility_factor), 1 - float(utility_factor)]).repeat(_bs, 1).to(device)
         utility_condition = utility_fc(utility_cond_init).repeat(1, 4).reshape(_bs, 1, _w // 2, _h // 2)
         # condition_utility = torch.full((_bs, 1, _w // 2, _h // 2), torch.tensor(utility_factor)).to(device)
@@ -535,9 +535,9 @@ if __name__ == '__main__':
     print("runs")
     embedder_configs = [
         [3, 'RandWR',
-         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec29_23-14-01_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_ep23.pth"),
-         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec29_23-14-01_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_utilityFC_ep23.pth"),
-         os.path.join(DIR_PROJ, "/home/lixiong/Projects/ProFaceUtility/runs/Dec25_02-00-59_YL1_simswap_inv3_recTypeRandom_utility/checkpoints/simswap_inv3_recTypeRandom_utility_ep3_iter500.pth"),
+         os.path.join(DIR_PROJ, "/model/checkpoints/simswap_inv3_recTypeRandom_utility_ep23.pth"),
+         os.path.join(DIR_PROJ, "/model/checkpoints/simswap_inv3_recTypeRandom_utility_utilityFC_ep23.pth"),
+         os.path.join(DIR_PROJ, "/model/checkpoints/simswap_inv3_recTypeRandom_utility_ep3_iter500.pth"),
          ],
 
     ]
