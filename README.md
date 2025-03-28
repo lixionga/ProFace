@@ -44,7 +44,7 @@ This module implements various algorithms for facial data analysis.
 
 ## Platform
 
-![](./FacePrivacy/PRO-Face%20S/assets/platform.png)
+![](./FacePrivacy/PRO-Face%20S/assets/webportal1.png)
 
 This module implements two system platforms, with all relevant functionalities powered by the algorithms from Face Privacy and Face Security.
 
