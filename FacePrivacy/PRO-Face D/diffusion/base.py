@@ -771,6 +771,7 @@ class GaussianDiffusionBeatGans:
             device=None,
             progress=False,
             eta=0.0,
+            energy_fun_conf=None
     ):
         """
         Use DDIM to sample from the model and yield intermediate samples from
@@ -793,9 +794,42 @@ class GaussianDiffusionBeatGans:
 
             indices = tqdm(indices)
 
+        xs = []
+        x0s = []
+        conds = []
+        norm_grads = []
         ts = sorted(self.conf.use_timesteps)
+        losses = {}
+        # ############# BEGIN ##############
+        if energy_fun_conf:
+            fun_type = energy_fun_conf["fun_type"]
+            rho_scale = energy_fun_conf["rho_scale"]
+            stop = energy_fun_conf["stop"]
+            start = energy_fun_conf["start"]
+            idloss = energy_fun_conf["idloss"]
+            self.idloss = idloss
 
+        def cond_id_fn(x, t, cond, y=None):
+            with th.enable_grad():
+                x = x.detach().requires_grad_()
+                out = self.p_mean_variance(
+                    model, x, t, clip_denoised=False, model_kwargs={"cond": cond}
+                )
+                x0_t = out["pred_xstart"]
+                loss = th.tensor(0)  # g_{facial}
+                id_loss = th.linalg.norm(self.idloss.get_sim_residual(x0_t))
+                print(f"id_loss {id_loss}")
+                loss = loss + 1 * id_loss
+                # ▽_{x_t} g_{facial}
+                return -th.autograd.grad(outputs=loss, inputs=x)[0]
+
+        org_cond = model_kwargs['cond'].clone().detach().to('cpu')
+        gen_cond = model_kwargs['cond'].clone().detach().to('cpu')
+        # #############  END  ##############
         for i, j in zip(indices, reversed(ts)):
+            if energy_fun_conf is not None and energy_fun_conf['use_inner_mode'] and j > energy_fun_conf['inner_t']:
+                # print(f"i={i}, j={j}")
+                continue
 
             if isinstance(model_kwargs, list):
                 # index dependent model kwargs
@@ -806,21 +840,105 @@ class GaussianDiffusionBeatGans:
 
             t = th.tensor([i] * len(img), device=device)
 
-            # 原采样流程
-            with th.no_grad():
+            # ############# BEGIN ##############
+            # print(f"/////////////// i={i},timestep={j} //////////")
+            if energy_fun_conf is not None and energy_fun_conf['is_recovery']:
+                with th.no_grad():
+                    out = self.ddim_sample(
+                        model,
+                        img,
+                        t,
+                        clip_denoised=clip_denoised,
+                        denoised_fn=denoised_fn,
+                        cond_fn=cond_fn,
+                        model_kwargs=_kwargs,
+                        eta=eta,
+                    )
+                    out['t'] = t
+                    yield out
+                    img = out["sample"]
+            elif energy_fun_conf is not None and energy_fun_conf['is_use']:  # 加入 energy function 采样流程
+                xt = img.detach()  # :(batch=4, 3, H, W)
+                xt.requires_grad = True
+
+                if energy_fun_conf['optim_targ'] == 'cond':
+                    cond = _kwargs['cond']
+                    cond.requires_grad = True
+                    _kwargs['cond'] = cond
+
                 out = self.ddim_sample(
                     model,
-                    img,
+                    xt,  # img,
                     t,
                     clip_denoised=clip_denoised,
                     denoised_fn=denoised_fn,
                     cond_fn=cond_fn,
                     model_kwargs=_kwargs,
-                    eta=eta,
+                    eta=eta
                 )
                 out['t'] = t
+
+                # x0_t = out["pred_xstart"]  # :(batch=4, 3, H, W)
+                eps = out["pred_eps"]
+                x0_t = self._predict_xstart_from_eps(x_t=xt, t=t, eps=eps)
+
+                xt_next = out["sample"]
+                # distance measure
+                residual = None
+                norm_grad = None
+                if fun_type in ['res', 'sim']:
+                    if fun_type == 'res':
+                        residual = idloss.get_residual(x0_t)
+                    elif fun_type == 'sim':
+                        residual = idloss.get_sim_residual(x0_t)
+                    norm = th.linalg.norm(residual)
+                    losses[f'{j}'] = round(norm.item(), 2)
+                    if j == 0 or j == 500:
+                        print(f"j={j},{fun_type}={norm}")
+                    if energy_fun_conf['optim_targ'] == 'cond':
+                        norm_grad = th.autograd.grad(outputs=norm, inputs=cond)[0]
+                    else:
+                        norm_grad = th.autograd.grad(outputs=norm, inputs=xt)[0]  # gt
+                elif fun_type == 'idis':
+                    if energy_fun_conf['optim_targ'] == 'cond':
+                        norm_grad = idloss.get_idis_div_residual(x0_t, xt=cond)
+                    else:
+                        norm_grad = idloss.get_idis_div_residual(x0_t, xt=xt)
+                else:
+                    print('!!energy fun_type error...')
+
+                rho = self.sqrt_alphas_cumprod[i] * rho_scale
+                # x_{t-1} = x_{t-1} - gt * ρt
+                if stop <= j <= start:
+                    # print(f"norm_grad={norm_grad}, j={j}, shape={norm_grad.shape}")
+                    if energy_fun_conf['optim_targ'] == 'cond':
+                        manipulated_cond = cond - rho * norm_grad
+                        _kwargs['cond'] = manipulated_cond.detach()
+                        gen_cond = manipulated_cond.detach().to('cpu')
+                    else:
+                        xt_next -= rho * norm_grad
+                    # pass
+                out["sample"] = xt_next
+
                 yield out
                 img = out["sample"]
+            # #############  END  ##############
+            else:  # 原采样流程
+                # print('come here...')
+                with th.no_grad():
+                    out = self.ddim_sample(
+                        model,
+                        img,
+                        t,
+                        clip_denoised=clip_denoised,
+                        denoised_fn=denoised_fn,
+                        cond_fn=cond_fn,
+                        model_kwargs=_kwargs,
+                        eta=eta,
+                    )
+                    out['t'] = t
+                    yield out
+                    img = out["sample"]
 
     def _vb_terms_bpd(self,
                       model: Model,
