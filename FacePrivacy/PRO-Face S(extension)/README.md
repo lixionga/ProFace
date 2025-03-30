@@ -11,7 +11,7 @@ The project's runtime environment is based on Miniconda. You can use the followi
 conda create --name PROFaceS --file requirements.txt
 ```  
 #### Pre-trained model
-所有需要的预训练模型都在following link：
+All required pre-trained models can be found at the following link:
 - [BaiduDisk link](https://pan.baidu.com/s/1PGtcQZteuyLijHICxTJ30Q) (Password:`hsnw`)
 
 ### Usage
