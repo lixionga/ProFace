@@ -1,4 +1,3 @@
-# About platform
 ## Web Protal Environment
   Due to potential conflicts between certain dependency packages during the environment setup, they need to be installed step-by-step
     pip install  torch==1.12.0 torchvision==0.13.0 torchaudio==0.12.0
