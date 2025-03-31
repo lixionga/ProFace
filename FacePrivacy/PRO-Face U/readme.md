@@ -1,4 +1,4 @@
-# Source Code for PRO-Face-S
+# Source Code for PRO-Face-U
 
 PRO-Face U: Real-World Applications of Utility-Guided Reversible Anonymization of Facial Images is currently in preparation.
 
