@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+    <!-- fav icon -->
+    <link rel="icon" href="{{ url_for('static', filename='assets/images/fav-icon/fav-icon.png') }}">
+
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/jquery.fancybox.min.css') }}">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/bootstrap.min.css') }}">
+
+    <!-- Swiper -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/swiper.min.css') }}">
+
+    <!-- animate.css file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/animate.css') }}">
+
+    <!-- Splitting -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/splitting.css') }}">
+
+    <!-- fontAwesome -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/all.min.css') }}">
+
+    <!-- Font Family -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Nunito:wght@400;500;600;700;800;900&amp;display=swap">
+
+    <!-- main-LTR-1 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main-LTR-1.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/makeup.css') }}">
+        
+
+    <title>妆容迁移</title>
+  </head>
+  <body class=" overlay-is-linear-gradient rounded-btns ">
+    <!--Start Page Header-->
+    <!--Start Page Header-->
+    <header class="page-header menu-on-end" id="page-header">
+      <!--start navbar-->
+      <div class="container-fluid">
+        <nav class="main-navbar" id="main-nav">
+          <a class="navbar-brand" href="#">
+            <img class="brand-logo light-logo img-fluid" src="{{ url_for('static', filename='assets/images/logo/logo-light-square.png') }}" alt=""/>
+            <img class="brand-logo dark-logo img-fluid" src="{{ url_for('static', filename='assets/images/logo/logo-light-square.png') }}" alt=""/>
+          </a>
+          <div class="menu-toggler-btn"><span></span><span></span><span></span></div>
+          <div class="navbar-menu-wraper" id="navbar-menu-wraper">
+            <ul class="navbar-nav mobile-menu">
+              <li class="nav-item has-sub-menu">
+                <a class="nav-link active" href="{{ url_for('index') }}"><i class="fas fa-home icon"></i>首页</a>
+              </li>
+              <li class="nav-item has-sub-menu">
+                <a class="nav-link" href="#0"><i class="fas fa-cog icon"></i>在线工具<i class="fas fa-chevron-down down-Arrow-icon"></i></a>
+                <ul class="sub-menu">
+                  <li class="nav-item sub-menu-item">
+                    <a class="nav-link sub-menu-link" href="{{ url_for('forgery') }}"><i class="fas fa-cog icon"></i>深度伪造检测</a>
+                  </li>
+                  <li class="nav-item sub-menu-item">
+                    <a class="nav-link sub-menu-link" href="{{ url_for('anonymization') }}"><i class="fas fa-cog icon"></i>人脸匿名化</a>
+                  </li>
+                  <li class="nav-item sub-menu-item">
+                    <a class="nav-link sub-menu-link" href="{{ url_for('makeup') }}"><i class="fas fa-cog icon"></i>妆容迁移</a>
+                  </li>
+                  <li class="nav-item sub-menu-item">
+                    <a class="nav-link sub-menu-link" href="{{ url_for('tamper') }}"><i class="fas fa-cog icon"></i>主动防御</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('contact_us') }}"><i class="fas fa-address-card icon"></i>SDK</a>
+              </li>
+              <li class="nav-item has-sub-menu">
+                <a class="nav-link" href="https://github.com/lixionga/ProFace"><i class="fas fa-edit icon"></i>Sourcecode</a>
+              </li>
+              <li class="nav-item has-sub-menu">
+                <a class="nav-link" href="#0"><i class="fas fa-cogs icon"></i>产品文档</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('contact_us') }}"><i class="fas fa-mobile-alt icon"></i>联系我们</a>
+              </li>
+            </ul>
+          </div>
+          <a class="header-cta ma-btn-primary" href="#0">登录</a>
+        </nav>
+      </div>
+      <!--End navbar-->
+    </header>
+    <!--End Page Header-->
+    <!-- Start inner Page hero-->
+    <section class="d-flex align-items-center page-hero inner-page-hero " id="page-hero">
+      <div class="overlay-photo-image-bg parallax"></div>
+      <div class="overlay-color"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 hero-text-area">
+            <h1 class="hero-title" data-splitting>基于妆容迁移的对抗性人脸隐私保护</h1>
+            <nav aria-label="breadcrumb ">
+              <ul class="breadcrumb wow fadeInUp" data-wow-delay="1s">
+                <li class="breadcrumb-item"><a class="breadcrumb-link" href="#0"><i class="fas fa-home icon "></i>在线工具</a></li>
+                <li class="breadcrumb-item active">基于妆容迁移的对抗性人脸隐私保护</li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End inner Page hero-->
+    <!-- Start blog-1-col-posts-->
+    <section class="faq mega-section  section-bg-shade" id="faq">
+      <div class="shape-top-left"></div>
+      <div class="shape-bottom-right"></div>
+      <div class="pattern-top-end-dir"></div>
+      <div class="pattern-bottom-start-dir"></div>
+      <div class="container">
+        <div class="section-heading center-heading">
+          <h2 class="section-title wow" data-splitting="chars">基于妆容迁移的对抗性人脸隐私保护</h2>
+          <p class="section-subtitle wow fadeInUp" data-wow-delay=".5s">上传一张人脸图片和妆容图片，系统将自动为您展示上妆后的效果</p>
+          <div class="line line-solid-main-color wow fadeIn" data-wow-delay="1s"></div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-lg-7">
+            <div class="faq-img start-dir-img-frame wow fadeInUp" data-wow-delay="0.4s">
+              <div class="image-comparison">
+                <!-- Before Image Container -->
+                <div class="before-image">
+                  <div class="image-label">原图</div>
+                  <img id="image-before" class="img-fluid" src="{{ url_for('static', filename='assets/images/makeup/before.png') }}" alt="Before Image">
+                </div>
+                <!-- Vertical Divider -->
+                <div class="divider"></div>
+                <!-- After Image Container -->
+                <div class="after-image">
+                  <div class="image-label">妆后</div>
+                  <img id="image-after" class="img-fluid" src="{{ url_for('static', filename='assets/images/makeup/after.png') }}" alt="After Image">
+                </div>
+              </div>
+              <div class="dividertwo"></div>
+              <!-- Example Images Section (展示样图) -->
+              <div class="example-images mt-4" data-wow-delay="0.4s">
+                <div class="row">
+                  <div class="col-4">
+                    <img class="img-fluid" src="{{ url_for('static', filename='assets/images/makeup/example1.png') }}" alt="Example 1">
+                  </div>
+                  <div class="col-4">
+                    <img class="img-fluid" src="{{ url_for('static', filename='assets/images/makeup/example2.png') }}" alt="Example 2">
+                  </div>
+                  <div class="col-4">
+                    <img class="img-fluid" src="{{ url_for('static', filename='assets/images/makeup/example3.png') }}" alt="Example 3">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-4">
+            <!--Start Accordion List For FAQ-->
+            <div class="faq-accordion wow fadeInUp" id="accordion" data-wow-delay="0.7s">
+              <!--first FAQ-->
+              <div class="card mb-2">
+                <div class="card-header" id="headingTwo">
+                  <h5 class="mb-0 faq-title">
+                    <button class="btn btn-link faq-btn collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">我已有妆容想法</button>
+                  </h5>
+                </div>
+                <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+                  <div class="card-body">
+                    <!-- File Upload Section for Image Upload -->
+                    <div class="file-upload-container mb-3">
+                      <label for="file-upload" class="file-upload-label">选择本地图片</label>
+                      <input type="file" id="file-uploadmakeup" class="file-upload-input" accept="image/*">
+                      <img class="img-fluid" id="image-makeup" src="{{ url_for('static', filename='assets/images/makeup/makeup.jpg') }}" alt="makeup1">
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                      <button id="url-upload-btnmakeup" class="btn btn-primary mt-2" >确定选择</button>
+                      <a href="#" class="ml-2" style="text-decoration: none; color: #007bff; margin-left: 50px;" onclick="openImageGallery()">妆容素材库</a>
+                    </div>
+                    <!-- 图片库模态框 -->
+                    <div class="modal-overlay" id="modalOverlay"></div>
+                    <div class="image-modal" id="imageGalleryModal">
+                      <div class="category-tabs">
+                        <div class="category-tab active" onclick="switchCategory('nature')">自然妆容</div>
+                        <div class="category-tab" onclick="switchCategory('party')">欧美妆容</div>
+                        <div class="category-tab" onclick="switchCategory('festival')">国风妆容</div>
+                      </div>
+                      <div class="image-grid" id="imageGrid"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>              
+              <!--second FAQ-->
+              <div class="card mb-2">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0 faq-title">
+                    <button class="btn btn-link faq-btn" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">人脸原图 </button>
+                  </h5>
+                </div>
+                <div class="collapse show" id="collapseOne" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                  <div class="card-body">
+                    <!-- File Upload Section for Image Upload -->
+                    <div class="file-upload-container mb-3">
+                      <label for="file-upload" class="file-upload-label">选择本地图片</label>
+                      <input type="file" id="file-upload" class="file-upload-input" accept="image/*">
+                    </div>
+                    <!-- URL Upload Section for Image URL -->
+                    <div class="url-upload-container">
+                      <label for="image-url" class="url-upload-label">输入图片URL</label>
+                      <input type="text" id="image-url" class="image-url-input" placeholder="输入图片URL" onclick="chooseraw()">
+                    </div>
+                    <button id="url-upload-btn" class="btn btn-primary mt-2" >确定选择</button>
+                  </div>
+                </div>
+              </div>
+              <!--Third FAQ-->
+              <div class="card mb-2">
+                <div class="card-header " id="headingThree">
+                  <h5 class="mb-0 faq-title">
+                    <button class="btn btn-link  faq-btn  collapsed " data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree"> 人脸身份相似度</button>
+                  </h5>
+                </div>
+                <div class="collapse " id="collapseThree" aria-labelledby="headingThree" data-bs-parent="#accordion">
+                  <div class="card-body">
+                    <p class="faq-answer">
+                      此相似度用于度量隐私保护程度：<br>更低的相似度表示更高的隐私保护强度
+                    </p>
+                    <!-- 新增的相似度展示框 -->
+                    <div class="similarity-box">
+                      <div class="similarity-result">
+                        <p id="similarity-score">相似度: <span>12.4%</span></p>
+                      </div>
+                    </div>                   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Start  page-footer Section-->
+    <footer class="page-footer dark-color-footer" id="page-footer">
+      <div class="container">
+        <div class="row footer-cols">
+          <div class="col-12 col-md-8 col-lg-4  footer-col wow fadeInUp " data-wow-delay="0.3s">
+            <h6 class=" footer-col-title  ">关于ProFace</h6>
+            <div class="footer-col-content-wrapper">        
+              <p class="footer-text-about-us ">
+                重庆邮电大学研发的可信人脸数据安全保护研究平台
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-2  footer-col wow fadeInUp " data-wow-delay="0.5s">
+            <h6 class=" footer-col-title    ">联系我们</h6>
+            <div class="footer-col-content-wrapper">       
+              <div class="contact-info-card"><i class="fas fa-envelope icon"></i><a class="text-lowercase  info" href="mailto:example@support.com">example@support.com</a></div>
+              <div class="contact-info-card"><i class="fas fa-globe-africa icon"></i><a class="text-lowercase  info" href="#0">www.yoursite.com</a></div>
+              <div class="contact-info-card"><i class="fas fa-map-marker-alt icon"></i><span class="text-lowercase  info">重庆邮电大学</span></div>
+              <div class="contact-info-card"><i class="fas fa-mobile-alt icon"></i><a class="info" href="tel:+20123456789">+20123456789      </a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights ">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p class="creadits">&copy; 2025 <a target="_blank" title="ProFace">ProFace</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End  page-footer Section-->
+    <!-- Start loading-screen Component-->
+    <div class="loading-screen" id="loading-screen">
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
+    <!-- End loading-screen Component-->
+
+    <!-- Start back-to-top Component-->
+    <div class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up icon"></i></div>
+    <!-- End back-to-top Component-->   
+        
+        <!--     JQuery     -->
+        <script src="{{ url_for('static', filename='js/vendors/jquery-3.4.1.min.js') }}"></script>
+
+        <!--     bootstrap     -->
+        <script src="{{ url_for('static', filename='js/vendors/bootstrap.bundle.min.js') }}"></script>
+        
+        <!--     Splitting     -->
+        <script src="{{ url_for('static', filename='js/vendors/splitting.min.js') }}"></script>
+        
+        <!--     wow     -->
+        <script src="{{ url_for('static', filename='js/vendors/wow.min.js') }}"></script>
+        
+        <!--     fancybox     -->
+        <script src="{{ url_for('static', filename='js/vendors/jquery.fancybox.min.js') }}"></script>
+        
+        <!--     countTo     -->
+        <script src="{{ url_for('static', filename='js/vendors/jquery.countTo.js') }}"></script>
+        
+        <!--     swiper     -->
+        <script src="{{ url_for('static', filename='js/vendors/swiper.min.js') }}"></script>
+        
+        <!--     isotope     -->
+        <script src="{{ url_for('static', filename='js/vendors/isotope-min.js') }}"></script>
+        
+        <!--     main     -->
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+        <script>
+              // 妆容图片数据
+               const makeupGallery = {
+                nature: [
+                    "{{ url_for('static', filename='assets/images/gallery/nature/1.png') }}",
+                    "{{ url_for('static', filename='assets/images/gallery/nature/2.png') }}",
+                    "{{ url_for('static', filename='assets/images/gallery/nature/3.png') }}",
+                    "{{ url_for('static', filename='assets/images/gallery/nature/4.png') }}",
+                ],
+                party: [
+                    "{{ url_for('static', filename='assets/images/gallery/party/1.jpg') }}",
+                    "{{ url_for('static', filename='assets/images/gallery/party/2.png') }}",
+                    "{{ url_for('static', filename='assets/images/gallery/party/3.png') }}",
+                    "{{ url_for('static', filename='assets/images/gallery/party/4.png') }}",
+                    "{{ url_for('static', filename='assets/images/gallery/party/5.png') }}",
+                    "{{ url_for('static', filename='assets/images/gallery/party/6.jpg') }}",
+                    "{{ url_for('static', filename='assets/images/gallery/party/7.png') }}",
+                ],
+                festival: [
+                    "{{ url_for('static', filename='assets/images/gallery/festival/1.png') }}",
+                ]
+              };
+              document.addEventListener("DOMContentLoaded", function() {
+                  const fileUploadMakeup = document.getElementById('file-uploadmakeup');
+                  const imageMakeup = document.getElementById('image-makeup');
+
+                  fileUploadMakeup.addEventListener('change', function() {
+                      choosemakeup();
+                  });
+              });
+
+            function choosemakeup(){
+              const fileUploadMakeup=document.getElementById('file-uploadmakeup')
+              if(fileUploadMakeup.files.length > 0) {
+                    const file = fileUploadMakeup.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('image-makeup').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                    }
+            }
+            
+            function chooseraw() {
+                const fileInput = document.getElementById('file-upload');
+                const urlInput = document.getElementById('image-url');
+                const imageUrl = urlInput.value.trim();
+                if(fileInput.files.length > 0) 
+                {
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('image-before').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+
+              }
+
+              function uploadImages() { 
+                const fileInput = document.getElementById('file-upload');
+                const fileUploadMakeup = document.getElementById('file-uploadmakeup');
+                const imageMakeup = document.getElementById('image-makeup');
+                const imageAfter = document.getElementById('image-after');
+
+                const formData = new FormData();
+                formData.append('original_image', fileInput.files[0]);
+                formData.append('makeup_image', fileUploadMakeup.files[0]);
+
+                // 向服务器发送请求处理图片
+                fetch('/make_upload', {
+                method: 'POST',
+                body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                if (data.success) {
+                    // 服务器返回处理后的图片URL后显示在页面上
+                    imageAfter.src = data.processed_image_url;
+                } else {
+                    alert('上传失败，请重试！');
+                }
+                })
+                .catch(error => {
+                console.error('上传出错:', error);
+                // alert('发生错误，请稍后重试');
+                });
+            }
+
+            function openImageGallery() {
+              document.getElementById('modalOverlay').style.display = 'block';
+              document.getElementById('imageGalleryModal').style.display = 'block';
+              switchCategory('nature');
+            }
+
+            function switchCategory(type) {
+              // 切换分类
+              document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+              });
+              event.target.classList.add('active');
+
+              // 渲染图片
+              const grid = document.getElementById('imageGrid');
+              grid.innerHTML = '';
+              
+              makeupGallery[type].forEach(imgUrl => {
+                const img = document.createElement('img');
+                img.src = imgUrl;
+                img.classList.add("selectable-image"); 
+                img.onclick = async () => {
+                  // 显示选中的图片到 <img id="image-makeup">
+                  const imageMakeup = document.getElementById('image-makeup');
+                  imageMakeup.src = imgUrl;
+
+                  try {
+                    // 关键：将选中的素材库图片转换为 File 对象并填充到 file input
+                    const response = await fetch(imgUrl);
+                    const blob = await response.blob();
+                    const file = new File([blob], "makeup_image.jpg", { type: blob.type });
+
+                    // 使用 DataTransfer 模拟文件上传
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    document.getElementById('file-uploadmakeup').files = dataTransfer.files;
+
+                  } catch (error) {
+                    console.error("无法加载图片:", error);
+                  }
+
+                  closeImageGallery(); // 关闭图片选择框
+                };
+
+                grid.appendChild(img);
+              });
+            }
+
+
+
+            function closeImageGallery() {
+              document.getElementById('modalOverlay').style.display = 'none';
+              document.getElementById('imageGalleryModal').style.display = 'none';
+            }
+
+            // 点击遮罩层关闭
+            document.getElementById('modalOverlay').addEventListener('click', closeImageGallery);
+
+            // 绑定按钮事件（确保绑定事件在 DOM 加载后执行）
+            document.getElementById('url-upload-btn').addEventListener('click', function() {
+                chooseraw();
+                uploadImages();
+            });
+            document.getElementById('url-upload-btnmakeup').addEventListener('click', function() {
+                chooseraw();
+                uploadImages();
+            });
+        </script>
+  </body>
+</html>
