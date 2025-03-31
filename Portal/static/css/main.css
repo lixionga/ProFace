@@ -1,0 +1,19 @@
+.navbar-brand img {
+    max-height: 600px; /* 调整 logo 图片的高度 */
+    width: auto; /* 确保等比例缩放 */
+}
+
+.small-text {
+    font-size: 60px; /* 设置 "人脸媒体可信分析" 的字体大小为较小的值 */
+  }
+
+
+
+
+
+
+
+
+
+
+

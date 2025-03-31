@@ -1,0 +1,217 @@
+.custom-width {
+    width: 30%; /* 你可以根据需求调整为更大的值，例如 80% 或 90% */
+  }
+
+.custom-width2 {
+    width: 50%; /* 你可以根据需求调整为更大的值，例如 80% 或 90% */
+  } 
+
+  .custom-width3 {
+    width: 50%; /* 你可以根据需求调整为更大的值，例如 80% 或 90% */
+  } 
+  #imageUpload {
+    display: none; /* 隐藏文件上传框 */
+  }
+  
+  .image-preview {
+    margin-top: 20px;
+    text-align: center;
+    padding: 30px;
+    border: 2px dashed #ddd;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    background-color: #f9f9f9;
+    cursor: pointer; /* 点击时的手型光标 */
+    margin-left: 5px;
+  }
+  
+  .upload-icon {
+    font-size: 40px;
+    color: #007bff; /* 上传图标颜色 */
+    margin-bottom: 15px;
+  }
+  
+  .image-preview img {
+    width: auto;           /* 保持宽高比例 */
+    max-width: 100%;       /* 宽度最大为父容器的100% */
+    max-height: 300px;     /* 最大高度限制，例如300px */
+    height: auto;          /* 根据宽度自动调整高度 */
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  
+  
+  .image-preview p {
+    color: #777;
+    font-size: 16px;
+  }
+  
+
+
+/* 下载图标样式 */
+.downloadicon {
+  font-size: 40px;
+  color: #007bff; /* 上传图标颜色 */
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+/* 使父容器 #imageshow 使用 flex 布局，居中显示内容 */
+#imageshow {
+  display: flex;
+  justify-content: center;  /* 水平居中 */
+  align-items: center;      /* 垂直居中 */
+  flex-direction: column;   /* 垂直排列：先显示图片，再显示图标和文字 */
+  height: 100%;             /* 确保父容器有足够高度 */
+}
+
+/* 图片样式 */
+#resultImage { 
+  width: auto;             /* 保持宽高比例 */
+  max-width: 100%;         /* 宽度最大为父容器的100% */
+  max-height: 300px;       /* 最大高度限制，例如300px */
+  height: auto;            /* 根据宽度自动调整高度 */
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.plan-details {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px; /* 减小容器之间的距离 */
+}
+
+.upload-container {
+  width: 45%; /* 容器宽度略微增大，保持间距不大 */
+}
+
+#imageUpload {
+  display: none; /* 隐藏文件上传框 */
+}
+
+
+/* 容器设置为并列显示 */
+.upload-container {
+  width: 100%; /* 固定宽度 */
+  margin-right: 5%; /* 两个容器之间的间距 */
+  margin-left:5%;
+  display: inline-block; /* 并列显示 */
+  vertical-align: top; /* 保持上下对齐 */
+  box-sizing: border-box; /* 防止外边距影响布局 */
+}
+
+/* 图片选择框 */
+.image-choose {
+  text-align: center;
+  padding: 30px;
+  border: 2px dashed #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer; /* 点击时的手型光标 */
+  height: 300px; /* 固定高度 */
+  overflow: hidden; /* 隐藏超出部分 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 上传图标 */
+.upload-icon {
+  font-size: 40px;
+  color: #007bff; /* 上传图标颜色 */
+  margin-bottom: 15px;
+}
+
+/* 预览的图片设置 */
+.image-choose img {
+  max-width: 100%; /* 最大宽度为100% */
+  max-height: 100%; /* 最大高度为100% */
+  width: auto; /* 保持宽高比例 */
+  height: auto; /* 保持宽高比例 */
+  border-radius: 5px;
+}
+
+.image-choose p {
+  color: #777;
+  font-size: 16px;
+}
+
+/* 使父容器 #imageshow 使用 flex 布局，居中显示内容 */
+#waterimageshow {
+  display: flex;
+  justify-content: center;  /* 水平居中 */
+  align-items: center;      /* 垂直居中 */
+  flex-direction: column;   /* 垂直排列：先显示图片，再显示图标和文字 */
+  height: 100%;             /* 确保父容器有足够高度 */
+}
+
+/* 图片样式 */
+#waterImage { 
+  width: auto;             /* 保持宽高比例 */
+  max-width: 100%;         /* 宽度最大为父容器的100% */
+  max-height: 300px;       /* 最大高度限制，例如300px */
+  height: auto;            /* 根据宽度自动调整高度 */
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+
+/* 箭头样式 */
+/* For aligning arrow with boxes */
+.d-flex {
+  display: flex;
+  align-items: center; /* Vertical alignment */
+  justify-content: center; /* Center the content horizontally */
+}
+
+.arrow-container {
+  text-align: center;
+  font-size: 40px; /* Adjust size of the arrow */
+}
+
+.arrow-icon {
+  font-size: 50px; /* Set the size of arrows */
+  color: #007bff;  /* Set the arrow color */
+  padding: 0 10px; /* Add space between arrows */
+}
+
+.plan-cost, .plan-details, .plan-cta {
+  text-align: center;
+}
+
+/* Add positioning context */
+.position-relative {
+  position: relative;
+}
+
+/* For the right arrow */
+.right-arrow {
+  position: absolute;
+  top: -200px;  /* Move it to the top */
+  right: 350px;    /* Move it to the right */
+  font-size: 40px; /* Adjust size */
+}
+
+/* For the left arrow */
+.left-arrow {
+  position: absolute;
+  top: -200px;  /* Move it to the top */
+  left: 350px;     /* Move it to the left */
+  font-size: 40px; /* Adjust size */
+}
+
+/* Optional styling for arrow containers */
+.arrow-container {
+  text-align: center;
+}
+
+/*描述文字*/
+.image-description {
+  font-size: 16px;  /* 调整文字大小 */
+  color: #555;  /* 设置文字颜色 */
+  text-align: center;  /* 文字居中 */
+  margin-top: 10px;  /* 与图片或视频之间添加间距 */
+}
+
+
