@@ -7,8 +7,10 @@
     pip install numpy==1.26.2
     pip install flask
     pip install flask_socketio
-### Quick Start
+## Quick Start
 Run this script: main.py
+## Preview
+The homepage of the project after successful setup and operation is shown in the figure below
 
 ## Link 
 weights in this project is avaliable
