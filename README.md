@@ -9,9 +9,7 @@ This project consists of several modules:
 
 ## FacePrivacy
 
-![](./FacePrivacy/PRO-Face%20S/assets/faceprivacy.jpg)
-
-This module implements various algorithms for facial privacy protection.
+This [module](https://github.com/lixionga/ProFace/tree/main/FacePrivacy) implements various algorithms for facial privacy protection.
 ### Paper List:
 **`2025.02`**: `基于妆容风格补丁激活的对抗性人脸隐私保护` **《计算机科学》2025**.
 [[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/Makeup-privacy)]
@@ -32,7 +30,7 @@ This module implements various algorithms for facial privacy protection.
 
 ![](./FacePrivacy/PRO-Face%20S/assets/facesecurity.png)
 
-This module implements various algorithms for facial data analysis.
+This [module](https://github.com/lixionga/ProFace/tree/main/FaceSecurity)  implements various algorithms for facial data analysis.
 ### Paper List:
 **`2025.`**:`Deepfake Detection Leveraging Self-Blended Artifacts Guided by Facial Embedding Discrepancy` **IEEE TCSVT under review**.[[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/EG)]
 
@@ -46,7 +44,7 @@ This module implements various algorithms for facial data analysis.
 
 ![](./FacePrivacy/PRO-Face%20S/assets/webportal1.png)
 
-This module implements a trustworthy portal, with all relevant functionalities powered by the algorithms from Face Privacy and Face Security.
+This [module](https://github.com/lixionga/ProFace/tree/main/Portal)  implements a trustworthy portal, with all relevant functionalities powered by the algorithms from Face Privacy and Face Security.
 
 This module offers three key functionalities:
 ### Application Presentation Layer
