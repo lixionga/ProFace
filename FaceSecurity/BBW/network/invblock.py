@@ -1,11 +1,11 @@
 from math import exp
 import torch
 import torch.nn as nn
-from rrdb_denselayer import ResidualDenseBlock_out
-
+from FaceSecurity.BBW.network.rrdb_denselayer import ResidualDenseBlock_out
+import FaceSecurity.BBW.config.cfg as c
 
 class INV_block(nn.Module):
-    def __init__(self, subnet_constructor=ResidualDenseBlock_out, clamp=c.clamp, harr=True, in_1=3, in_2=3):
+    def __init__(self, subnet_constructor=ResidualDenseBlock_out, clamp= c.clamp, harr=True, in_1=3, in_2=3):
         super().__init__()
         if harr:
             self.split_len1 = in_1 * 4

@@ -8,19 +8,26 @@ import torch.nn.functional as F
 import torch.optim
 from nvidia import cudnn
 from sklearn.metrics import roc_auc_score
+
+from FaceSecurity.BBW.network.discriminator import Discriminator
+from FaceSecurity.BBW.network.distortions.deepfakes.FaceShifter.face_modules.model import Backbone
+from FaceSecurity.BBW.network.distortions.deepfakes.FaceShifter.face_modules.mtcnn import MTCNN
+from FaceSecurity.BBW.network.distortions.deepfakes.FaceShifter.network.AEI_Net import AEI_Net
+from FaceSecurity.BBW.network.distortions.deepfakes.simswap.obfuscate import SimSwap
+from FaceSecurity.BBW.network.distortions.deepfakes.starganV2master.StarGANV2 import StarGANv2
+from FaceSecurity.BBW.utils import basedatasets
 from FaceSecurity.BBW.utils.img_utils import *
 from lpips import lpips
 from torchvision.transforms import transforms
 from FaceSecurity.BBW.network.Vector import vector_var
 from FaceSecurity.BBW.network.model import *
-import FaceSecurity.BBW.utils.basedatasets
 from FaceSecurity.BBW.network.Unet_common import *
 from PIL import Image
 import torchvision.transforms as T
 from torchmetrics.classification import BinaryAccuracy
 from torchvision import datasets
 from torchmetrics import ROC, F1Score, Recall
-import config.config as c
+import config.cfg as c
 
 
 def load(name):
@@ -124,13 +131,6 @@ def get_image_by_class_and_index(target_dataset, classes, idx):
     return torch.tensor(image).unsqueeze(0).to(device)
 
 
-# def differentiable_JPEG(img, quality):
-#     img = img * 255
-#     quality = torch.tensor(quality).repeat(img.size()[0]).to(device)
-#     img_jpeg = jpge_model.forward(img, jpeg_quality=quality).to(device)  # 输入转换为[0-255]
-#     return img_jpeg / 255
-
-
 def random_black(img):
     mask = torch.ones_like(img)
     w = random.randint(50, 70)
@@ -142,7 +142,7 @@ def random_black(img):
     return img * mask
 
 
-def rand_distortion(img, step):
+def all_distortion(img, step):
     # 定义所有变换方法和参数 ,共27中变换方法
     transformations = [
         (image_blur, [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]),
@@ -165,41 +165,6 @@ def rand_distortion(img, step):
 
     return transformed_img
 
-
-# def rand_distortion(steg_img, step):
-# res = steg_img
-# dis_type = step % 4
-# if dis_type == 0:
-#     arg = 1.0 + (step % 11) * 0.1
-#     res = image_blur(steg_img, arg)
-# elif dis_type == 1:
-#     arg = 0.0 + (step % 6) * 0.01
-#     res = image_gaussnoise(steg_img, arg)
-# elif dis_type == 2:
-#     arg = 0.6 + (step % 5) * 0.1
-#     res = image_resize(steg_img, arg)
-# elif dis_type == 3:
-#     arg = [50, 75, 95]
-#     res = image_jpeg(steg_img, arg[step % 3])
-#
-# p_mix = random.uniform(0, 1)
-#
-# # 增加组合变换
-# if p_mix <= 0.5 and dis_type == 3:  # 50%的概率进行JPEG+x组合变换
-#
-#     other_transformations = [image_blur, image_gaussnoise, image_resize]
-#     num_additional_transforms = random.randint(1, 2)  # 除了 JPEG 之外选择 1 到 2 个其他变换
-#
-#     for _ in range(num_additional_transforms):
-#         transform = random.choice(other_transformations)
-#         if transform == image_blur:
-#             arg = 1.0 + (step % 11) * 0.1
-#         elif transform == image_gaussnoise:
-#             arg = 0.0 + (step % 6) * 0.01
-#         elif transform == image_resize:
-#             arg = 0.6 + (step % 5) * 0.1
-#         res = transform(res, arg)
-# return res
 
 def nonLinearTrans(input_image):
     input_image = input_image + 0.5
@@ -297,31 +262,7 @@ def decoded_message_error_rate_batch(messages, decoded_messages):
     return error_rate
 
 
-def rand_distortion_2(img, step):
-    # 定义所有变换方法和参数
-    transformations = [
-        (image_blur, [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0]),
-        (image_gaussnoise, [0.0, 0.01, 0.02, 0.03, 0.04, 0.05]),
-        (image_resize, [0.5, 0.6, 0.7, 0.8, 0.9, 0.95]),
-        (image_jpeg, [50, 75, 95]),
-        (image_identity, [None])
-    ]
-
-    # 生成一个扁平化的变换方法和参数列表
-    flat_transformations = [(func, param) for func, params in transformations for param in params]
-
-    # 根据图片的下标选择变换方法和参数
-    total_transforms = len(flat_transformations)
-    index = step % total_transforms
-    func, param = flat_transformations[index]
-
-    # 执行选择的变换
-    transformed_img = func(img, param)
-
-    return transformed_img
-
-
-def test(trans_fun, param, swap_fun):
+def test(trans_fun, param, swap_fun, use_one_distortion):
     with torch.no_grad():
         fprAll = []
         tprAll = []
@@ -342,26 +283,11 @@ def test(trans_fun, param, swap_fun):
         F1.reset()
         recall.reset()
 
-        count_1 = 0
-
         saved_iterations = np.random.choice(np.arange(1, len(basedatasets.testloader) + 1), size=3, replace=False)
         saved_all = None
 
-        res = []
-        error_cnt = 0
-        s_cnt = 0
-
         for i, data in enumerate(basedatasets.testloader):
             cover = data.to(c.device)
-
-            # landmark = data[1]
-            # try:
-            #     cover = crop_img_256(cover).to(device)  # tte需要提前crop
-            # except Exception as e:
-            #     print("crop error", e)
-            #     error_cnt += 1
-            #     continue
-
             secret = template.repeat([cover.size()[0], 1, 1, 1])
 
             cover_input = dwt(cover)
@@ -375,12 +301,12 @@ def test(trans_fun, param, swap_fun):
             output = net(input_img)
             output_steg = output.narrow(1, 0, 4 * c.channels_in)
 
-            # 随机普通图片操作
             steg = iwt(output_steg)
 
-            # 执行选择的变换
-            steg_nm = steg
-            # steg_nm = rand_distortion_2(steg, step=i)
+            if use_one_distortion:
+                steg_nm = trans_fun(steg, param)
+            else:
+                steg_nm = all_distortion(steg, step=i)
 
             steg_nm_input_val = dwt(steg_nm)
 
@@ -388,16 +314,15 @@ def test(trans_fun, param, swap_fun):
             output_z = gauss_noise(output_z.shape)
 
             try:
-                # if swap_fun == batch_selfBlended:
-                #     steg_mp_val = swap_fun(steg, landmark)
-                # else:
                 steg_mp_val = swap_fun(steg, i)
             except Exception as e:
-                error_cnt += 1
                 print(e)
                 continue
 
-            # steg_mp_val = rand_distortion_2(steg_mp_val, step=i)
+            if use_one_distortion:
+                steg_mp_val = trans_fun(steg_mp_val, param)
+            else:
+                steg_mp_val = all_distortion(steg_mp_val, step=i)
 
             steg_mp_input_val = dwt(steg_mp_val).to(c.device)
 
@@ -413,15 +338,13 @@ def test(trans_fun, param, swap_fun):
             secret_rev_val = output_image.narrow(1, 4 * c.channels_in, output_image.shape[1] - 4 * c.channels_in)
             secret_rev_val = iwt(secret_rev_val)
 
-            secret_rev_mp_val = output_image_mp.narrow(1, 4 * c.channels_in,
-                                                       output_image_mp.shape[1] - 4 * c.channels_in)
+            secret_rev_mp_val = output_image_mp.narrow(1, 4 * c.channels_in, output_image_mp.shape[1] - 4 * c.channels_in)
             secret_rev_mp_val = iwt(secret_rev_mp_val)
 
             #################
             # discriminator #
             #################
 
-            # steg signal diff
             diff_nm_secret_val = secret - secret_rev_val
             diff_mp_secret_val = secret - secret_rev_mp_val
 
@@ -464,17 +387,15 @@ def test(trans_fun, param, swap_fun):
             lpips_s_temp = LPIPSLoss(secret.detach().to(c.device), secret_rev_val.detach().to(c.device))
             lpips_s.append(lpips_s_temp.cpu().numpy())
 
-        #     if i in saved_iterations:
-        #         if saved_all is None:
-        #             saved_all = get_random_images(cover, secret, steg, secret_rev_val, steg_mp_val, secret_rev_mp_val,
-        #                                           diff_nm_secret_val, diff_mp_secret_val)
-        #         else:
-        #             saved_all = concatenate_images(saved_all, cover, secret, steg, secret_rev_val, steg_mp_val,
-        #                                            secret_rev_mp_val,
-        #                                            diff_nm_secret_val, diff_mp_secret_val)
-        #
-        #
-        # save_images(saved_all, c.IMAGE_PATH_SHOW_ALL, str(swap_fun))
+            if i in saved_iterations:
+                if saved_all is None:
+                    saved_all = get_random_images(cover, secret, steg, steg_mp_val, diff_nm_secret_val,
+                                                  diff_mp_secret_val)
+                else:
+                    saved_all = concatenate_images(saved_all, cover, secret, steg, steg_mp_val, diff_nm_secret_val,
+                                                   diff_mp_secret_val)
+
+        save_images(saved_all, './img', str(swap_fun))
 
         print(
             "acc={:.5f},fpr={:.4f},tpr={:.4f},F1={:.4f},recall={:.4f},auc={:.10f},psnr_c={:.4f},psnr_s={:.4f},psnr_s_f={:.4f},ssim_c={:.4f},lpips_c={:.4f},ssim_s={:.4f},lpips_s={:.4f}".format(
@@ -509,25 +430,22 @@ if __name__ == '__main__':
 
     # simswap
     swap_model = SimSwap().to(c.device)
-
-    # starGANV2
-    starGAN_data_transform = transforms.Compose([
-        transforms.ToTensor(),
+    data_transform = transforms.Compose([
+        transforms.ToTensor(),  # 转换为张量
     ])
 
-    startGAN_target_dataset = datasets.ImageFolder(root=c.StarGAN_DATA_PAHT, transform=starGAN_data_transform)
+    # starGANV2
+    startGAN_target_dataset = datasets.ImageFolder(root='./network/distortions/deepfakes/starganV2master/data/celeba_hq/val/', transform=data_transform)
     StarGANV2_model = StarGANv2().to(c.device)
 
     # faceshifter model init
     detector = MTCNN()
     G = AEI_Net(c_id=512).eval()
-    # G.eval()
-    G.load_state_dict(torch.load('G_latest.pth', map_location=device))
+    G.load_state_dict(torch.load('./network/distortions/deepfakes/FaceShifter/saved_models/G_latest.pth', map_location=device))
     G = G.to(device)
     arcface = Backbone(50, 0.6, 'ir_se').to(device).eval()
-    # arcface.eval()
     arcface.load_state_dict(
-        torch.load('model_ir_se50.pth', map_location=device),
+        torch.load('.network/distortions/deepfakes/FaceShifter/face_modules/model_ir_se50.pth', map_location=device),
         strict=False)
     face_shifter_transform = transforms.Compose([  # 传入faceshifter之前将数据从[0,1]->[-1,1]
         transforms.Normalize(mean=0.5, std=0.5)
@@ -565,6 +483,10 @@ if __name__ == '__main__':
         T.ToTensor(),
     ])
 
+    use_one_distortion = True
+
+    deepfake_func = [("simswap", simswap), ("face_shifter", face_shifter), ("starGANV2_swap", starGANV2_swap)]
+
     # 定义所有变换方法和参数
     transformations = [
         (image_jpeg, [55, 65, 75, 85, 95]),
@@ -572,17 +494,13 @@ if __name__ == '__main__':
         (image_gaussnoise, [0.05, 0.04, 0.03, 0.02, 0.01]),
         (image_resize, [0.50, 0.60, 0.70, 0.80, 0.90]),
     ]
-
-    swap_func = [("simswap", simswap), ("face_shifter", face_shifter), ("starGANV2_swap", starGANV2_swap)]
-
-    # 生成一个扁平化的变换方法和参数列表
     flat_transformations = [(func, param) for func, params in transformations for param in params]
 
     load(c.MODEL_PATH_FRE + c.suffix_fre)
 
-    for j in range(len(swap_func)):
+    for j in range(len(deepfake_func)):
         for i in range(len(flat_transformations)):
             func, param = flat_transformations[i]
             print("****************************************")
-            print(str(func).split(" ")[1] + " " + swap_func[j][0] + " " + str(param))
-            test(trans_fun=func, param=param, swap_fun=swap_func[j][1])
+            print(str(func).split(" ")[1] + " " + deepfake_func[j][0] + " " + str(param))
+            test(trans_fun=func, param=param, swap_fun=deepfake_func[j][1], use_one_distortion=use_one_distortion)

@@ -1,14 +1,16 @@
 import torch.optim
 import torch.nn as nn
-import config as c
+import FaceSecurity.BBW.config.cfg as c
+from FaceSecurity.BBW.network.hinet import HiNet
 
 device = torch.device(c.device if torch.cuda.is_available() else "cpu")
+
 
 class Model(nn.Module):
     def __init__(self):
         super(Model, self).__init__()
 
-        self.model = Hinet()
+        self.model = HiNet()
 
     def forward(self, x, rev=False):
 

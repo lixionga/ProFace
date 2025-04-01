@@ -3,10 +3,10 @@ import math
 import torch
 import torch.nn as nn
 
-from modules import module_util as mutil
+from FaceSecurity.BBW.utils import module_util as mutil
 import functools
-import config as c
-device = torch.device(c.device if torch.cuda.is_available() else "cpu")
+from FaceSecurity.BBW.config.cfg import device
+device = torch.device(device if torch.cuda.is_available() else "cpu")
 
 def default_conv(in_channels, out_channels, kernel_size, bias=True, dilation=1, use_snorm=False):
     if use_snorm:

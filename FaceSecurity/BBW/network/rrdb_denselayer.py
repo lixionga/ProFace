@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import modules.module_util as mutil
+import FaceSecurity.BBW.utils.module_util as mutil
 
 
 # Dense connection

@@ -1,3 +1,7 @@
+import torch.nn as nn
+from FaceSecurity.BBW.network.invblock import INV_block
+
+
 class HiNet(nn.Module):
 
     def __init__(self):

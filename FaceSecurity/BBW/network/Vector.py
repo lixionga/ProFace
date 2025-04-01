@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-import FaceSecurity.BBW.config.config as c
+import FaceSecurity.BBW.config.cfg as c
 
 
 class vector_var(nn.Module):
