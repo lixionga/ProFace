@@ -5,13 +5,11 @@ ProFace: A trustworthy facial data protection research platform developed by Cho
 This project consists of several modules: 
 - **FacePrivacy:** methods for protecting facial privacy in multiple scenarios.
 - **FaceSecurity:** methods for facial data analysis (e.g., DeepFake detection, forensic analysis).
-- **Platform：** A versitile platform for multimedia security analysis and privacy protection, this platform currently includes two functions:face forgery detection and text sentiment analysis.
+- **WebPortal：** A versitile portal for multimedia security analysis and privacy protection.
 
 ## FacePrivacy
 
-![](./FacePrivacy/PRO-Face%20S/assets/faceprivacy.jpg)
-
-This module implements various algorithms for facial privacy protection.
+This [module](https://github.com/lixionga/ProFace/tree/main/FacePrivacy) implements various algorithms for facial privacy protection.
 ### Paper List:
 **`2025.02`**: `基于妆容风格补丁激活的对抗性人脸隐私保护` **《计算机科学》2025**.
 [[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/Makeup-privacy)]
@@ -32,7 +30,7 @@ This module implements various algorithms for facial privacy protection.
 
 ![](./FacePrivacy/PRO-Face%20S/assets/facesecurity.png)
 
-This module implements various algorithms for facial data analysis.
+This [module](https://github.com/lixionga/ProFace/tree/main/FaceSecurity)  implements various algorithms for facial data analysis.
 ### Paper List:
 **`2025.`**:`Deepfake Detection Leveraging Self-Blended Artifacts Guided by Facial Embedding Discrepancy` **IEEE TCSVT under review**.[[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/EG)]
 
@@ -42,6 +40,20 @@ This module implements various algorithms for facial data analysis.
 **`2024.08`**: `Inspector for Face Forgery Detection: Defending Against Adversarial Attacks From Coarse to Fine` **IEEE TIP 2024**.
 [[paper](https://doi.org/10.1109/TIP.2024.3434388)][[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/Inspector)]
 
-## Platform
-![TO~~(2)7U@_BSBQZ7AE4PHV](https://github.com/user-attachments/assets/60072777-0df4-4fe5-948d-4b2b3e39678b)
-this module currently includes two functions:face forgery detection and text sentiment analysis.Implementation of the face forgery detection module: When users upload a facial image, the system returns the probability indicating whether the image is forged and a heatmap. Implementation of the text sentiment analysis module: When users enter texts, the system returns the possible emotions contained in the utterance.
+## WebPortal
+
+![](./FacePrivacy/PRO-Face%20S/assets/webportal1.png)
+
+This [module](https://github.com/lixionga/ProFace/tree/main/Portal)  implements a trustworthy portal, with all relevant functionalities powered by the algorithms from Face Privacy and Face Security.
+
+This module offers three key functionalities:
+### Application Presentation Layer
+This portal provides a variety of tools through an online webpage. Depending on the user's needs for face privacy protection or face security analysis, the backend system calls the corresponding models deployed on the server to quickly return the desired results. The face privacy protection module includes functions such as real-time anonymization, offline anonymization, anonymized face recognition, and adversarial privacy protection (e.g., adversarial samples, makeup transfer), which can be applied to scenarios like remote monitoring and online live streaming. The face security analysis module offers two solutions: active defense and passive defense, including four deepfake detection models for image detection, video recognition, and audio-video detection, which are suitable for video conferencing, social media, and other scenarios.
+
+### Function Integration Layer
+This portal provides an SDK that integrates various tools, making it convenient to integrate applications across different scenarios and meet diverse business requirements.
+
+### Foundation Code Layer
+This portal provides open-source code at the foundational level, enabling developers to gain in-depth understanding and further development capabilities.
+
+

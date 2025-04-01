@@ -1,0 +1,264 @@
+
+.overlay-shape-image-bg{
+    background-color: white; /* 设置白色背景 */
+}
+
+/* 使按钮区域的内容右对齐 */
+.button-container {
+    display: flex;            /* 使用Flexbox布局 */
+    justify-content: flex-end; /* 按钮右对齐 */
+    align-items: center;      /* 垂直居中 */
+    gap: 15px;                /* 按钮之间的间距 */
+    flex-wrap: wrap;          /* 按钮换行（如果屏幕太小，按钮会自动换行） */
+    margin-bottom: 30px;      /* 增加按钮底部的间距 */
+}
+
+/* 按钮样式 */
+.button-container .btn {
+    margin: 0;                /* 移除按钮的默认外边距 */
+    padding: 10px 20px;       /* 增加按钮的内边距 */
+    border-radius: 5px;       /* 圆角效果 */
+    font-size: 16px;          /* 设置字体大小 */
+}
+
+/* 按钮颜色：常用的蓝色和灰色搭配 */
+#openBtn {
+    background-color: #007bff; /* 蓝色背景 */
+    color: white;             /* 白色文字 */
+    border: none;             /* 去除边框 */
+}
+
+#uploadBtn {
+    background-color: #007bff; /* 灰色背景 */
+    color: white;             /* 白色文字 */
+    border: none;             /* 去除边框 */
+}
+
+#saveBtn {
+    background-color: #007bff; /* 蓝色背景 */
+    color: white;             /* 白色文字 */
+    border: none;             /* 去除边框 */
+}
+
+#zoomOutBtn {
+    background-color: #007bff; /* 灰色背景 */
+    color: white;             /* 白色文字 */
+    border: none;             /* 去除边框 */
+}
+
+#zoomInBtn {
+    background-color: #007bff; /* 蓝色背景 */
+    color: white;             /* 白色文字 */
+    border: none;             /* 去除边框 */
+}
+
+#downloadBtn {
+    background-color: #007bff; /* 灰色背景 */
+    color: white;             /* 白色文字 */
+    border: none;             /* 去除边框 */
+}
+
+/* 鼠标悬停时的效果 */
+.button-container .btn:hover {
+    opacity: 0.8;             /* 鼠标悬停时按钮透明度减少 */
+    cursor: pointer;         /* 鼠标变为指针 */
+}
+
+/* 在小屏幕下按钮换行 */
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column; /* 在小屏幕上，按钮垂直排列 */
+        gap: 10px;              /* 垂直排列时按钮之间的间距 */
+    }
+}
+
+
+
+
+/* 设置媒体容器 */
+#mediaContainer {
+    background-color: #f2f2f2; /* 浅灰色背景 */
+    border-radius: 10px; /* 圆角效果 */
+    padding: 20px; /* 内边距 */
+    text-align: center; /* 居中显示 */
+    display: flex;
+    justify-content: center; /* 确保图片或视频居中 */
+    align-items: center; /* 确保图片或视频垂直居中 */
+    min-height: 400px; /* 最小高度，保证显示区域 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 增加阴影效果 */
+    position: relative; /* 为视频控制按钮做准备 */
+}
+
+/* 图片样式 */
+#imagePreview {
+    max-width: 100%; /* 确保图片不超出容器宽度 */
+    max-height: 100%; /* 确保图片不超出容器高度 */
+    object-fit: contain; /* 确保图片不被拉伸 */
+    display: block;
+    margin: 0 auto; /* 确保图片在容器中居中 */
+}
+
+/* 视频样式 */
+#videoPreview {
+    max-width: 100%; /* 确保视频不超出容器宽度 */
+    max-height: 100%; /* 确保视频不超出容器高度 */
+    object-fit: contain; /* 确保视频不被拉伸 */
+    display: none; /* 默认隐藏视频 */
+    margin: 0 auto; /* 确保视频在容器中居中 */
+}
+
+/* 输入框样式 */
+#zoomInput {
+    width: 250px;
+    text-align: center;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-top: 20px; /* 增加上方的间距，使其往下移动 */
+    margin-left: 20px; /* 增加左侧的间距，使其往右移动 */
+}
+
+/* 按钮样式 */
+#confirmBtn {
+    margin-left: 20px; /* 增加左侧的间距，使其往右移动 */
+    padding: 8px 20px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 0px; /* 增加上方的间距，使其往下移动 */
+}
+
+
+#confirmBtn:hover {
+    background-color: #0056b3; /* 鼠标悬停时颜色变化 */
+}
+
+/* 使容器内的输入框和按钮居中 */
+#zoomControls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/*标题左移，说明框显示*/
+.hero-text-area2 {
+    position: absolute;  /* 使用 absolute 来固定位置 */
+    top: 50px;
+    left: 180px;
+    padding: 20px;  /* 可选：为内容添加一些内边距 */
+}
+
+.top-left-container {
+    display: flex;
+    align-items: center;
+}
+
+.top-left-container .hover-target {
+    font-size: 50px;  /* 调整标题字体大小 */
+    font-weight: bold;
+}
+
+.top-left-container img {
+    height: 80px;
+    margin-left: 40px;  /* 调整图标和文本之间的间距 */
+}
+
+
+
+  
+/* 鼠标悬停时显示的 hero-subtitle 说明框样式 */
+.subtitle {
+    display: none; /* 默认隐藏 */
+    position: absolute;
+    top: 100%; /* 在标题下方 */
+    left: 0;
+    background-color: #f5f5f5; /* 浅灰色背景，适合与深色字体对比 */
+    border: 5px solid #ccc; /* 边框加粗，浅灰色边框 */
+    border-radius: 5px; /* 边角圆滑 */
+    
+    width: 535px; /* 宽度 */
+    z-index: 5;
+    
+    opacity: 0; /* 初始为透明 */
+    white-space: nowrap; /* 防止文字换行 */
+    word-wrap: break-word; /* 防止长单词超出边界 */
+    padding: 10px; /* 调整内边距，增加舒适的空间 */
+    transition: opacity 0.3s ease-in-out; /* 平滑过渡效果 */
+  }
+  
+  /* 设置显示时字体颜色和样式 */
+  .subtitle p {
+    color: #000000; /* 深灰色字体，清晰易读 */
+    font-size: 14px; /* 适中的字体大小 */
+    line-height: 1.5; /* 增加行高，让文字更加通透 */
+  }
+  
+  
+  /* 设置标题和说明框的样式 */
+  
+  .subtitle img {
+    height: 40px;
+    margin-left: 20px;
+  }
+  
+  /* 鼠标悬停在标题上时，说明框显示 */
+  .hero-title:hover + .subtitle {
+    display: block; /* 显示说明框 */
+    opacity: 1; /* 使说明框渐变为可见 */
+  }
+  
+  
+  /*设置左边的样式*/
+
+  /* 设置媒体容器 */
+#mediaContainershow {
+    background-color: #f2f2f2; /* 浅灰色背景 */
+    border-radius: 10px; /* 圆角效果 */
+    padding: 20px; /* 内边距 */
+    text-align: center; /* 居中显示 */
+    display: flex;
+    justify-content: center; /* 确保图片或视频居中 */
+    align-items: center; /* 确保图片或视频垂直居中 */
+    min-height: 400px; /* 最小高度，保证显示区域 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 增加阴影效果 */
+    position: relative; /* 为视频控制按钮做准备 */
+}
+
+/* 图片样式 */
+#imageshow {
+    max-width: 100%; /* 确保图片不超出容器宽度 */
+    max-height: 100%; /* 确保图片不超出容器高度 */
+    object-fit: contain; /* 确保图片不被拉伸 */
+    display: block;
+    margin: 0 auto; /* 确保图片在容器中居中 */
+}
+
+/* 视频样式 */
+#videoshow {
+    max-width: 100%; /* 确保视频不超出容器宽度 */
+    max-height: 100%; /* 确保视频不超出容器高度 */
+    object-fit: contain; /* 确保视频不被拉伸 */
+    display: none; /* 默认隐藏视频 */
+    margin: 0 auto; /* 确保视频在容器中居中 */
+}
+
+.image-description {
+    font-size: 20px;  /* 调整文字大小 */
+    color: #555;  /* 设置文字颜色 */
+    text-align: center;  /* 文字居中 */
+    margin-top: 10px;  /* 与图片或视频之间添加间距 */
+}
+
+.input-description {
+    font-size: 15px;  /* 调整文字大小 */
+    color: #555;  /* 设置文字颜色 */
+    text-align: center;  /* 文字居中 */
+    margin-top: 10px;  /* 与图片或视频之间添加间距 */
+}
+  
+  
+  

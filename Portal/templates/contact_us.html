@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <!-- fav icon -->
+        <link rel="icon" href="{{ url_for('static',filename='assets/images/fav-icon/fav-icon.png') }}">
+        
+        <!-- bootstarp -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/bootstrap.min.css') }}">
+        
+        <!-- animate.css file -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/animate.css') }}">
+        
+        <!-- Splitting -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/splitting.css') }}">
+        
+        <!-- fontAwesome -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/all.min.css') }}">
+        
+        <!-- Font Family -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Nunito:wght@400;500;600;700;800;900&amp;display=swap">
+        
+        <!-- main-LTR-1 -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/main-LTR-1.css') }}">
+    <title> Contact Us</title>
+  </head>
+  <body class=" overlay-is-linear-gradient rounded-btns">
+    <!--Start Page Header-->
+    <!--Start Page Header-->
+    <header class="page-header menu-on-end " id="page-header">
+      <!--start navbar-->
+      <div class="container-fluid">
+        <nav class="main-navbar " id="main-nav"><a class="navbar-brand " href="#"><img class="brand-logo light-logo img-fluid " src="{{ url_for('static',filename='assets/images/logo/logo-light-square.png') }}" alt=""/><img class="brand-logo dark-logo img-fluid " src="{{ url_for('static',filename='assets/images/logo/logo-light-square.png') }}" alt=""/></a>
+          <div class="menu-toggler-btn"><span></span><span></span><span></span></div>
+          <div class=" navbar-menu-wraper  " id="navbar-menu-wraper">
+            <ul class="navbar-nav  mobile-menu ">
+              <li class="nav-item has-sub-menu"><a class="nav-link  active" href="/home"><i class="fas fa-home icon"></i>首页</a>
+              </li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="#0"><i class="fas fa-cog icon"></i>在线工具<i class="fas fa-chevron-down down-Arrow-icon"> </i></a>
+                <ul class="sub-menu ">
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/forgery"><i class="fas fa-cog icon"></i>深度伪造检测</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/anonymization"><i class="fas fa-cog icon"></i>人脸匿名化</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/makeup"><i class="fas fa-cog icon"></i>妆容迁移</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/tamper"><i class="fas fa-cog icon"></i>主动防御</a></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link  " href="/contact-us"><i class="fas fa-address-card icon"></i>SDK</a></li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="https://github.com/lixionga/ProFace"><i class="fas fa-edit icon"></i>Sourcecode</a>
+              </li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="#0"><i class="fas fa-cogs icon"></i>产品文档</a>
+              </li>
+              <li class="nav-item"><a class="nav-link  " href="/contact-us"><i class="fas fa-mobile-alt icon"></i>联系我们</a></li>
+            </ul>
+          </div><a class="header-cta  ma-btn-primary " href="#0">登录</a>
+        </nav>
+      </div>
+      <!--End navbar-->
+    </header>
+    <!--End Page Header-->
+    <!-- Start inner Page hero-->
+    <section class="d-flex align-items-center page-hero inner-page-hero " id="page-hero">
+      <div class="overlay-photo-image-bg parallax"></div>
+      <div class="overlay-color"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 hero-text-area">
+            <h1 class="hero-title" data-splitting>联系我们</h1>
+            <nav aria-label="breadcrumb ">
+              <ul class="breadcrumb wow fadeInUp" data-wow-delay="1s">
+                <li class="breadcrumb-item active">如果需要获得SDK或者更多帮助请联系我们</li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End inner Page hero-->
+    <!-- Start contact-info-1-->
+    <section class="contact-info mega-section">
+      <div class="container">
+        <div class="section-heading center-heading">
+          <h2 class="section-title wow" data-splitting="chars">我们的联系方式</h2>
+          <p class="section-subtitle wow fadeInUp" data-wow-delay=".5s"></p>
+          <div class="line line-solid-main-color wow fadeIn" data-wow-delay="1s"></div>
+        </div>
+        <div class="info-section ">
+          <div class="row "> 
+            <div class="col-12 col-md-6 col-lg-3 ">
+              <div class="info-panel wow fadeInUp" data-wow-delay=".2s"><i class="fas fa-map-marker-alt icon"></i>
+                <div class="info-content">
+                  <h6 class="info-title">地址</h6>
+                  <p class="info-text">重庆邮电大学</p>
+                  <p class="info-text">
+                    重庆市南岸区南山街道崇文路2号
+                    
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 ">
+              <div class="info-panel wow fadeInUp" data-wow-delay=".4s"><i class="fas fa-mobile-alt icon"></i>
+                <div class="info-content">
+                  <h6 class="info-title">电话</h6>
+                  <p class="info-text"> <a class="tel link" href="tel:0123456789">1234567890</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 ">
+              <div class="info-panel wow fadeInUp" data-wow-delay=".6s"><i class="fas fa-envelope icon"></i>
+                <div class="info-content">
+                  <h6 class="info-title">邮箱</h6>
+                  <p class="info-text"> <a class="tel link" href="mailto:mhmdamindev@gmail.com">123456@gmail.com</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 ">
+              <div class="info-panel wow fadeInUp" data-wow-delay=".8s"><i class="fas fa-globe-africa icon"></i>
+                <div class="info-content">
+                  <h6 class="info-title">网址</h6>
+                  <p class="info-text"> <a class="site link" href="https://www.amin-agency.xyz"> https://www.xxxxx</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End contact-info-1-->
+    <!-- Start contact-us -->
+    <section class="contact-us  mega-section section-bg-shade" id="contact-us">
+      <div class="container">
+        <div class="section-heading center-heading">
+          <h2 class="section-title wow" data-splitting="chars">您的信息</h2>
+          <p class="section-subtitle wow fadeInUp" data-wow-delay=".5s">请留下您的信息，方便我们联系您</p>
+          <div class="line line-solid-main-color wow fadeIn" data-wow-delay="1s"></div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-lg-9  mx-auto wow fadeInUp  " data-wow-delay="0.4s">
+            <!--Form To have user messages-->
+            <div class="main-form-wraper"> 
+              <form class="main-form" action="#" id="contact-us-form" autocomplete="off"><span class="done-msg"></span>
+                <div class="row ">
+                  <div class="col-12 col-lg-6">
+                    <div class="   input-wraper">
+                      <input class="text-input" id="user-name" name="UserName" type="text"/>
+                      <label for="user-name"> 姓名<span class="req">*</span>
+                      </label><span class="b-border"></span><span class="error-msg"></span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6">
+                    <div class="   input-wraper">
+                      <input class="text-input" id="user-email" name="UserEmail" type="email"/>
+                      <label for="user-email"> 邮箱<span class="req">*</span>
+                      </label><span class="b-border"></span><span class="error-msg"></span>
+                    </div>
+                  </div>
+                  <div class="col-12 ">
+                    <div class="   input-wraper">
+                      <input class="text-input" id="msg-subject" name="subject" type="text"/>
+                      <label for="msg-subject"> 主题<span class="req">*</span>
+                      </label><span class="b-border"></span><span class="error-msg"></span>
+                    </div>
+                  </div>
+                  <div class="col-12 ">
+                    <div class="   input-wraper">
+                      <textarea class=" text-input" id="msg-text" name="message"></textarea>
+                      <label for="msg-text"> 信息<span class="req">*</span>
+                      </label><span class="b-border"></span><span class="error-msg"></span>
+                    </div>
+                  </div>
+                  <div class="col-12 submit-wraper">
+                    <button class=" ma-btn-primary" id="submit-btn" type="submit" name="UserSubmit">发送信息
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End contact-us -->
+    <!-- Start  page-footer Section-->
+    <footer class="page-footer dark-color-footer" id="page-footer">
+      <div class="container">
+        <div class="row footer-cols">
+          <div class="col-12 col-md-8 col-lg-4  footer-col wow fadeInUp " data-wow-delay="0.3s">
+            <h6 class=" footer-col-title  ">关于ProFace</h6>
+            <div class="footer-col-content-wrapper">        
+              <p class="footer-text-about-us ">
+                重庆邮电大学研发的可信人脸数据安全保护研究平台
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-2  footer-col wow fadeInUp " data-wow-delay="0.5s">
+            <h6 class=" footer-col-title    ">联系我们</h6>
+            <div class="footer-col-content-wrapper">       
+              <div class="contact-info-card"><i class="fas fa-envelope icon"></i><a class="text-lowercase  info" href="mailto:example@support.com">example@support.com</a></div>
+              <div class="contact-info-card"><i class="fas fa-globe-africa icon"></i><a class="text-lowercase  info" href="#0">www.yoursite.com</a></div>
+              <div class="contact-info-card"><i class="fas fa-map-marker-alt icon"></i><span class="text-lowercase  info">重庆邮电大学</span></div>
+              <div class="contact-info-card"><i class="fas fa-mobile-alt icon"></i><a class="info" href="tel:+20123456789">+20123456789      </a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights ">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p class="creadits">&copy; 2025 <a target="_blank" title="ProFace">ProFace</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End  page-footer Section-->
+    <!-- Start loading-screen Component-->
+    <div class="loading-screen" id="loading-screen">
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
+    <!-- End loading-screen Component-->
+    <!-- Start back-to-top Component-->
+    <div class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up icon"></i></div>
+    <!-- End back-to-top Component-->   
+        
+        <!--     JQuery     -->
+        <script src="{{ url_for('static',filename='js/vendors/jquery-3.4.1.min.js') }}"></script>
+        
+        <!--     bootstrap     -->
+        <script src="{{ url_for('static',filename='js/vendors/bootstrap.bundle.min.js') }}"></script>
+        
+        <!--     Splitting     -->
+        <script src="{{ url_for('static',filename='js/vendors/splitting.min.js') }}"></script>
+        
+        <!--     wow     -->
+        <script src="{{ url_for('static',filename='js/vendors/wow.min.js') }}"></script>
+        
+        <!--     main     -->
+        <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+  </body>
+</html>

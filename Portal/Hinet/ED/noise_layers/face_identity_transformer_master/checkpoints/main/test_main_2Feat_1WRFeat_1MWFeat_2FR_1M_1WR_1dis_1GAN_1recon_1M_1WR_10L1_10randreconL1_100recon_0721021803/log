@@ -1,0 +1,90 @@
+sys.argv:
+/home/ysc/HiNet/face_identity_transformer_master/main_test_diff_passwds.py
+auto_name            True
+batch_size           4
+beta1                0.5
+ckpt_dir             checkpoints/main/test_main_2Feat_1WRFeat_1MWFeat_2FR_1M_1WR_1dis_1GAN_1recon_1M_1WR_10L1_10randreconL1_100recon_0721021803
+ckpt_name            None
+data_root            /Data/FFHQ256/image/test
+dataset              FFHQ
+device               cuda:0
+display_id           1
+display_ncols        7
+display_port         8097
+display_server       http://localhost
+dropout              False
+during_training      False
+evaluate             False
+feature_layer        5
+feature_loss         cos
+gan_mode             lsgan
+gpu_ids              [0]
+html_epoch_freq      1
+html_iter_freq       1000
+html_per_train_epoch 10
+imageSize            128
+init_gain            0.02
+init_type            normal
+input_nc             3
+lambda_FR            2.0
+lambda_FR_M          1.0
+lambda_FR_WR         1.0
+lambda_Feat          2.0
+lambda_GAN           1.0
+lambda_GAN_M         1.0
+lambda_GAN_WR        1.0
+lambda_GAN_recon     1.0
+lambda_G_recon       100.0
+lambda_L1            10.0
+lambda_WR_Feat       1.0
+lambda_dis           1.0
+lambda_false_recon_diff 1.0
+lambda_rand_recon_L1 10.0
+lr                   0.0001
+n_downsample_G       2
+n_layers_D           3
+n_layers_Q           3
+name                 test_main_2Feat_1WRFeat_1MWFeat_2FR_1M_1WR_1dis_1GAN_1recon_1M_1WR_10L1_10randreconL1_100recon
+name_add_on          
+ndf                  64
+ngf                  64
+no_html              False
+norm                 batch
+normD                batch
+normG                batch
+normQ                batch
+num_epochs           30
+num_html_columns     1
+output_nc            3
+padding_type         reflect
+passwd_length        16
+plot_loss_freq       32
+pool_size            500
+print_loss_freq      10
+resume               
+resume_optimizer     True
+save_epoch_freq      1
+save_iter_freq       64
+start_epoch          0
+testImageSize        128
+test_size            1
+timestamp            0721021803
+update_html_freq     64
+use_leakyG           False
+use_minus_one        half
+use_resize_conv      True
+visdom_visual_freq   15
+weight_decay         0.0
+which_model_netD     multiscale_separated
+which_model_netG     resnet_9blocks
+workers              4
+
+test_dataset: Dataset FFHQ
+    Number of imgs: 3000
+    Root Location: /Data/FFHQ256/image/test
+    Transforms (if any): Compose(
+                             Resize(size=(128, 128), interpolation=bicubic, max_size=None, antialias=None)
+                             ToTensor()
+                             Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
+                         )
+

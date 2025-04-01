@@ -1,0 +1,299 @@
+/*左边图片部分*/
+.before-image, .after-image { 
+    position: relative;
+    width: 290px; /* 固定宽度 */
+    height: 400px; /* 固定高度 */
+    background-color: #f0f0f0; /* 设置浅灰色背景 */
+    padding: 5px;  /* 内边距，用于隔开内容 */
+    border-radius: 8px; /* 圆角效果 */
+    text-align: center; /* 居中对齐 */
+    box-sizing: border-box; /* 确保内边距不会影响宽度 */
+    margin-top: 10px; /* 减小顶部间距 */
+    margin-right: 5px; /* 减小右侧间距 */
+    margin-left: 5px; /* 减小左侧间距 */
+}
+
+#image-before, #image-after {
+    max-width: 100%;     /* Ensure it does not exceed the container width */
+    max-height: 340px;   /* Set a specific maximum height (you can adjust this value) */
+    object-fit: contain; /* This ensures the aspect ratio is maintained */
+    display: block;      /* Ensure the image is a block element, so it respects the container's size */
+    margin: 30px auto 0; /* Center the image horizontally */
+}
+
+.image-comparison {
+    display: flex;
+    align-items: center;  /* Center the images vertically */
+    justify-content: space-between;  /* Space the images out horizontally */
+    position: relative;
+}
+.image-label { 
+    position: absolute;
+    top: 0px;  /* Position the label slightly down from the top */
+    left: 5px; /* Slightly adjust position from the left */
+    background: transparent;  /* Transparent background */
+    color: black;  /* Bright blue color for the font */
+    padding: 4px 8px; /* Smaller padding for a more compact look */
+    font-size: 14px; /* Smaller font size */
+    font-weight: bold;
+    border-radius: 3px;  /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for better contrast */
+    text-transform: uppercase; /* Make the text uppercase */
+    letter-spacing: 1px; /* Add spacing between letters for clarity */
+}
+
+
+
+
+
+/* Advanced divider design with arrow-like effect */
+.divider {
+    width: 4px;
+    height: 360px;  /* Increased height for a longer divider */
+    background: linear-gradient(to bottom, #444, #555);  /* Subtle gray gradient */
+    position: absolute;
+    top: 50px;  /* Slightly lower to align better */
+    left: 50%;
+    transform: translateX(-50%);  /* Center it horizontally */
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);  /* Shadow for depth */
+    border-radius: 4px;  /* Rounded corners for a more futuristic look */
+}
+
+/* Arrow-like effect at both ends */
+.divider::before, .divider::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 16px solid #555;  /* Arrow pointing down */
+}
+
+.divider::before {
+    top: -16px;  /* Position the top arrow */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.divider::after {
+    bottom: -16px;  /* Position the bottom arrow */
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);  /* Rotate the arrow to point upwards */
+}
+
+/* Optional: Add a hover effect to the divider for extra interactivity */
+.divider:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);  /* Stronger shadow effect on hover */
+}
+
+/*上下的分隔线*/
+.dividertwo {
+    width: 93%; /* Full width */
+    height: 3px; /* Line thickness */
+    background-color: white; /* White color */
+    margin: 20px; /* Spacing around the line */
+    padding: 0;
+}
+
+
+/* 左边演示图部分 */
+.example-images .row {
+    margin: 0; /* 去掉默认的间距 */
+}
+
+.example-images .col-4 {
+    padding: 0; /* 去掉列间的间距 */
+}
+
+.example-images img {
+    width: 100%; /* 图片充满容器宽度 */
+    height: 100%; /* 图片填满容器高度 */
+    object-fit: cover; /* 保证图片覆盖整个容器，避免变形 */
+    display: block; /* 去掉图片底部的空隙 */
+}
+
+
+/* 上传部分容器 */
+.file-upload-container, .url-upload-container {
+    margin-bottom: 20px;  /* 间距 */
+    padding: 10px;
+    background-color: #f9f9f9;  /* 背景色 */
+    border-radius: 8px;  /* 圆角 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* 阴影 */
+}
+
+/* 标签 */
+.file-upload-label, .url-upload-label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* 本地图片上传按钮 */
+.file-upload-input {
+    display: block;
+    width: 100%;  /* 占满容器宽度 */
+    padding: 10px;
+    font-size: 14px;
+    color: #555;
+    background-color: #fff;
+    border: 2px solid #ddd;  /* 边框 */
+    border-radius: 6px;
+    transition: border-color 0.3s;
+}
+
+.file-upload-input:focus {
+    border-color: #4e73df;  /* 聚焦时的边框颜色 */
+    outline: none;
+}
+
+/* 输入图片URL的输入框 */
+.image-url-input {
+    display: block;
+    width: 100%;  /* 占满容器宽度 */
+    padding: 10px;
+    font-size: 14px;
+    color: #555;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.3s;
+}
+
+.image-url-input:focus {
+    border-color: #4e73df;
+    outline: none;
+}
+
+/* 按钮样式 */
+#url-upload-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4e73df;  /* 蓝色背景 */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+#url-upload-btn:hover {
+    background-color: #375aab;  /* 按钮悬浮时变色 */
+}
+
+#url-upload-btn:active {
+    background-color: #3c8dbc;  /* 按钮点击时颜色 */
+}
+
+#image-makeup {
+    display: block;
+    margin: 0 auto;
+    max-height: 300px; /* 设置最大高度 */
+    width: auto; /* 保持宽度按比例自动调整 */
+}
+
+
+/*添加的相似度*/
+/* 设置相似度展示框的基本样式 */
+.similarity-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa; /* 淡灰色背景 */
+    border-radius: 8px;
+    border: 1px solid #dcdcdc; /* 边框颜色 */
+  }
+  
+  .similarity-box h5 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .similarity-result {
+    font-size: 16px;
+    color: #333; /* 深色文字 */
+  }
+  
+  .similarity-result p {
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  .similarity-result span {
+    font-size: 20px;
+    font-weight: 700;
+    color: #28a745; /* 绿色字体，突出显示相似度 */
+  }
+  
+
+  /*图片模态框*/
+  /* 图片库模态框样式 */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1050;
+  }
+  
+  .image-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 900px;
+    z-index: 1051;
+  }
+  
+  .category-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .category-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    background: #f8f9fa;
+    transition: all 0.3s;
+  }
+  
+  .category-tab.active {
+    background: #007bff;
+    color: white;
+  }
+  
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+  
+  .image-grid img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  
+  .image-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }

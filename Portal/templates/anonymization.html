@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- fav icon -->
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/jquery.fancybox.min.css') }}">
+    <link rel="icon" href="{{ url_for('static',filename='assets/images/fav-icon/fav-icon.png') }}">
+    <!-- bootstarp -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/bootstrap.min.css') }}">
+    <!-- animate.css file -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/animate.css') }}">
+    <!-- Swiper -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/swiper.min.css') }}">
+    <!-- Splitting -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/splitting.css') }}">
+    <!-- fontAwesome -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/all.min.css') }}">
+    <!-- Font Family -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Nunito:wght@400;500;600;700;800;900&amp;display=swap">
+    <!-- main-LTR-1 -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main-LTR-1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/anonymization.css') }}">
+    <title>人脸匿名化</title></head>
+  
+  <body class=" overlay-is-linear-gradient rounded-btns">
+    <!--Start Page Header-->
+    <!--Start Page Header-->
+    <header class="page-header menu-on-end " id="page-header">
+      <!--start navbar-->
+      <div class="container-fluid">
+        <nav class="main-navbar " id="main-nav"><a class="navbar-brand " href="#"><img class="brand-logo light-logo img-fluid " src="{{ url_for('static',filename='assets/images/logo/logo-light-square.png') }}" alt=""/><img class="brand-logo dark-logo img-fluid " src="{{ url_for('static',filename='assets/images/logo/logo-light-square.png') }}" alt=""/></a>
+          <div class="menu-toggler-btn"><span></span><span></span><span></span></div>
+          <div class=" navbar-menu-wraper  " id="navbar-menu-wraper">
+            <ul class="navbar-nav  mobile-menu ">
+              <li class="nav-item has-sub-menu"><a class="nav-link  active" href="/home"><i class="fas fa-home icon"></i>首页</a>
+              </li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="#0"><i class="fas fa-cog icon"></i>在线工具<i class="fas fa-chevron-down down-Arrow-icon"> </i></a>
+                <ul class="sub-menu ">
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/forgery"><i class="fas fa-cog icon"></i>深度伪造检测</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/anonymization"><i class="fas fa-cog icon"></i>人脸匿名化</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/makeup"><i class="fas fa-cog icon"></i>妆容迁移</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/tamper"><i class="fas fa-cog icon"></i>主动防御</a></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link  " href="/contact-us"><i class="fas fa-address-card icon"></i>SDK</a></li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="https://github.com/lixionga/ProFace"><i class="fas fa-edit icon"></i>Sourcecode</a>
+              </li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="#0"><i class="fas fa-cogs icon"></i>产品文档</a>
+              </li>
+              <li class="nav-item"><a class="nav-link  " href="/contact-us"><i class="fas fa-mobile-alt icon"></i>联系我们</a></li>
+            </ul>
+          </div><a class="header-cta  ma-btn-primary " href="#0">登录</a>
+        </nav>
+      </div>
+      <!--End navbar-->
+    </header>
+    <section class="d-flex align-items-center page-hero inner-page-hero " id="page-hero">
+      <div class="overlay-photo-image-bg parallax"></div>
+      <div class="overlay-color"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 hero-text-area">
+            <h1 class="hero-title" data-splitting>人脸匿名化</h1>
+            <nav aria-label="breadcrumb ">
+              <ul class="breadcrumb wow fadeInUp" data-wow-delay="1s">
+                <li class="breadcrumb-item"><a class="breadcrumb-link" href="#0"><i class="fas fa-home icon "></i>在线工具</a></li>
+                <li class="breadcrumb-item active">人脸匿名化</li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--End Page Header-->
+    <!-- Start Page hero-->
+    <section class="d-flex align-items-center page-hero" id="page-hero">
+      <div class="overlay-shape-image-bg"></div>
+      <div class="overlay-color"></div>
+      <div class="container">
+        <div class="button-container" >
+          <button class="btn btn-primary delayed-button" id="openBtn">
+              <i class="fas fa-home icon"></i>选择文件
+          </button>
+          <button class="btn btn-secondary" id="uploadBtn" onclick="uploadFile()">
+              <i class="fas fa-cogs icon"></i>上传服务器
+          </button>
+          <button class="btn btn-secondary" id="saveBtn" onclick="keepFile()">
+              <i class="fas fa-cogs icon"></i>保存
+          </button>
+          <button class="btn btn-warning" id="zoomOutBtn">
+              <i class="fas fa-edit icon"></i>缩放-
+          </button>
+          <button class="btn btn-success" id="zoomInBtn">
+              <i class="fas fa-edit icon"></i>缩放+
+          </button>
+          <button class="btn btn-primary" id="downloadBtn" onclick="downloadFile()" style="display: none;">
+              <i class="fas fa-money-check icon"></i>下载处理结果
+          </button>
+        </div>          
+        <div class="row d-flex align-items-center">
+          <!-- Start of hero-image -->
+          <div class="col-12 mx-md-auto col-lg-6">
+            <div class="hero-text-area2 wow fadeInRight">
+              <h1 class="hero-title" data-splitting>
+                <div class="top-left-container">
+                  <span class="hover-target" id="hoverTarget">人脸匿名化</span>
+                  <img src="{{ url_for('static',filename='assets/images/icons/ano.png') }}" alt="icon" style="height: 80px; margin-left: 40px;">
+                  <span class="heading-brand-name"></span>
+                </div>              
+              </h1>
+              <!-- 说明部分 -->
+              <p class="subtitle" data-splitting id="Subtitle">
+                使用说明：<br>
+                Ⅰ. 设置一个密码<br>
+                Ⅱ. 选择目标人脸的图片进行上传，上传的原图片展示在左边<br>
+                Ⅲ. 服务器处理后，右边展示匿名化后的图片
+                <img src="{{ url_for('static',filename='assets/images/icons/shubiao.png') }}" alt="icon" style="height: 40px; margin-left: 20px;">
+              </p>
+            </div>
+          </div>
+          <!-- End of hero-image -->
+          <div class="row">
+            <!-- Left Column -->
+            <div class="col-12 col-lg-6">
+              <div class="hero-img-wraper" >
+                <!-- 文件输入框，用于选择图片或视频 -->
+                <input type="file" id="fileInput" accept="image/*,video/*" style="display: none;">
+                <!-- 显示图片或视频的容器 -->
+                <div id="mediaContainershow" class="media-container">
+                  <!-- 默认图片或 Logo -->
+                  <img id="imageshow" src="{{ url_for('static',filename='assets/images/icons/choose.png') }}" alt="Image show" style="max-width: 100%; max-height: 400px; cursor: grab;">
+                  <!-- 视频预览 -->
+                  <video id="videoshow" src="" controls style="max-width: 100%; max-height: 400px; display: none;"></video>
+                </div>
+                <p class="image-description">原图片</p>
+              </div>
+            </div>          
+            <!-- Right Column -->
+            <div class="col-12 col-lg-6">
+              <div class="hero-image-area mb-5 mb-lg-0 wow fadeInLeft" >
+                <div class="hero-img-wraper">
+                  <!-- 文件输入框，用于选择图片或视频 -->
+                  <input type="file" id="fileInput2" accept="image/*,video/*" style="display: none;">
+                  <!-- 显示图片或视频的容器 -->
+                  <div id="mediaContainer" class="media-container">
+                    <!-- 默认图片或 Logo -->
+                    <img id="imagePreview" src="{{ url_for('static',filename='assets/images/icons/choose.png') }}" alt="Image Preview" style="max-width: 100%; max-height: 400px; cursor: grab;">
+                    <!-- 视频预览 -->
+                    <video id="videoPreview" src="" controls style="max-width: 100%; max-height: 400px; display: none;"></video>
+                  </div>
+                  <p class="image-description">匿名化后图片</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="zoomControls" style="text-align: center; margin-top: 20px;">
+            <input type="text" id="bitInput" style="width: 250px; text-align: center;" maxlength="16">
+            <button id="confirmBtn" class="btn btn-primary" style="margin-left: 10px;" onclick="sendBitArray()">确定</button>
+          </div>
+          <p class="input-description">请设置一串随机的字母型密码</p>
+        </div>
+        <!-- End of .hero-text-area -->
+      </div>
+    </section>
+    <!-- Start our-clients Section-->
+    <!-- End take-action Section-->
+    <!-- Start page-footer Section-->
+    <footer class="page-footer dark-color-footer" id="page-footer">
+      <div class="container">
+        <div class="row footer-cols">
+          <div class="col-12 col-md-8 col-lg-4  footer-col wow fadeInUp " data-wow-delay="0.3s">
+            <h6 class=" footer-col-title  ">关于ProFace</h6>
+            <div class="footer-col-content-wrapper">
+              <p class="footer-text-about-us ">重庆邮电大学研发的可信人脸数据安全保护研究平台</p></div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-2  footer-col wow fadeInUp " data-wow-delay="0.5s">
+            <h6 class=" footer-col-title    ">联系我们</h6>
+            <div class="footer-col-content-wrapper">
+              <div class="contact-info-card">
+                <i class="fas fa-envelope icon"></i>
+                <a class="text-lowercase  info" href="mailto:example@support.com">example@support.com</a></div>
+              <div class="contact-info-card">
+                <i class="fas fa-globe-africa icon"></i>
+                <a class="text-lowercase  info" href="#0">www.yoursite.com</a></div>
+              <div class="contact-info-card">
+                <i class="fas fa-map-marker-alt icon"></i>
+                <span class="text-lowercase  info">重庆邮电大学</span></div>
+              <div class="contact-info-card">
+                <i class="fas fa-mobile-alt icon"></i>
+                <a class="info" href="tel:+20123456789">+20123456789</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights ">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p class="creadits">&copy; 2025
+                <a target="_blank" title="ProFace">ProFace</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End page-footer Section-->
+    <!-- Start loading-screen Component-->
+    <div class="loading-screen" id="loading-screen">
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
+    <!-- End loading-screen Component-->
+    <!-- Start back-to-top Component-->
+    <div class="back-to-top" id="back-to-top">
+      <i class="fas fa-arrow-up icon"></i>
+    </div>
+    <!-- End back-to-top Component-->
+    <!-- JQuery -->
+    <script src="{{ url_for('static',filename='js/vendors/jquery-3.4.1.min.js') }}"></script>
+    <!-- bootstrap -->
+    <script src="{{ url_for('static',filename='js/vendors/bootstrap.bundle.min.js') }}"></script>
+    <!-- fancybox -->
+    <script src="{{ url_for('static',filename='js/vendors/jquery.fancybox.min.js') }}"></script>
+    <!-- countTo -->
+    <script src="{{ url_for('static',filename='js/vendors/jquery.countTo.js') }}"></script>
+    <!-- wow -->
+    <script src="{{ url_for('static',filename='js/vendors/wow.min.js') }}"></script>
+    <!-- swiper -->
+    <script src="{{ url_for('static',filename='js/vendors/swiper.min.js') }}"></script>
+    <!-- Splitting -->
+    <script src="{{ url_for('static',filename='js/vendors/splitting.min.js') }}"></script>
+    <!-- isotope -->
+    <script src="{{ url_for('static',filename='js/vendors/isotope-min.js') }}"></script>
+    <!-- main -->
+    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+    <script>document.addEventListener("DOMContentLoaded",
+      function() {
+        // 打开图片或视频文件选择框
+        document.getElementById('openBtn').addEventListener('click',
+        function() {
+          const fileInput = document.getElementById('fileInput');
+          fileInput.click(); // 模拟点击文件输入框
+        });
+
+        // 监听文件选择变化
+        document.getElementById('fileInput2').addEventListener('change',
+        function() {
+          const file = this.files[0];
+          if (file) {
+            const mediaContainerRight = document.getElementById('mediaContainer');
+            const imgElementRight = document.getElementById('imagePreview');
+            const videoElementRight = document.getElementById('videoPreview');
+
+            // 清除之前的内容
+            imgElementRight.style.display = 'none';
+            videoElementRight.style.display = 'none';
+
+            // 根据文件类型显示图片或视频
+            if (file.type.startsWith('image/')) {
+              // 处理图片文件
+              const reader = new FileReader();
+              reader.onload = function(e) {
+
+              // 设置右侧容器的图片
+              imgElementRight.src = e.target.result;
+              imgElementRight.style.display = 'block'; // 显示图片
+              };
+              reader.readAsDataURL(file);
+            } else if (file.type.startsWith('video/')) {
+              // 处理视频文件
+
+              // 设置右侧容器的视频
+              videoElementRight.src = URL.createObjectURL(file);
+              videoElementRight.style.display = 'block'; // 显示视频
+              videoElementRight.muted = true; // 静音视频以允许自动播放
+              videoElementRight.play(); // 自动播放视频
+            }
+          }
+        });
+        document.getElementById('fileInput').addEventListener('change',
+        function() {
+          const file = this.files[0];
+          if (file) {
+            const mediaContainerLeft = document.getElementById('mediaContainershow');
+            const imgElementLeft = document.getElementById('imageshow');
+            const videoElementLeft = document.getElementById('videoshow');
+
+            // 清除之前的内容
+            imgElementLeft.style.display = 'none';
+            videoElementLeft.style.display = 'none';
+
+            // 根据文件类型显示图片或视频
+            if (file.type.startsWith('image/')) {
+              // 处理图片文件
+              const reader = new FileReader();
+              reader.onload = function(e) {
+              // 设置左侧容器的图片
+              imgElementLeft.src = e.target.result;
+              imgElementLeft.style.display = 'block'; // 显示图片
+              };
+              reader.readAsDataURL(file);
+            } else if (file.type.startsWith('video/')) {
+              // 处理视频文件
+              // 设置左侧容器的视频
+              videoElementLeft.src = URL.createObjectURL(file);
+              videoElementLeft.style.display = 'block'; // 显示视频
+              videoElementLeft.muted = true; // 静音视频以允许自动播放
+              videoElementLeft.play(); // 自动播放视频
+
+            }
+          }
+        });
+      });
+
+      
+
+      // 缩放-
+      document.getElementById('zoomOutBtn').addEventListener('click',
+      function() {
+        let imgElement = document.getElementById('imagePreview');
+        let currentWidth = imgElement.width;
+        let currentHeight = imgElement.height;
+        imgElement.style.width = currentWidth * 0.9 + "px";
+        imgElement.style.height = currentHeight * 0.9 + "px";
+      });
+
+      // 缩放+
+      document.getElementById('zoomInBtn').addEventListener('click',
+      function() {
+        let imgElement = document.getElementById('imagePreview');
+        let currentWidth = imgElement.width;
+        let currentHeight = imgElement.height;
+        imgElement.style.width = currentWidth * 1.1 + "px";
+        imgElement.style.height = currentHeight * 1.1 + "px";
+      });
+
+      //确认按钮
+      document.getElementById('confirmBtn').addEventListener('click', function() {
+          let inputValue = document.getElementById('zoomInput').value;
+
+          // 如果输入是字母型字符串，直接调用sendBitArray函数
+          if (isNaN(inputValue)) {
+              sendBitArray(inputValue);
+          } else {
+              alert("请输入有效的字母型字符串！");
+          }
+      });
+
+      // 图片拖动功能
+      let imgElement = document.getElementById('imagePreview');
+      let isDragging = false;
+      let offsetX,
+      offsetY;
+
+      imgElement.addEventListener('mousedown',
+      function(e) {
+        isDragging = true;
+        offsetX = e.clientX - imgElement.offsetLeft;
+        offsetY = e.clientY - imgElement.offsetTop;
+        imgElement.style.cursor = 'grabbing';
+      });
+
+      document.addEventListener('mousemove',
+      function(e) {
+        if (isDragging) {
+          let x = e.clientX - offsetX;
+          let y = e.clientY - offsetY;
+          imgElement.style.left = x + 'px';
+          imgElement.style.top = y + 'px';
+        }
+      });
+
+      document.addEventListener('mouseup',
+      function() {
+        isDragging = false;
+        imgElement.style.cursor = 'grab';
+      });
+
+      // 发送16位二进制数字的函数
+      function sendBitArray(inputValue) {
+          // 如果是字母型字符串，进行哈希并截取前16位
+          sha256(inputValue).then(hash => {
+              // 取哈希结果的前16位二进制
+              let bitStr = hash.slice(0, 16); // 取前16位二进制字符串
+              // 验证输入是否为二进制字符串
+              if (!/^[01]*$/.test(bitStr)) {
+                  alert('请输入由0或1组成的字符串');
+                  return;
+              }
+
+              // 如果长度不够16，补0
+              if (bitStr.length < 16) {
+                  bitStr = bitStr.padEnd(16, '0');
+              }
+
+              // 将二进制字符串转换为数组
+              const bitArray = bitStr.split('').map(val => parseInt(val));
+
+              // 发送数据
+              fetch('/bitstring', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(bitArray)
+              })
+              .then(() => {
+                  alert('已发送数组');
+              })
+              .catch(() => {
+                  alert('发送失败');
+              });
+          });
+      }
+
+       // 用于将字符串转换为SHA-256哈希的函数
+      function sha256(str) {
+          return crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
+              .then(hashBuffer => {
+                  // 将ArrayBuffer转为二进制字符串
+                  let hashArray = Array.from(new Uint8Array(hashBuffer));
+                  return hashArray.map(byte => byte.toString(2).padStart(8, '0')).join('');
+              });
+      }
+
+
+      // 上传文件函数
+      function uploadFile() {
+        const file = document.getElementById('fileInput').files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/upload', {
+          method: 'POST',
+          body: formData
+        }).then(res =>res.json()).then(data =>{
+          if (data.processed_file) {
+            const fileUrl = '/processed/' + data.processed_file;
+            const mediaContainer = document.getElementById('mediaContainer');
+            const imgElement = document.getElementById('imagePreview');
+            const videoElement = document.getElementById('videoPreview');
+
+            // 清除之前的内容
+            imgElement.style.display = 'none';
+            videoElement.style.display = 'none';
+
+            // 根据返回的文件类型更新显示
+            if (file.type.startsWith('image')) {
+              // 显示图片
+              imgElement.src = fileUrl;
+              imgElement.style.display = 'block';
+            } else if (file.type.startsWith('video')) {
+              // 显示视频
+              videoElement.src = fileUrl;
+              videoElement.style.display = 'block';
+              videoElement.muted = true; // 静音视频以允许自动播放
+              videoElement.play(); // 自动播放视频
+            }
+
+            // 显示下载按钮并设置下载链接
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.style.display = 'block'; // 显示按钮
+            downloadBtn.setAttribute('href', '/download/' + data.processed_file); // 设置下载链接
+            } else {
+                alert(data.error);
+            }
+          })
+          .catch(() => {
+            alert('上传失败');
+          });
+      }
+
+      function downloadFile() {
+        const downloadBtn = document.getElementById('downloadBtn');
+        if (downloadBtn.style.display === 'none') {
+          alert('没有处理结果可供下载');
+          return;
+        }
+
+        // 自动触发下载
+        downloadBtn.click();
+      }
+
+      // 保存文件到本地的函数
+      function keepFile() {
+        // 获取文件 URL
+        const imgElement = document.getElementById('imagePreview');
+        const videoElement = document.getElementById('videoPreview');
+        let fileUrl = '';
+
+        // 根据显示的内容选择文件 URL
+        if (imgElement.style.display === 'block') {
+          fileUrl = imgElement.src; // 图片文件 URL
+        } else if (videoElement.style.display === 'block') {
+          fileUrl = videoElement.src; // 视频文件 URL
+        }
+
+        if (fileUrl) {
+          // 创建一个下载链接
+          const link = document.createElement('a');
+          link.href = fileUrl;
+
+          // 从文件 URL 获取文件名
+          const fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+          link.download = fileName; // 设置下载文件名
+          // 模拟点击下载链接
+          link.click();
+        } else {
+          alert('没有可保存的文件');
+        }
+      }
+      
+
+         // 获取相关元素说明框显示
+        const hoverTarget = document.getElementById('hoverTarget');
+        const heroSubtitle = document.getElementById('Subtitle');
+
+        // 监听鼠标悬停事件
+        hoverTarget.addEventListener('mouseenter', () => {
+          heroSubtitle.style.display = 'block';  // 显示说明框
+          heroSubtitle.style.opacity = '1';      // 使说明框可见
+        });
+
+        // 监听鼠标移出事件
+        hoverTarget.addEventListener('mouseleave', () => {
+          heroSubtitle.style.opacity = '0';      // 使说明框透明
+          setTimeout(() => {
+            heroSubtitle.style.display = 'none'; // 隐藏说明框
+          }, 300);  // 等待过渡效果完成后再隐藏
+        });
+      
+      </script>
+  </body>
+
+</html>

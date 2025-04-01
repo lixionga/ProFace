@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <!-- fav icon -->
+        <link rel="icon" href="{{ url_for('static',filename='assets/images/fav-icon/fav-icon.png') }}">
+        
+        <!-- Fancybox -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/jquery.fancybox.min.css') }}">
+
+        <!-- bootstarp -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/bootstrap.min.css') }}">
+        
+        <!-- Swiper -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/swiper.min.css') }}">
+
+        <!-- animate.css file -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/animate.css') }}">
+        
+        <!-- Splitting -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/splitting.css') }}">
+        
+        <!-- fontAwesome -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/vendors/all.min.css') }}">
+        
+        <!-- Font Family -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Nunito:wght@400;500;600;700;800;900&amp;display=swap">
+        
+        <!-- main-LTR-1 -->
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/main-LTR-1.css') }}">
+
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/forgery.css') }}">
+        
+
+    <title> 防伪检测</title>
+  </head>
+  <body class=" overlay-is-linear-gradient rounded-btns ">
+    <!--Start Page Header-->
+    <!--Start Page Header-->
+    <header class="page-header menu-on-end " id="page-header">
+      <!--start navbar-->
+      <div class="container-fluid">
+        <nav class="main-navbar " id="main-nav"><a class="navbar-brand " href="#"><img class="brand-logo light-logo img-fluid " src="{{ url_for('static',filename='assets/images/logo/logo-light-square.png') }}" alt=""/><img class="brand-logo dark-logo img-fluid " src="{{ url_for('static',filename='assets/images/logo/logo-light-square.png') }}" alt=""/></a>
+          <div class="menu-toggler-btn"><span></span><span></span><span></span></div>
+          <div class=" navbar-menu-wraper  " id="navbar-menu-wraper">
+            <ul class="navbar-nav  mobile-menu ">
+              <li class="nav-item has-sub-menu"><a class="nav-link  active" href="/home"><i class="fas fa-home icon"></i>首页</a>
+              </li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="#0"><i class="fas fa-cog icon"></i>在线工具<i class="fas fa-chevron-down down-Arrow-icon"> </i></a>
+                <ul class="sub-menu ">
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/forgery"><i class="fas fa-cog icon"></i>深度伪造检测</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/anonymization"><i class="fas fa-cog icon"></i>人脸匿名化</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/makeup"><i class="fas fa-cog icon"></i>妆容迁移</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/tamper"><i class="fas fa-cog icon"></i>主动防御</a></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link  " href="/contact-us"><i class="fas fa-address-card icon"></i>SDK</a></li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="https://github.com/lixionga/ProFace"><i class="fas fa-edit icon"></i>Sourcecode</a>
+              </li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="#0"><i class="fas fa-cogs icon"></i>产品文档</a>
+              </li>
+              <li class="nav-item"><a class="nav-link  " href="/contact-us"><i class="fas fa-mobile-alt icon"></i>联系我们</a></li>
+            </ul>
+          </div><a class="header-cta  ma-btn-primary " href="#0">登录</a>
+        </nav>
+      </div>
+      <!--End navbar-->
+    </header>
+    <!--End Page Header-->
+    <!-- Start inner Page hero-->
+    <section class="d-flex align-items-center page-hero inner-page-hero " id="page-hero">
+      <div class="overlay-photo-image-bg parallax"></div>
+      <div class="overlay-color"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 hero-text-area">
+            <h1 class="hero-title" data-splitting>防伪检测</h1>
+            <nav aria-label="breadcrumb ">
+              <ul class="breadcrumb wow fadeInUp" data-wow-delay="1s">
+                <li class="breadcrumb-item"><a class="breadcrumb-link" href="#0"><i class="fas fa-home icon "></i>在线工具</a></li>
+                <li class="breadcrumb-item active">防伪检测</li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End inner Page hero-->
+    <!-- Start blog-1-col-posts-->
+    <section class="testimonials testimonials-3-col mhmd  mega-section  " id="testimonials-3-col">
+      <class="container_custom">        
+        <div class="swiper-container  wow fadeInUp  " data-wow-delay="0.4s">
+          <div class="swiper-wrapper">
+            <!--First Slide-->
+            <div class="swiper-slide">
+              <div class="testimonial-content">
+                <div class="customer-testimonial"><i class="fas fa-quote-left   icon"></i>
+                  <div class="content">
+                    <p class="testimonial-text ">
+                      第一步
+                      选择需要测试的图片
+                    </p>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            <!--Second Slide-->
+            <div class="swiper-slide">
+              <div class="testimonial-content">
+                <div class="customer-testimonial"><i class="fas fa-quote-left    icon "></i>
+                  <div class="content">
+                    <p class="testimonial-text ">
+                      第二步
+                      将图片上传到服务器
+                    </p>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            <!--Third Slide-->
+            <div class="swiper-slide">
+              <div class="testimonial-content">
+                <div class="customer-testimonial"><i class="fas fa-quote-left   icon"></i>
+                  <div class="content">
+                    <p class="testimonial-text ">
+                      第三步 
+                      生成检测结果
+                    </p>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>          
+        </div>
+      </div>
+      <div class="sm-pc-trial-wrapper-content-wrapper padding-110">
+        <div class="sm-pc-trial-wrapper-content sm-pc-demo-margin">
+          <div class="sm-pc-trial-wrapper-left">
+            <div class="sm-check-img">
+              <img src="{{ url_for('static',filename='assets/images/example/1.png') }}" loading="lazy" width="135" height="110" />
+            </div>
+            <div class="sm-opacity-img">
+              <img src="{{ url_for('static',filename='assets/images/example/2.png') }}" loading="lazy" width="135" height="110" />
+            </div>
+            <div class="sm-opacity-img">
+              <img src="{{ url_for('static',filename='assets/images/example/3.jpg') }}" loading="lazy" width="135" height="110" />
+            </div>
+            <div class="sm-opacity-img">
+              <img src="{{ url_for('static',filename='assets/images/example/4.jpg') }}" loading="lazy" width="135" height="110" />
+            </div>
+          </div>
+          <div class="sm-pc-trial-wrapper-large">
+            <!-- 上传本地图片的区域 -->
+            <div class="upload-section">
+              <div class="upload-placeholder" id="upload-placeholder" onclick="uploadLocalImage()">
+                  <input type="file" id="upload" style="display: none;" onchange="displayUploadedImage(event)">
+                  <div class="preview-container" id="preview-container">
+                    <img src="{{ url_for('static',filename='assets/images/example/upload.png') }}" alt="图片上传图标" class="placeholder-icon" id="image-display">
+                  </div>
+              </div>
+            </div>
+            <div class="sm-pc-trial-wrapper-input">
+              <div class="input-and-buttons">
+                
+                <input type="text" placeholder="请输入图片的URL" class="ant-input ant-input-borderless" value="" id="image-url"/>
+                <button type="button" class="ant-btn ant-btn-primary" onclick="displayImage()">
+                  <span>添加URL</span>
+                </button>                
+                <button type="button" class="ant-btn ant-btn-default" onclick="uploadToServer()">
+                  <span>上传图片</span>
+                </button>
+              </div>
+            </div>
+            <div class="sm-pc-trial-info">多种文件类型可以被上传 : png, jpg, jepg , 单个的图片被限制在5MB以内</div>
+          </div>
+          <div class="sm-pc-trial-wrapper-right">
+            <div class="sm-risk-result-wrapper" id="risk-result-wrapper">
+                <div class="ant-collapse ant-collapse-icon-position-end">
+                    <div class="ant-collapse-item">
+                        <!-- 折叠面板标题 -->
+                        <div class="ant-collapse-header" aria-expanded="false" aria-disabled="false" role="button" tabindex="0">
+                            <div class="ant-collapse-expand-icon">
+                                <span role="img" aria-label="right" class="anticon anticon-right ant-collapse-arrow">
+                                    <svg viewBox="64 64 896 896" focusable="false" style="-ms-transform:rotate(90deg);transform:rotate(90deg)" data-icon="right" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                        <path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z"></path>
+                                    </svg>
+                                </span>
+                            </div>
+                            <span class="ant-collapse-header-text">
+                                <span class="m-demo-result-title">结果展示</span>
+                            </span>
+                        </div>
+                        
+                        <!-- 折叠面板内容 -->
+                        <div class="ant-collapse-content">
+                            <div class="ant-collapse-content-box">
+                                <div class="sm-risk-result-line">
+                                    <span class="sm-risk-result-title" id="result">检测结果: </span>
+                                    <span class="sm-risk-result-value" style="white-space: nowrap;">
+                                        <span class="sm-align-center" sytle="vertical-align: middle;">--</span>
+                                        <!-- 前端部分修改（添加结果图片容器） -->
+                                        <img id="resultImage_change" style="display: none;height: 40px; width: auto; object-fit: contain;vertical-align: middle;"/> <!-- 初始隐藏 -->
+                                    </span>
+                                </div>
+                                <div class="sm-risk-result-line">
+                                    <span class="sm-risk-result-title">伪造概率: </span>
+                                    <span class="sm-risk-result-value">
+                                        <span class="sm-risk-result-icon" id="fraud-probability">xxx%</span>
+                                    </span>
+                                </div>
+                                <div class="sm-risk-result-line" id="heatmap-container">
+                                    <span class="sm-risk-result-title">伪造热力图: </span>
+                                    <span class="heatmap-placeholder">
+                                        <img width="130" height="170" id="heatmap" style="display: none"/>
+                                    </span>
+                                </div>
+        
+                                <!-- 下载按钮放在结果展示区域 -->
+                                <div class="download-report-button">
+                                    <button type="button" class="ant-btn ant-btn-primary" id="download-btn">
+                                        <span>下载检测报告</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </section>
+    <!-- Start  page-footer Section-->
+    <footer class="page-footer dark-color-footer" id="page-footer">
+      <div class="container">
+        <div class="row footer-cols">
+          <div class="col-12 col-md-8 col-lg-4  footer-col wow fadeInUp " data-wow-delay="0.3s">
+            <h6 class=" footer-col-title  ">关于ProFace</h6>
+            <div class="footer-col-content-wrapper">        
+              <p class="footer-text-about-us ">
+                重庆邮电大学研发的可信人脸数据安全保护研究平台
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-2  footer-col wow fadeInUp " data-wow-delay="0.5s">
+            <h6 class=" footer-col-title    ">联系我们</h6>
+            <div class="footer-col-content-wrapper">       
+              <div class="contact-info-card"><i class="fas fa-envelope icon"></i><a class="text-lowercase  info" href="mailto:example@support.com">example@support.com</a></div>
+              <div class="contact-info-card"><i class="fas fa-globe-africa icon"></i><a class="text-lowercase  info" href="#0">www.yoursite.com</a></div>
+              <div class="contact-info-card"><i class="fas fa-map-marker-alt icon"></i><span class="text-lowercase  info">重庆邮电大学</span></div>
+              <div class="contact-info-card"><i class="fas fa-mobile-alt icon"></i><a class="info" href="tel:+20123456789">+20123456789      </a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights ">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p class="creadits">&copy; 2025 <a target="_blank" title="ProFace">ProFace</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End  page-footer Section-->
+    <!-- Start loading-screen Component-->
+    <div class="loading-screen" id="loading-screen">
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
+    <!-- End loading-screen Component-->
+
+    <!-- Start back-to-top Component-->
+    <div class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up icon"></i></div>
+    <!-- End back-to-top Component-->   
+        
+        <!--     JQuery     -->
+        <script src="{{ url_for('static',filename='js/vendors/jquery-3.4.1.min.js') }}"></script>
+        
+        <!--     bootstrap     -->
+        <script src="{{ url_for('static',filename='js/vendors/bootstrap.bundle.min.js') }}"></script>
+        
+        <!--     Splitting     -->
+        <script src="{{ url_for('static',filename='js/vendors/splitting.min.js') }}"></script>
+        
+        <!--     wow     -->
+        <script src="{{ url_for('static',filename='js/vendors/wow.min.js') }}"></script>
+
+        <!--     fancybox     -->
+        <script src="{{ url_for('static',filename='js/vendors/jquery.fancybox.min.js') }}"></script>
+        
+        <!--     countTo     -->
+        <script src="{{ url_for('static',filename='js/vendors/jquery.countTo.js') }}"></script>
+
+        <!--     swiper     -->
+        <script src="{{ url_for('static',filename='js/vendors/swiper.min.js') }}"></script>
+
+        <!--     isotope     -->
+        <script src="{{ url_for('static',filename='js/vendors/isotope-min.js') }}"></script>
+        
+        <!--     main     -->
+        <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+    
+    <script>
+    // 处理文件上传
+      function uploadLocalImage() {
+          document.getElementById('upload').click();
+      }
+
+      // 显示上传的图片预览
+      function displayUploadedImage(event) {
+          const file = event.target.files[0];
+          if (file) {
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                  const previewContainer = document.getElementById('preview-container');
+                  previewContainer.innerHTML = `<img src="${e.target.result}" alt="预览图片" style="width: 470px; height: 350px;">`;
+              }
+              reader.readAsDataURL(file);
+          }
+      }
+
+      // 添加拖拽上传功能
+      const uploadPlaceholder = document.getElementById('upload-placeholder');
+        
+      uploadPlaceholder.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          uploadPlaceholder.classList.add('dragover');
+      });
+
+      uploadPlaceholder.addEventListener('dragleave', () => {
+          uploadPlaceholder.classList.remove('dragover');
+      });
+
+      uploadPlaceholder.addEventListener('drop', (e) => {
+          e.preventDefault();
+          uploadPlaceholder.classList.remove('dragover');
+          const file = e.dataTransfer.files[0];
+          if (file && file.type.startsWith('image/')) {
+              const input = document.getElementById('upload');
+              input.files = e.dataTransfer.files;
+              const event = new Event('change');
+              input.dispatchEvent(event);
+          }
+      });
+      // 上传图片到服务器
+      function uploadToServer() {
+          const fileInput = document.getElementById('upload');
+          const urlInput = document.getElementById('image-url');
+          //const uploadContent = document.getElementById('uploadTabContent');
+            
+          // 创建 FormData 对象
+          const formData = new FormData();
+            
+        if (fileInput.files.length > 0) {
+          formData.append('file', fileInput.files[0]);
+        } else {
+            formData.append('image_url', urlInput.value);
+        }
+
+            // 显示加载状态
+          document.getElementById('fraud-probability').textContent = '处理中...';
+          document.querySelector('.heatmap-placeholder').style.display = 'block';
+          document.getElementById('heatmap').style.display = 'none';
+
+          // 发送请求到服务器
+          fetch('/upload2', {
+              method: 'POST',
+              body: formData
+          })
+          .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+          })
+          .then(data => {
+              if (data.error) throw new Error(data.error);
+
+              // 解析并更新伪造概率
+              let score = parseFloat(data.model_score);
+              if (!isNaN(score)) {
+                  document.getElementById('fraud-probability').textContent = `${(score * 100).toFixed(2)}%`;
+                  const resultText = document.querySelector('.sm-align-center');
+                  const resultImage = document.getElementById('resultImage_change');
+                  if (score < 0.5) {
+                    resultText.textContent = '未篡改';
+                    resultText.style.color = 'green';
+                    resultImage.src = "{{ url_for('static',filename='assets/images/icons/pass.png') }}";
+                  } else {
+                      resultText.textContent = '篡改';
+                      resultText.style.color = 'red';
+                      resultImage.src = "{{ url_for('static',filename='assets/images/icons/failed.png') }}";
+                  }
+                  resultImage.style.display = 'inline-block'; // 显示图片
+                  // document.getElementById('fraud-probability').textContent = `${(score * 100).toFixed(2)}%`;
+              } else {
+                  document.getElementById('fraud-probability').textContent = '处理失败';
+              }
+
+              // 更新热力图
+              if (data.heatmap_path) {
+                  const heatmapImg = document.getElementById('heatmap');
+                  heatmapImg.src = data.heatmap_path;
+                  heatmapImg.style.display = 'block';
+                  document.querySelector('.heatmap-placeholder').style.display = 'block';
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              document.getElementById('fraud-probability').textContent = '处理失败';
+              alert('上传发生错误，请重试');
+          });
+          }
+
+        // 显示网络图片
+      function displayImage() {
+          const url = document.getElementById('image-url').value;
+          const container = document.getElementById('preview-container');
+          const display = document.getElementById('image-display');
+            
+          if (url) {
+              display.src = url;
+              container.style.display = 'block';
+          } else {
+              alert('请输入有效的图片URL');
+          }
+      }
+
+
+
+      document.querySelector('.ant-collapse-header').addEventListener('click', function() {
+      const content = this.nextElementSibling;
+      const icon = this.querySelector('.ant-collapse-expand-icon span');
+
+      if (content.style.display === 'none') {
+          content.style.display = 'block';
+          icon.style.transform = 'rotate(90deg)';  // 修改图标为展开样式
+      } else {
+          content.style.display = 'none';
+          icon.style.transform = 'rotate(0deg)';  // 修改图标为收起样式
+      }
+      });
+
+    </script>
+  </body>
+</html>

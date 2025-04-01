@@ -1,0 +1,55 @@
+ckpt_dir: checkpoints/main/
+
+passwd_length: 16
+
+resume: False
+resume_optimizer: True
+
+which_model_netG: resnet_9blocks
+which_model_netD: multiscale_separated
+gan_mode: lsgan
+norm: batch
+dropout: False
+use_resize_conv: True
+
+auto_name: True
+use_minus_one: half
+lr: 0.0001
+
+input_nc: 3
+output_nc: 3
+
+feature_loss: cos
+feature_layer: 5
+
+lambda_Feat: 2.
+lambda_WR_Feat: 1.
+lambda_false_recon_diff: 1.
+
+lambda_FR: 2.
+lambda_FR_M: 1.
+lambda_FR_WR: 1.
+
+lambda_dis: 1.
+
+lambda_GAN: 1.
+lambda_GAN_recon: 1.
+lambda_GAN_M: 1.
+lambda_GAN_WR: 1.
+
+
+lambda_L1: 10.
+lambda_rand_recon_L1: 10.
+lambda_G_recon: 100.
+
+num_epochs: 30
+batch_size: 48
+
+workers: 32
+visdom_visual_freq: 15
+html_per_train_epoch: 10
+
+### new
+during_training: True
+lambda_attack: 0.
+num_html_columns: 1

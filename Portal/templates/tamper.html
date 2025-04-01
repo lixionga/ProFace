@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <!-- fav icon -->
+        <!-- fav icon -->
+        <link rel="icon" href="{{ url_for('static', filename='assets/images/fav-icon/fav-icon.png') }}">
+                
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/bootstrap.min.css') }}">
+            
+        <!-- animate.css file -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/animate.css') }}">
+            
+        <!-- fontAwesome -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/all.min.css') }}">
+            
+        <!-- Swiper -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/swiper.min.css') }}">
+            
+        <!-- Splitting -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/vendors/splitting.css') }}">
+            
+        <!-- Font Family -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Nunito:wght@400;500;600;700;800;900&amp;display=swap">
+            
+        <!-- main-LTR-1 -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main-LTR-1.css') }}">
+            
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/tamper.css') }}">
+
+    <title> 主动防御</title>
+  </head>
+  <body class=" overlay-is-linear-gradient rounded-btns"> 
+    <!--Start Page Header-->
+    <!--Start Page Header-->
+    <header class="page-header menu-on-end " id="page-header">
+      <!--start navbar-->
+      <div class="container-fluid">
+        <nav class="main-navbar " id="main-nav"><a class="navbar-brand " href="#"><img class="brand-logo light-logo img-fluid " src="{{ url_for('static', filename='assets/images/logo/logo-light-square.png') }}" alt=""/><img class="brand-logo dark-logo img-fluid " src="{{ url_for('static', filename='assets/images/logo/logo-light-square.png') }}" alt=""/></a>
+          <div class="menu-toggler-btn"><span></span><span></span><span></span></div>
+          <div class=" navbar-menu-wraper  " id="navbar-menu-wraper">
+            <ul class="navbar-nav  mobile-menu ">
+              <li class="nav-item has-sub-menu"><a class="nav-link  active" href="/home"><i class="fas fa-home icon"></i>首页</a>
+              </li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="#0"><i class="fas fa-cog icon"></i>在线工具<i class="fas fa-chevron-down down-Arrow-icon"> </i></a>
+                <ul class="sub-menu ">
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/forgery"><i class="fas fa-cog icon"></i>深度伪造检测</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/anonymization"><i class="fas fa-cog icon"></i>人脸匿名化</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/makeup"><i class="fas fa-cog icon"></i>妆容迁移</a></li>
+                  <li class="nav-item sub-menu-item"><a class="nav-link sub-menu-link  " href="/tamper"><i class="fas fa-cog icon"></i>主动防御</a></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link  " href="/contact-us"><i class="fas fa-address-card icon"></i>SDK</a></li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="https://github.com/lixionga/ProFace"><i class="fas fa-edit icon"></i>Sourcecode</a>
+              </li>
+              <li class="nav-item has-sub-menu"><a class="nav-link  " href="#0"><i class="fas fa-cogs icon"></i>产品文档</a>
+              </li>
+              <li class="nav-item"><a class="nav-link  " href="/contact-us"><i class="fas fa-mobile-alt icon"></i>联系我们</a></li>
+            </ul>
+          </div><a class="header-cta  ma-btn-primary " href="#0">登录</a>
+        </nav>
+      </div>
+      <!--End navbar-->
+    </header>
+    <!--End Page Header-->
+    <section class="d-flex align-items-center page-hero inner-page-hero " id="page-hero">
+      <div class="overlay-photo-image-bg parallax"></div>
+      <div class="overlay-color"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 hero-text-area">
+            <h1 class="hero-title" data-splitting>主动防御</h1>
+            <nav aria-label="breadcrumb ">
+              <ul class="breadcrumb wow fadeInUp" data-wow-delay="1s">
+                <li class="breadcrumb-item"><a class="breadcrumb-link" href="#0"><i class="fas fa-home icon "></i>在线工具</a></li>
+                <li class="breadcrumb-item active">主动防御</li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Start  pricing-1 section-->
+    <section class="pricing-1 mega-section section-bg-shade" id="pricing-1">
+      <div class="container">
+        <div class="section-heading center-heading">
+          <h2 class="section-title wow" data-splitting="chars">防篡改</h2>
+          <p class="section-subtitle wow fadeInUp" data-wow-delay=".5s">为图片添加特定水印去检测是否被篡改</p>
+          <div class="line line-solid-main-color wow fadeIn" data-wow-delay="1s"></div>
+        </div>
+        <div class="ma-tabs">
+          <div class="switch wow fadeInUp " data-wow-delay="0">
+            <ul class="switch-btns-list">
+              <li class=" switch-btn switch-left   active" data-target=".monthly-plan">水印</li>
+              <li class=" switch-btn switch-right  " data-target=".yearly-plan">检测</li>
+            </ul>
+          </div>
+          <div class="tabs">
+            <div class="tab-content monthly-plan  visibale-tab">
+              <div class="row d-flex align-items-center justify-content-between">
+                <!--选择图片-->
+                <div class="col-12  col-md-4 mx-auto price-plan custom-width">
+                  <div class="plan wow fadeInUp " data-wow-delay=".2s">
+                    <div class="plan-cost">
+                      <h6 class="plane-name">选择图片</h6>
+                    </div>
+                    <div class="plan-details">
+                      <!-- 隐藏的文件上传框 -->
+                      <input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)" style="display:none;">                      
+                      <!-- 预览框，点击后弹出文件选择框 -->
+                      <div id="imagePreview" class="image-preview" onclick="document.getElementById('imageUpload').click();">
+                        <div class="upload-icon">
+                          <i class="fas fa-cloud-upload-alt" id="uploadicon"></i> <!-- 上传图标 -->
+                        </div>
+                        <p>选择图片</p>
+                      </div>
+                    </div>
+                    <p class="image-description">原图片</p>                                    
+                    <div class="plan-cta"><button class=" ma-btn-primary " onclick="uploadFile()">上传图片</button></div>
+                  </div>
+                </div>
+                <!--提取水印-->
+                <div class="col-12  col-md-4 mx-auto price-plan custom-width">
+                  <div class="plan wow fadeInUp " data-wow-delay=".2s">
+                    <div class="plan-cost">
+                      <h6 class="plane-name">嵌入水印</h6>
+                    </div>                    
+                    <div class="plan-details">
+                        <!-- 显示图片的区域 -->                        
+                      <div class="image-preview" id="waterimageshow">
+                        <img id="waterImage" src="" alt="" style="display: none;" />
+                        <!-- 初始状态没有图片，只有图标 -->
+                        <div class="upload-icon">
+                          <i class="fas fa-info-circle" id="infoicon" ></i>
+                        </div>                          
+                        <p>水印展示</p>
+                      </div>
+                    </div>
+                    <p class="image-description">嵌入水印图</p>
+                    <div class="plan-cta ma-btn-primary">嵌入人脸信息</div>
+                  </div>
+                </div>
+                <!--显示结果-->
+                <div class="col-12  col-md-4 mx-auto price-plan custom-width">
+                  <div class="plan wow fadeInUp " data-wow-delay=".2s">
+                    <div class="plan-cost">
+                      <h6 class="plane-name">结果图片</h6>
+                    </div>
+                    <div class="plan-details">
+                        <!-- 显示图片的区域 -->                        
+                        <div class="image-preview" id="imageshow">
+                          <img id="resultImage" src="" alt="" style="display: none;" />
+                          <!-- 初始状态没有图片，只有图标 -->
+                          <div class="upload-icon">
+                            <i class="fas fa-download upload-icon" id="downloadicon" ></i>
+                          </div>                          
+                          <p>结果预览</p>
+                        </div>
+                    </div>
+                    <p class="image-description">主动防御结果图</p>
+                    <div class="plan-cta"><button class="ma-btn-primary" onclick="DownloadFile()">下载图片</button></div>
+                  </div>
+                </div>
+              </div>
+              <!-- 箭头 -->
+              <div class="d-flex align-items-center justify-content-between mt-3 position-relative">
+                <!-- 左箭头 -->
+                <div class="arrow-container mx-2">
+                  <span class="arrow-icon right-arrow">→</span>
+                </div>
+              
+                <!-- 右箭头 -->
+                <div class="arrow-container mx-2">
+                  <span class="arrow-icon left-arrow">→</span>
+                </div>
+              </div> 
+            </div>
+
+            <div class="tab-content yearly-plan ">
+              <div class="row">
+                <!--First Plan-->
+                <div class="col-12 col-md-9 col-lg-4  mx-auto price-plan custom-width2" id="firstPart">
+                  <div class="plan wow fadeInUp " data-wow-delay=".2s">
+                    <div class="plan-cost">
+                      <h6 class="plane-name">检测结果：</h6>
+                      <h6 id="detectionResult" class="plane-name">--</h6>
+                    </div>
+                    <div class="plan-details">
+                      <!-- 需要检测的图片上传 -->
+                      <div class="upload-container">
+                        <input type="file" id="imageUploadToDetect" accept="image/*" onchange="previewImageToDetect(event)" style="display:none;">
+                        <div id="imagePreviewToDetect" class="image-choose" onclick="document.getElementById('imageUploadToDetect').click();">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt" id="uploadicon"></i> <!-- 上传图标 -->
+                            </div>
+                            <p>选择需要检测的图片</p>
+                        </div>
+                        <p class="image-description">待检测的图片</p>
+                      </div>                       
+                    </div>                                       
+                    <div class="plan-cta">
+                      <button class="ma-btn-primary" id="startDetectionBtn" onclick="startDetection()">开始检测</button>
+                    </div>
+                  </div>
+                </div>
+                <!--水印显示区域-->
+                <div class="col-12 col-md-9 col-lg-4  mx-auto price-plan custom-width3" id="secondPart" >
+                  <div class="plan wow fadeInUp " data-wow-delay=".2s">
+                    <div class="plan-cost">
+                      <h6 class="plane-name">伪造概率：</h6>
+                      <h6 id="detectionrate" class="plane-name">--</h6>
+                    </div>
+                    <div class="plan-details">
+                      <!-- 原图水印 -->
+                      <div class="upload-container ">
+                        <div  class="image-choose">
+                          <img src="{{ url_for('static', filename='assets/images/icons/水印.png') }}" alt="原图水印" id="originalImageWatermark" >
+                        </div>
+                        <p class="image-description">原始水印图</p>
+                      </div>
+                      
+                      <!-- 需要检测的图片的水印 -->
+                      <div class="upload-container">
+                        <div  class="image-choose">
+                          <img src="{{ url_for('static', filename='assets/images/icons/去水印.png') }}" alt="检测图水印" id="detectedWatermarkImage">
+                        </div>
+                        <p class="image-description">待检测图片提取的水印图</p>
+                      </div>
+                                             
+                    </div>                   
+                    <div class="plan-cta">
+                      <button class="ma-btn-primary" id="startDetectionBtn" onclick="DownloadResult()">下载结果</button>
+                    </div>    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End  pricing-1 section-->
+    <!-- Start  page-footer Section-->
+    <footer class="page-footer dark-color-footer" id="page-footer">
+      <div class="container">
+        <div class="row footer-cols">
+          <div class="col-12 col-md-8 col-lg-4  footer-col wow fadeInUp " data-wow-delay="0.3s">
+            <h6 class=" footer-col-title  ">关于ProFace</h6>
+            <div class="footer-col-content-wrapper">        
+              <p class="footer-text-about-us ">
+                重庆邮电大学研发的可信人脸数据安全保护研究平台
+              </p>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-2  footer-col wow fadeInUp " data-wow-delay="0.5s">
+            <h6 class=" footer-col-title    ">联系我们</h6>
+            <div class="footer-col-content-wrapper">       
+              <div class="contact-info-card"><i class="fas fa-envelope icon"></i><a class="text-lowercase  info" href="mailto:example@support.com">example@support.com</a></div>
+              <div class="contact-info-card"><i class="fas fa-globe-africa icon"></i><a class="text-lowercase  info" href="#0">www.yoursite.com</a></div>
+              <div class="contact-info-card"><i class="fas fa-map-marker-alt icon"></i><span class="text-lowercase  info">重庆邮电大学</span></div>
+              <div class="contact-info-card"><i class="fas fa-mobile-alt icon"></i><a class="info" href="tel:+20123456789">+20123456789      </a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights ">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p class="creadits">&copy; 2025 <a target="_blank" title="ProFace">ProFace</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End  page-footer Section-->
+    <!-- Start loading-screen Component-->
+    <div class="loading-screen" id="loading-screen">
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
+    <!-- End loading-screen Component-->
+    <!-- Start back-to-top Component-->
+    <div class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up icon"></i></div>
+    <!-- End back-to-top Component-->   
+        
+        <!--     JQuery     -->
+        <script src="{{ url_for('static', filename='js/vendors/jquery-3.4.1.min.js') }}"></script>
+        
+        <!--     bootstrap     -->
+        <script src="{{ url_for('static', filename='js/vendors/bootstrap.bundle.min.js') }}"></script>
+        
+        <!--     wow     -->
+        <script src="{{ url_for('static', filename='js/vendors/wow.min.js') }}"></script>
+        
+        <!--     Splitting     -->
+        <script src="{{ url_for('static', filename='js/vendors/splitting.min.js') }}"></script>
+        
+        <!--     swiper     -->
+        <script src="{{ url_for('static', filename='js/vendors/swiper.min.js') }}"></script>
+        
+        <!--     main     -->
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+        <script>
+
+          let uploadedFile = null;
+
+          // 当文件被选择时，先在页面进行预览
+          function previewImage(event) {
+            const file = event.target.files[0];
+            if(!file) {
+              document.getElementById('imagePreview').innerHTML = '<p>选择图片</p>';
+              return;
+            }
+            uploadedFile = file;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const preview = document.getElementById('imagePreview');
+              preview.innerHTML = '';
+              const img = new Image();
+              img.src = e.target.result;
+              preview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+          }
+
+          // 点击上传按钮后，将图片发送至后台，并根据返回的数据更新预览
+          function uploadFile() {
+            if (!uploadedFile) {
+              alert("请先选择图片");
+              return;
+            }
+            const formData = new FormData();
+            formData.append("file", uploadedFile);
+
+            fetch("/fangyu", {
+              method: "POST",
+              body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success) {
+                // 更新“嵌入水印图”
+                updatewaterImage(data.watermark_url);
+                // 更新“主动防御结果图”
+                updatePreviewImage(data.defense_result_url);
+              } else {
+                alert("处理失败，请重试！");
+              }
+            })
+            .catch(err => {
+              console.error(err);
+              alert("发生错误，请稍后重试");
+            });
+          }
+
+          // 更新“嵌入水印图”预览
+          function updatewaterImage(url) {
+            const waterImage = document.getElementById('waterImage');
+            const waterPreview = document.getElementById('waterimageshow');
+            waterImage.src = url;
+            waterImage.style.display = 'block';
+            const uploadIcon = waterPreview.querySelector('.upload-icon');
+            const text = waterPreview.querySelector('p');
+            uploadIcon.style.display = 'none';
+            text.style.display = 'none';
+          }
+
+          // 更新“主动防御结果图”预览
+          function updatePreviewImage(url) {
+            const resultImage = document.getElementById('resultImage');
+            const imageShow = document.getElementById('imageshow');
+            resultImage.src = url;
+            resultImage.style.display = 'block';
+            const uploadIcon = imageShow.querySelector('.upload-icon');
+            const text = imageShow.querySelector('p');
+            uploadIcon.style.display = 'none';
+            text.style.display = 'none';
+          }
+
+
+          // 当选择原图时在前端预览
+          function previewOriginalImage(event) {
+              const file = event.target.files[0];
+              if(!file) {
+                document.getElementById('originalImagePreview').innerHTML = '<p>选择原图</p>';
+                return;
+              }
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                const preview = document.getElementById('originalImagePreview');
+                preview.innerHTML = '';
+                const img = new Image();
+                img.src = e.target.result;
+                preview.appendChild(img);
+              };
+              reader.readAsDataURL(file);
+          }
+
+          // 当选择待检测图片时在前端预览
+          function previewImageToDetect(event) {
+              const file = event.target.files[0];
+              if(!file) {
+                document.getElementById('imagePreviewToDetect').innerHTML = '<p>选择需要检测的图片</p>';
+                return;
+              }
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                const preview = document.getElementById('imagePreviewToDetect');
+                preview.innerHTML = '';
+                const img = new Image();
+                img.src = e.target.result;
+                preview.appendChild(img);
+              };
+              reader.readAsDataURL(file);
+          }
+
+          // 点击“开始检测”按钮后，将两张图片上传至后端，接收结果并展示
+          function startDetection() {
+            const detectInput = document.getElementById('imageUploadToDetect');
+
+            // 检查是否已选择原图与待检测图
+            if ( !detectInput.files.length) {
+              alert("请先选择待检测图片！");
+              return;
+            }
+
+            const formData = new FormData();
+            formData.append('detect_image', detectInput.files[0]);
+
+            fetch('/jiance', {
+              method: 'POST',
+              body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                // 显示检测结果
+                const detectionResultElement = document.getElementById('detectionResult');
+                detectionResultElement.textContent = data.resultText; // 例如“已篡改”或“未被篡改”
+                if (data.resultText === "已篡改") {
+                  detectionResultElement.style.color = 'red';
+                } else {
+                  detectionResultElement.style.color = 'green';
+                }
+                document.getElementById('detectionrate').style.color = 'blue';
+                // 设置伪造概率
+                document.getElementById('detectionrate').textContent = data.fakeProbability + '%'; 
+                
+                // 更新水印预览
+                document.getElementById('originalImageWatermark').src = data.originalWatermarkUrl;
+                document.getElementById('detectedWatermarkImage').src = data.detectedWatermarkUrl;
+              } else {
+                alert("检测失败，请重试！");
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert("检测出错，请稍后重试！");
+            });
+          }
+
+          function DownloadFile() {
+            const resultImage = document.getElementById('resultImage');
+            if (!resultImage || !resultImage.src) {
+              alert("当前没有可下载的图像");
+              return;
+            }
+
+            const link = document.createElement('a');
+            link.href = resultImage.src;
+            link.download = "defense_result.jpg"; // 可自行修改下载文件名
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+
+          function DownloadResult() {
+            const detectedWatermarkImage = document.getElementById('detectedWatermarkImage');
+            
+            if (!detectedWatermarkImage || !detectedWatermarkImage.src) {
+              alert("当前没有可下载的图像");
+              return;
+            }
+            const link = document.createElement('a');
+            link.href = detectedWatermarkImage.src;
+            link.download = "detectedWatermarkImage.jpg"; 
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+        </script>
+  </body>
+</html>
