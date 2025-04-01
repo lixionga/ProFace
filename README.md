@@ -9,6 +9,8 @@ This project consists of several modules:
 
 ## FacePrivacy
 
+![](./FacePrivacy/PRO-Face%20S/assets/faceprivacy.jpg)
+
 This [module](https://github.com/lixionga/ProFace/tree/main/FacePrivacy) implements various algorithms for facial privacy protection.
 ### Paper List:
 **`2025.02`**: `基于妆容风格补丁激活的对抗性人脸隐私保护` **《计算机科学》2025**.
