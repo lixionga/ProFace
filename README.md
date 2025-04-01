@@ -32,6 +32,8 @@ This [module](https://github.com/lixionga/ProFace/tree/main/FacePrivacy) impleme
 
 This [module](https://github.com/lixionga/ProFace/tree/main/FaceSecurity)  implements various algorithms for facial data analysis.
 ### Paper List:
+**`2025.`**:`MLEP: Multi-granularity Local Entropy Patterns for Universal AI-generated Image Detection` **IJCAI under review**.[[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/MLEP)]
+
 **`2025.`**:`Deepfake Detection Leveraging Self-Blended Artifacts Guided by Facial Embedding Discrepancy` **IEEE TCSVT under review**.[[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/EG)]
 
 **`2024.11`**: `Advancing Generalized Deepfake Detector with Forgery Perception Guidance` **ACM Multimedia 2024**.
