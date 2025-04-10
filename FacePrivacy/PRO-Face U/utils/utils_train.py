@@ -895,7 +895,10 @@ def pass_epoch_utility(embedder, utility_fc,noise_mk ,x_ori,optim2,obfuscator,ge
         _bs, _c, _w, _h = xa.shape
         xa = xa.to(device)
         embedding_orig = recognizer(recognizer.resize(xa))
-        xa_obfs=obfuscator(xa, noise_mk)
+        xa_id = obfuscator.extract_features(xa).to(device)
+        xa_obfs_id = noise_mk(xa_id).to(device)
+
+        xa_obfs=obfuscator(xa, xa_obfs_id)
         xa_obfs.to(device)
         # np.random.seed(0)
         # xa_obfs = np.random.normal(loc=0.0, scale=1.0, size=(16, 3, 112, 112))
@@ -904,9 +907,9 @@ def pass_epoch_utility(embedder, utility_fc,noise_mk ,x_ori,optim2,obfuscator,ge
         # xa_obfs = torch.from_numpy(xa_obfs).float()
 
         # 定义自定义变换
-        # custom_transform = transforms.Compose([
-        #     transforms.Normalize(mean=0.5, std=0.5)
-        # ])
+        custom_transform = transforms.Compose([
+            transforms.Normalize(mean=0.5, std=0.5)
+        ])
         #
         # xa_obfs = custom_transform(xa_obfs)
         # xa_obfs = xa_obfs.to(device)
@@ -1012,7 +1015,7 @@ def pass_epoch_utility(embedder, utility_fc,noise_mk ,x_ori,optim2,obfuscator,ge
         xa_rev_wrong, _ = embedder(noise2, xa_adv, condition_wrong, rev=True)
 
         # embedding_orig = recognizer(recognizer.resize(xs))
-        embedding_adv = recognizer(recognizer.resize(xa_adv))
+        embedding_adv = recognizer(recognizer.resize(xa_adv)).to(device)
         #embedding_cus = recognizer(recognizer.resize(custom_im_batch))
         #gender_pred = gender_classifier(embedding_proc).cpu()
 
@@ -1021,14 +1024,19 @@ def pass_epoch_utility(embedder, utility_fc,noise_mk ,x_ori,optim2,obfuscator,ge
 
         #loss_cos = triplet_loss(embedding_adv, embedding_custom, embedding_orig)
         # loss_cos = torch.mean(torch.sum(torch.mul(embedding_orig, embedding_adv), dim=1) / embedding_orig.norm(dim=1) / embedding_adv.norm(dim=1))
-        tensor_vector = torch.full((c.batch_size,), -1)
-        embedding_orig = embedding_orig / np.linalg.norm(embedding_orig, axis=1, keepdims=True)
-        embedding_adv = embedding_adv / np.linalg.norm(embedding_adv, axis=1, keepdims=True)
+        tensor_vector = torch.full((_bs,), 1).to(device)
+        tensor_vector1 = torch.full((_bs,), -1).to(device)
+        embedding_orig = embedding_orig / torch.linalg.norm(embedding_orig, axis=1, keepdims=True)
+        embedding_adv = embedding_adv / torch.linalg.norm(embedding_adv, axis=1, keepdims=True)
+        tensor1 = torch.tensor([1.0, 0.0]).repeat(_bs, 1).to(device)
         # loss_adv  = torch.max(loss_cos - 0.1, torch.tensor(0.0))
-        criterion_cos=nn.CosineEmbeddingLoss(margin=0.2)
-        criterion_cos1=nn.CosineEmbeddingLoss(margin=0.7)
-        loss_utility = criterion_cos(embedding_orig,embedding_adv,tensor_vector) \
-            if utility_cond_init == torch.tensor([1.0, 0.0])  else criterion_cos1(embedding_orig,embedding_adv,tensor_vector)
+        criterion_cos=nn.CosineEmbeddingLoss()
+        criterion_cos1=nn.CosineEmbeddingLoss(margin=0.27)
+        zero_scalar = torch.tensor(0.0).to(device)
+        if torch.equal(utility_cond_init,tensor1):
+            loss_utility = torch.max(criterion_cos(embedding_orig, embedding_adv, tensor_vector)-0.4,zero_scalar)
+        else:
+            loss_utility= criterion_cos1(embedding_orig,embedding_adv,tensor_vector1)
 
         # cosine_sim_orig = torch.nn.functional.cosine_similarity(embedding_orig, embedding_obfs)
         # cosine_sim_proc = torch.nn.functional.cosine_similarity(embedding_orig, embedding_proc)
@@ -1044,9 +1052,9 @@ def pass_epoch_utility(embedder, utility_fc,noise_mk ,x_ori,optim2,obfuscator,ge
             # loss_batch = 0.2 * loss_image + 0.3 * loss_rec + 0.5 * loss_rec_wrong
 
         # loss_batch = 0.3 * loss_image + 0.1 * loss_rec + 0.2 * loss_rec_wrong + 0.4 * loss_utility
-        loss_utility_param = 0.2 if utility_factor else 0.5
-        loss_utility_param1 = 0.5 if utility_factor else 0.2
-        loss_batch =  loss_utility_param * loss_image + 0.1 * loss_rec + 0.2 * loss_rec_wrong +loss_utility_param1 * loss_utility
+        # loss_utility_param = 0.4 if torch.equal(tensor1, utility_condition) else 0.3
+        # loss_utility_param1 = 0.3 if torch.equal(tensor1, utility_condition) else 0.4
+        loss_batch =  0.35* loss_image + 0.1 * loss_rec + 0.2 * loss_rec_wrong +0.35 * loss_utility
 
         # if c.utility_level > c.Utility.NONE:
         #     loss_batch += (loss_utility * c.utility_weights[c.utility_level])
@@ -1197,6 +1205,8 @@ def pass_epoch_utility(embedder, utility_fc,noise_mk ,x_ori,optim2,obfuscator,ge
         # Save face_detection every 5000 iteration
         if (i_batch % c.SAVE_MODEL_INTERVAL == 0) and (mode == 'Train'):
             saved_path = save_model(embedder, optimizer, dir_checkpoint, session, epoch, i_batch)
+            models_saved.append(saved_path)
+            saved_path = save_model(utility_fc, optimizer, dir_checkpoint, session, epoch, i_batch)
             models_saved.append(saved_path)
             # model_name = f'{session}_x_ori{epoch}_iter{i_batch}'
             # saved_path = f'{dir_checkpoint}/{model_name}.pth'
