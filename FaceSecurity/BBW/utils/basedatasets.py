@@ -1,10 +1,12 @@
 import glob
+
 import numpy as np
 from PIL import Image
 from torch.utils.data import Dataset, DataLoader
 import torchvision.transforms as T
 import FaceSecurity.BBW.config.cfg as c
 from natsort import natsorted
+
 
 def to_rgb(image):
     rgb_image = Image.new("RGB", image.size)

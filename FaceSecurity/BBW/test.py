@@ -2,32 +2,31 @@ import random
 import warnings
 import cv2
 import kornia
-import numpy as np
 import torch.nn
 import torch.nn.functional as F
 import torch.optim
 from nvidia import cudnn
 from sklearn.metrics import roc_auc_score
-
-from FaceSecurity.BBW.network.discriminator import Discriminator
-from FaceSecurity.BBW.network.distortions.deepfakes.FaceShifter.face_modules.model import Backbone
-from FaceSecurity.BBW.network.distortions.deepfakes.FaceShifter.face_modules.mtcnn import MTCNN
-from FaceSecurity.BBW.network.distortions.deepfakes.FaceShifter.network.AEI_Net import AEI_Net
+from utils import *
+from network.discriminator import Discriminator
+from network.distortions.deepfakes.FaceShifter.face_modules.model import Backbone
+from network.distortions.deepfakes.FaceShifter.face_modules.mtcnn import MTCNN
+from network.distortions.deepfakes.FaceShifter.network.AEI_Net import AEI_Net
 from FaceSecurity.BBW.network.distortions.deepfakes.simswap.obfuscate import SimSwap
-from FaceSecurity.BBW.network.distortions.deepfakes.starganV2master.StarGANV2 import StarGANv2
-from FaceSecurity.BBW.utils import basedatasets
-from FaceSecurity.BBW.utils.img_utils import *
+from network.distortions.deepfakes.starganV2master.StarGANV2 import StarGANv2
+from utils import basedatasets
+from utils.img_utils import *
 from lpips import lpips
 from torchvision.transforms import transforms
-from FaceSecurity.BBW.network.Vector import vector_var
-from FaceSecurity.BBW.network.model import *
-from FaceSecurity.BBW.network.Unet_common import *
+from network.Vector import vector_var
+from network.model import *
+from network.Unet_common import *
 from PIL import Image
 import torchvision.transforms as T
 from torchmetrics.classification import BinaryAccuracy
 from torchvision import datasets
 from torchmetrics import ROC, F1Score, Recall
-import config.cfg as c
+
 
 
 def load(name):
@@ -182,18 +181,6 @@ def simswap(source, idx):
     return res.to(c.device)
 
 
-def FIT_swap(source, idx):
-    return fitswap_model(source)
-
-
-def TTE_swap(source, idx):
-    return tte_model(source)
-
-
-def whk_faceswap(source, idx):
-    return whkfaceswap_model(source)
-
-
 def face_shifter(xt, idx):
     xs = get_image_by_class_and_index(target_dataset, classes=1, idx=idx)  # target->xs
     xt = face_shifter_transform(xt)
@@ -209,33 +196,6 @@ def starGANV2_swap(src, idx):
     ref_id = random.randint(0, 1)
     ref = get_image_by_class_and_index(startGAN_target_dataset, classes=ref_id, idx=idx)
     return StarGANV2_model.forward(src, ref, ref_id)
-
-
-def mobile_swap(src, idx):
-    target = get_image_by_class_and_index(target_dataset, classes=1, idx=idx)
-    src, target = target, src  # 交换src与target
-    res = torch.empty(src.size())
-    for i in range(src.size()[0]):
-        src_trans = src[0].cpu().numpy() * 255
-        tgt_trans = target[0].cpu().numpy() * 255
-
-        fake = mobile_mode.face_swap(src_trans.transpose(1, 2, 0), tgt_trans.transpose(1, 2, 0))
-        res[i] = torch.tensor(fake.transpose(2, 0, 1) / 255)
-    return res.to(c.device)
-
-
-def batch_selfBlended(batch_img, landmark):
-    res = batch_img
-    for i in range(batch_img.size()[0]):
-        tmp = SBI_model.forward(batch_img[i], landmark[i])
-        trans_t = data_transform(tmp)
-        if trans_t.size() != (3, c.cropsize_val, c.cropsize_val):
-            trans_t = F.interpolate(trans_t.unsqueeze(0), (256, 256), mode='nearest', align_corners=True)
-            res[i] = trans_t.squeeze(0)
-        else:
-            res[i] = trans_t
-    return res
-
 
 def seed_torch(seed=25):
     seed = int(seed)
@@ -424,6 +384,7 @@ if __name__ == '__main__':
     # init models
     net = Model().to(c.device)
     init_model(net)
+    net = torch.nn.DataParallel(net, device_ids=c.device_ids)
     params_trainable = (list(filter(lambda p: p.requires_grad, net.parameters())))
     optim = torch.optim.Adam(params_trainable, lr=c.lr, betas=c.betas, eps=1e-6, weight_decay=c.weight_decay)
     weight_scheduler = torch.optim.lr_scheduler.StepLR(optim, c.weight_step, gamma=c.gamma)
@@ -435,17 +396,17 @@ if __name__ == '__main__':
     ])
 
     # starGANV2
-    startGAN_target_dataset = datasets.ImageFolder(root='./network/distortions/deepfakes/starganV2master/data/celeba_hq/val/', transform=data_transform)
+    startGAN_target_dataset = datasets.ImageFolder(root='/home/cw/ysc/proFace/FaceSecurity/BBW/network/distortions/deepfakes/starganV2master/data/celeba_hq/val/', transform=data_transform)
     StarGANV2_model = StarGANv2().to(c.device)
 
     # faceshifter model init
     detector = MTCNN()
     G = AEI_Net(c_id=512).eval()
-    G.load_state_dict(torch.load('./network/distortions/deepfakes/FaceShifter/saved_models/G_latest.pth', map_location=device))
+    G.load_state_dict(torch.load('/home/cw/ysc/proFace/FaceSecurity/BBW/network/distortions/deepfakes/FaceShifter/saved_models/G_latest.pth', map_location=device))
     G = G.to(device)
     arcface = Backbone(50, 0.6, 'ir_se').to(device).eval()
     arcface.load_state_dict(
-        torch.load('.network/distortions/deepfakes/FaceShifter/face_modules/model_ir_se50.pth', map_location=device),
+        torch.load('/home/cw/ysc/proFace/FaceSecurity/BBW/network/distortions/deepfakes/FaceShifter/face_modules/model_ir_se50.pth', map_location=device),
         strict=False)
     face_shifter_transform = transforms.Compose([  # 传入faceshifter之前将数据从[0,1]->[-1,1]
         transforms.Normalize(mean=0.5, std=0.5)

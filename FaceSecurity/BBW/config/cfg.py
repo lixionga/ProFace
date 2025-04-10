@@ -33,7 +33,6 @@ MODEL_PATH_FRE = './results/' + MODEL_DESC
 # Load:
 suffix = 'model_checkpoint_00057.pt'
 suffix_fre = 'HiNet_patchGAN_model_checkpoint_00057.pt'  # 11-》82  14-》 88 19-》91 23-》92.54
-# suffix_fre = 'HiNet_patchGAN_model_checkpoint_00038.pt'  # 11-》82  14-》 88 19-》91 23-》92.54
 suffix_org = 'model_checkpoint_00008.pt'
 
 # Train:
@@ -52,11 +51,7 @@ val_freq = 1
 # Dataset
 TRAIN_PATH = '/Data/FFHQ256/landmark/train/'  # 29781  SepMark->24183
 VAL_PATH = '/Data/FFHQ256/image/val/'  # 3k
-# TEST_PATH = '/Data/FFHQ256/landmark/test/'  # 3k
-
 TEST_PATH = '/Data/FFHQ256/image/test/'  # 3k
-# TEST_PATH = '/Data/CelebA-HQ/CelebA-HQ-256/test_256/'  # 3k
-# TEST_PATH = '/Data/VGGFace2-256/'  # 3k
 
 TARGET_PATH = "/Data/FFHQ256/image/target/"  # test 1k val 1k
 
@@ -71,15 +66,15 @@ live_visualization = False
 progress_bar = False
 
 # starGAN config
-# style_dim = 64
-# w_hpf = 1.0
-# latent_dim = 16
-# num_domains = 2
-# num_workers = 1
-# resume_iter = 100000
-# checkpoint_dir = "/home/cw/ysc/HiNetlhb001/starganV2master/expr/checkpoints/celeba_hq"
-# wing_path = '/home/cw/ysc/HiNetlhb001/starganV2master/expr/checkpoints/wing.ckpt'
-# lm_path = '/home/cw/ysc/HiNetlhb001/starganV2master/expr/checkpoints/celeba_hq/celeba_lm_mean.npz'
+style_dim = 64
+w_hpf = 1.0
+latent_dim = 16
+num_domains = 2
+num_workers = 1
+resume_iter = 100000
+checkpoint_dir = "/home/cw/ysc/proFace/FaceSecurity/BBW/network/distortions/deepfakes/starganV2master/checkpoints/celeba_hq"
+wing_path = '/home/cw/ysc/proFace/FaceSecurity/BBW/network/distortions/deepfakes/starganV2master/expr/checkpoints/wing.ckpt'
+lm_path = '/home/cw/ysc/proFace/FaceSecurity/BBW/network/distortions/deepfakes/starganV2master/expr/checkpoints/celeba_hq/celeba_lm_mean.npz'
 
 # Saving checkpoints:
 preview_upscale = 1.5

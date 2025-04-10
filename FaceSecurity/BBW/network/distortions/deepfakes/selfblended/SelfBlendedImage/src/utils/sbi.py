@@ -19,7 +19,6 @@ from ..utils import blend as B
 from ..utils.funcs import IoUfrom2bboxes, crop_face, RandomDownScale
 
 warnings.filterwarnings('ignore')
-# sys.path.append(os.path.join('/home/cw/ysc/HiNet/', 'selfblended'))
 
 import FaceSecurity.BBW.config.cfg as c
 

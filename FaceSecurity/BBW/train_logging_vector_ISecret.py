@@ -3,8 +3,7 @@ import datetime
 import cv2
 from PIL import Image
 from sklearn.metrics import roc_auc_score
-from FaceSecurity.BBW.utils import basedatasets
-from utils.img_utils import *
+from utils import *
 import random
 import string
 import kornia
@@ -30,6 +29,7 @@ from network.distortions.deepfakes.selfblended.SelfBlendedImage.src.utils.sbi im
 from network.distortions.deepfakes.FaceShifter.face_modules.model import Backbone
 from network.distortions.deepfakes.FaceShifter.face_modules.mtcnn import MTCNN
 from network.distortions.deepfakes.FaceShifter.network.AEI_Net import AEI_Net
+
 
 device = torch.device(c.device if torch.cuda.is_available() else "cpu")
 

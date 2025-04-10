@@ -1,13 +1,18 @@
+### Dependencies and Installation
+- Python 3 (Recommend to use [Anaconda](https://www.anaconda.com/download/#linux)).
+- [PyTorch = 1.9.0](https://pytorch.org/) .
+- See requirements.yaml for other dependencies.
+
+
 ### Datasets
-Our training was done is CelebA dateset, where all faces images were preprocessed to keep only the facial part. we have made our preprocessed CelebA dataset public. One many obtain the entire datasets (including the train/val/test splits and triplet files) from the following links:
-- [BaiduDisk link](https://pan.baidu.com/share/init?surl=wMf-iRP5kVfeijvvZYOylQ) (Password: `dkhd`)
-- [OneDrive](https://cqupteducn-my.sharepoint.com/:u:/g/personal/yuanlin_cqupt_edu_cn/EckcBzUQ-f1EgobKZGzJKPUB_g_SOxCXv5bF7e6Kx3O8Yw?e=wInwoU)
+Our training was done is FFHQ dateset, where all faces images were preprocessed to size 256*256. we have made our preprocessed FFHQ dataset public. One many obtain the datasets (including the train/val/test splits) [here](https://drive.google.com/file/d/14NJtQEhs8jWqtX-WT2WgaLGDByDu5JcQ/view?usp=drive_link).
 
-Then, place it in the directory specified by `dataset_dir` in the `config.py` file, or alternatively, modify the `dataset_dir` path to point to the location of the dataset
+Then, place it in the directory specified by `TRAIN_PATH`,`VAL_PATH`,`TEST_PATH` in the `cfg.py` file, or alternatively, modify all these paths to point to the location of the dataset.
 
-# Testing
-Simply run `test.py` to start the testing process.If you have trained your own client model, you can modify the checkpoints option in config\config.py.
+### Testing
+We provide the pre-trained model [here](https://drive.google.com/file/d/1DLJ7A0nHwsuNHz-uat5SfmW1cErTZMJO/view?usp=drive_link). Simply run `test.py` to start the testing process. If you want to try different common transformations, you can modify  `transformations` values in test.py. Due to license agreements, we are unable to distribute deepfakes codes ourselves.
+You can implement [SimSwap](https://github.com/neuralchen/SimSwap), [SelfBlend](https://github.com/mapooon/SelfBlendedImages), [StarGAN2](https://github.com/clovaai/stargan-v2), [FaceShifter](https://github.com/Heonozis/FaceShifter-pytorch) and place them into   `network/distortions/deepfakes`
 
-# Trained model
-You can download our trained model from this [BaiduDisk link](https://pan.baidu.com/s/1q-s1G4aqSzcXEofDOEfeHg) (Password:`3cvh`).
-Then, place the file `hybridAll_inv3_recTypeRandom_secretAsNoise_TripMargin1.2_ep12_iter15000.pth` under `experiments/checkpoints_256/`.
+
+### Trained model
+Then, place the file `` under `results/train/`.
