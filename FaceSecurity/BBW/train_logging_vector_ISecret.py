@@ -95,6 +95,11 @@ def differentiable_JPEG(img, quality):
     img_jpeg = jpge_model.forward(img, jpeg_quality=quality).to(device)  # 输入转换为[0-255]
     return img_jpeg / 255
 
+def image_brightness(steg_img, brightness):
+    return torchvision.transforms.functional.adjust_brightness(steg_img, brightness)
+
+def image_saturation(steg_img, saturation):
+    return  torchvision.transforms.functional.adjust_saturation(steg_img, saturation)
 
 def image_blur(steg_img, blur_sigma):
     blur_transform = kornia.augmentation.RandomGaussianBlur(kernel_size=(3, 3), sigma=(blur_sigma, blur_sigma), p=1)
@@ -135,7 +140,7 @@ def image_jpeg(img, quality):
 
 def rand_distortion_train(steg_img):
     p = random.uniform(0, 1)
-    dis_type = random.randint(0, 3)
+    dis_type = random.randint(0, 5)
     res = steg_img
 
     if p <= 0.85:  # 85%的概率发生变换
@@ -148,6 +153,12 @@ def rand_distortion_train(steg_img):
         elif dis_type == 2:
             arg = random.uniform(0.5, 1)
             res = image_resize(steg_img, arg)
+        elif dis_type == 3:
+            arg = random.choice([-1, 1]) * random.uniform(0.0, 0.2) + 1
+            res = image_saturation(steg_img, arg)
+        elif dis_type == 4:
+            arg = random.choice([-1, 1]) * random.uniform(0.0, 0.2) + 1
+            res = image_brightness(steg_img, arg)
         else:
             arg = [50, 75, 95]
             res = differentiable_JPEG(steg_img, random.choice(arg))
@@ -164,6 +175,8 @@ def val_distortion(img, step):
         (image_gaussnoise, [0.0, 0.01, 0.02, 0.03, 0.04, 0.05]),
         (image_resize, [0.5, 0.6, 0.7, 0.8, 0.9, 0.95]),
         (image_jpeg, [50, 75, 95]),
+        (image_brightness, [0.8, 0.85, 0.9, 0.95, 1.05, 1.10, 1.15, 1.20]),
+        (image_saturation, [0.8, 0.85, 0.9, 0.95, 1.05, 1.10, 1.15, 1.20]),
         (image_identity, [None])
     ]
 
