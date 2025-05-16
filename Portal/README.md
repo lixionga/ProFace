@@ -22,6 +22,6 @@ Download the [trained model weights](https://pan.baidu.com/s/1m5LukyEqoOIE90tl31
 
 Download the [swap model weights](链接: https://pan.baidu.com/s/1JE8x2jC4kzONdLBZnfNtSw)(Password: qc29)to this path：Checkpoints/
 
-Download the [[pre-weights](https://pan.quark.cn/s/b125cd8a256e)] to this path：forgery/weights/
+Download the [[pre-weights](https://drive.google.com/file/d/1bTcOGQFl08M8aIVK6xp2iUSwqUOkMgYn/view?usp=drive_link)] to this path：forgery/weights/
 
 
