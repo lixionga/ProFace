@@ -9,7 +9,6 @@
 ## Quick Start
 Run this script: main.py
 ## Preview
-The homepage of the project after successful setup and operation is shown in the figure below
 ![](./static/cc22c5a070f0452485b327a477c0698.png)
 ## Link 
 weights in this project is avaliable
