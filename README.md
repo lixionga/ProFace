@@ -14,7 +14,7 @@ This project consists of several modules:
 This [module](https://github.com/lixionga/ProFace/tree/main/FacePrivacy) implements various algorithms for facial privacy protection.
 ### Paper List:
 **`2025.02`**: `基于妆容风格补丁激活的对抗性人脸隐私保护` **《计算机科学》2025**.
-[[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/Makeup-privacy)]
+[[paper](https://www.jsjkx.com/CN/10.11896/jsjkx.241200001)][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/Makeup-privacy)]
 
 **`2025.01`**: `iFADIT: Invertible Face Anonymization via Disentangled Identity Transform` **Arxiv**.
 [[paper](http://arxiv.org/abs/2501.04390)][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/iFADIT)]
