@@ -60,4 +60,5 @@ This portal provides an SDK that integrates various tools, making it convenient 
 ### Foundation Code Layer
 This portal provides open-source code at the foundational level, enabling developers to gain in-depth understanding and further development capabilities.
 
+![](./Portal/static/cc22c5a070f0452485b327a477c0698.png)
 
