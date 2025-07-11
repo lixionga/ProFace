@@ -13,11 +13,12 @@ This project consists of several modules:
 
 This [module](https://github.com/lixionga/ProFace/tree/main/FacePrivacy) implements various algorithms for facial privacy protection.
 ### Paper List:
+**`2025.05`**: `iFADIT: Invertible Face Anonymization via Disentangled Identity Transform` **Pattern Recognition**.
+[[paper](https://www.sciencedirect.com/science/article/abs/pii/S0031320325004674)][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/iFADIT)]
+
 **`2025.02`**: `基于妆容风格补丁激活的对抗性人脸隐私保护` **《计算机科学》2025**.
 [[paper](https://www.jsjkx.com/CN/10.11896/jsjkx.241200001)][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/Makeup-privacy)]
 
-**`2025.01`**: `iFADIT: Invertible Face Anonymization via Disentangled Identity Transform` **Arxiv**.
-[[paper](http://arxiv.org/abs/2501.04390)][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/iFADIT)]
 
 **`2024.04`**: `PRO-Face C: Privacy-Preserving Recognition of Obfuscated Face via Feature Compensation` **IEEE TIFS 2024**.
 [[paper](https://ieeexplore.ieee.org/document/10499238)][[code](https://github.com/lixionga/ProFace/tree/main/FacePrivacy/PRO-Face%20C)]
@@ -34,7 +35,7 @@ This [module](https://github.com/lixionga/ProFace/tree/main/FacePrivacy) impleme
 
 This [module](https://github.com/lixionga/ProFace/tree/main/FaceSecurity)  implements various algorithms for facial data analysis.
 ### Paper List:
-**`2025.`**:`Deepfake Detection Leveraging Self-Blended Artifacts Guided by Facial Embedding Discrepancy` **IEEE TCSVT 2025**.
+**`2025.7`**:`Deepfake Detection Leveraging Self-Blended Artifacts Guided by Facial Embedding Discrepancy` **IEEE TCSVT 2025**.
 [[paper](https://ieeexplore.ieee.org/abstract/document/11068978)][[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/EG)]
 
 **`2024.11`**: `Advancing Generalized Deepfake Detector with Forgery Perception Guidance` **ACM Multimedia 2024**.
