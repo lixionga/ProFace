@@ -69,13 +69,7 @@ This [module](https://github.com/lixionga/ProFace/tree/main/Portal)  implements 
 ✔ Audio-visual deepfake detection
 ✔ Active/passive defense
 
-🛠️ **Tech Stack**
 
-Backend: Python (PyTorch, OpenCV, TensorFlow)
-
-Web Interface: Flask/Django + JavaScript
-
-SDK: Python/Java/C++ APIs for easy integration
 
 ### Preview:
 ![](./Portal/static/cc22c5a070f0452485b327a477c0698.png)
