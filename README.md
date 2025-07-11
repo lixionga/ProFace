@@ -3,9 +3,9 @@
 ProFace: A trustworthy facial data protection research platform developed by Chongqing University of Posts and Telecommunications (CQUPT). It provides efficient implementations of versatile methods for facial data security analysis and privacy protection developed by CQUPT.
 
 This project consists of several modules: 
-- **FacePrivacy:** methods for protecting facial privacy in multiple scenarios.
-- **FaceSecurity:** methods for facial data analysis (e.g., DeepFake detection, forensic analysis).
-- **WebPortal：** A versitile portal for multimedia security analysis and privacy protection.
+- **🔒 FacePrivacy:** methods for protecting facial privacy in multiple scenarios.
+- **🛡️ FaceSecurity:** methods for facial data analysis (e.g., DeepFake detection, forensic analysis).
+- **🌐 WebPortal:** A versitile portal for multimedia security analysis and privacy protection.
 
 ## FacePrivacy
 
@@ -50,15 +50,33 @@ This [module](https://github.com/lixionga/ProFace/tree/main/FaceSecurity)  imple
 
 This [module](https://github.com/lixionga/ProFace/tree/main/Portal)  implements a trustworthy portal, with all relevant functionalities powered by the algorithms from Face Privacy and Face Security.
 
-This module offers three key functionalities:
-### Application Presentation Layer
-This portal provides a variety of tools through an online webpage. Depending on the user's needs for face privacy protection or face security analysis, the backend system calls the corresponding models deployed on the server to quickly return the desired results. The face privacy protection module includes functions such as real-time anonymization, offline anonymization, anonymized face recognition, and adversarial privacy protection (e.g., adversarial samples, makeup transfer), which can be applied to scenarios like remote monitoring and online live streaming. The face security analysis module offers two solutions: active defense and passive defense, including four deepfake detection models for image detection, video recognition, and audio-video detection, which are suitable for video conferencing, social media, and other scenarios.
+### Key Features:
 
-### Function Integration Layer
-This portal provides an SDK that integrates various tools, making it convenient to integrate applications across different scenarios and meet diverse business requirements.
+🔒 **Face Privacy Protection**
 
-### Foundation Code Layer
-This portal provides open-source code at the foundational level, enabling developers to gain in-depth understanding and further development capabilities.
+✔ Real-time anonymization
+✔ Offline anonymization 
+✔ Reversible de-identification 
 
+✔ Adversarial privacy 
+✔ Privacy-preserving face recognition 
+
+🛡️ **Deepfake & Face Security**
+
+✔ Image-based deepfake detection 
+✔ Video-based forgery detection
+
+✔ Audio-visual deepfake detection
+✔ Active/passive defense
+
+🛠️ **Tech Stack**
+
+Backend: Python (PyTorch, OpenCV, TensorFlow)
+
+Web Interface: Flask/Django + JavaScript
+
+SDK: Python/Java/C++ APIs for easy integration
+
+### Preview:
 ![](./Portal/static/cc22c5a070f0452485b327a477c0698.png)
 
