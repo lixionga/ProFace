@@ -35,7 +35,10 @@ This [module](https://github.com/lixionga/ProFace/tree/main/FacePrivacy) impleme
 
 This [module](https://github.com/lixionga/ProFace/tree/main/FaceSecurity)  implements various algorithms for facial data analysis.
 ### Paper List:
-**`2025.07`**:`Deepfake Detection Leveraging Self-Blended Artifacts Guided by Facial Embedding Discrepancy` **IEEE TCSVT 2025**.
+**`2025.06`**: `Big Brother Is Watching: Proactive Deepfake Detection via Learnable Hidden Face` **IEEE SPL 2025**.
+[[paper](https://ieeexplore.ieee.org/document/11005639)][[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/BBW)] 
+
+**`2025.06`**:`Deepfake Detection Leveraging Self-Blended Artifacts Guided by Facial Embedding Discrepancy` **IEEE TCSVT 2025**.
 [[paper](https://ieeexplore.ieee.org/abstract/document/11068978)][[code](https://github.com/lixionga/ProFace/tree/main/FaceSecurity/EG)]
 
 **`2024.11`**: `Advancing Generalized Deepfake Detector with Forgery Perception Guidance` **ACM Multimedia 2024**.
