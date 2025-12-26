@@ -1,4 +1,11 @@
-### Dependencies and Installation
+# Big Brother is Watching: Proactive Deepfake Detection via Learnable Hidden Face
+This repository is the **official implementation** of the paper:  
+**"Big Brother is Watching: Proactive Deepfake Detection via Learnable Hidden Face"**
+
+> ⚠️ **This is the only official GitHub repository for this paper.**  
+> Any other repositories claiming to implement this work are **unauthorized** and may contain outdated or incorrect code.
+
+Dependencies and Installation
 - Python 3 (Recommend to use [Anaconda](https://www.anaconda.com/download/#linux)).
 - [PyTorch = 1.9.0](https://pytorch.org/) .
 - See requirements.yaml for other dependencies.
@@ -15,4 +22,24 @@ You can implement [SimSwap](https://github.com/neuralchen/SimSwap), [SelfBlend](
 
 
 ### Trained model
-Then, place the file `` under `results/train/`.
+Train with: `python nohup python  train_logging_vector_ISecret.py. > stage1.log 2>&1`
+
+Sampled facial images and deepfake detection results in training will be saved in `./results/train/` and `stage1.log`.
+You can modify it to any path you want to configure in the `config/cfg.py` file.
+
+## Citation
+
+If you use this codebase or ideas from our paper, please cite:
+```bibtex
+@ARTICLE{11005639,
+  author={Li, Hongbo and Yang, Shangchao and Xia, Ruiyang and Yuan, Lin and Gao, Xinbo},
+  journal={IEEE Signal Processing Letters}, 
+  title={Big Brother Is Watching: Proactive Deepfake Detection via Learnable Hidden Face}, 
+  year={2025},
+  volume={32},
+  number={},
+  pages={2284-2288},
+  keywords={Faces;Training;Deepfakes;Steganography;Image restoration;Discrete wavelet transforms;Image coding;Visualization;Robustness;Transform coding;Deepfake;proactive detection;steganography},
+  doi={10.1109/LSP.2025.3570660}}
+```
+###
